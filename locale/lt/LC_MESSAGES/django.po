@@ -17002,11 +17002,11 @@ msgstr "Transporto priemonės duomenys"
 
 #: templates/listings/advanced_search.html:610
 msgid "Drive Wheels"
-msgstr "Padangos ir ratlankiai"
+msgstr "Varantieji ratai"
 
 #: templates/listings/advanced_search.html:644
 msgid "Engine Size (L)"
-msgstr "Variklio dydis (l)"
+msgstr "Variklio tūris (l)"
 
 #: templates/listings/advanced_search.html:690
 msgid ""
@@ -24770,3 +24770,1884 @@ msgstr ""
 #: templates/partials/_beta_zyma.html
 msgid "beta"
 msgstr "beta"
+
+#: templates/listings/parts_listing_create.html
+msgid "Basic listing details"
+msgstr "Pagrindinė skelbimo informacija"
+
+#: templates/listings/parts_listing_create.html
+msgid "Part Name"
+msgstr "Dalies pavadinimas"
+
+#: templates/listings/parts_listing_create.html
+msgid "Part Code"
+msgstr "Detalės numeris"
+
+#: templates/listings/parts_listing_create.html
+msgctxt "dalies būklė"
+msgid "New"
+msgstr "Nauja"
+
+#: templates/listings/parts_listing_create.html
+msgctxt "dalies būklė"
+msgid "Used"
+msgstr "Naudota"
+
+#: templates/listings/parts_listing_create.html
+msgctxt "dalies būklė"
+msgid "Refurbished"
+msgstr "Restauruota"
+
+#: templates/listings/parts_listing_create.html
+msgctxt "dalies būklė"
+msgid "Damaged"
+msgstr "Su defektais"
+
+#: templates/listings/parts_listing_create.html
+msgid "Color Code"
+msgstr "Spalvos kodas"
+
+#: templates/listings/parts_listing_create.html
+msgctxt "dalies forma"
+msgid "Negotiable"
+msgstr "Kaina derinama"
+
+#: templates/listings/parts_listing_create.html
+msgctxt "dalies forma"
+msgid "Comments"
+msgstr "Aprašymas"
+
+#: templates/listings/parts_listing_create.html
+msgid "Continue to Plan Selection →"
+msgstr "Tęsti →"
+
+#: templates/listings/parts_listing_create.html
+msgid "e.g., 63217160797"
+msgstr "pvz. 63217160797"
+
+#: templates/listings/parts_listing_create.html
+msgid "M3, Sport, etc."
+msgstr "pvz. M3, Sport"
+
+#: templates/listings/parts_listing_create.html
+msgid "LCI, pre-facelift"
+msgstr "pvz. LCI, prieš restailingą"
+
+#: templates/listings/parts_listing_create.html
+msgid "Black, Silver, etc."
+msgstr "pvz. juoda, sidabrinė"
+
+#: templates/listings/parts_listing_create.html
+msgid "e.g. 2.0"
+msgstr "pvz. 2.0"
+
+#: templates/listings/parts_listing_create.html
+msgid "Describe the part in detail"
+msgstr "Išsamiai aprašykite dalį"
+
+#: templates/listings/parts_listing_create.html
+msgid "← Back to categories"
+msgstr "← Atgal į kategorijas"
+
+#: templates/listings/parts_listing_create.html
+msgid "🔒 Auto-set from category — cannot be changed"
+msgstr "🔒 Nustatoma pagal kategoriją — keisti negalima"
+
+#: templates/listings/parts_listing_create.html
+msgid ""
+"💡 For easier searching, describe the part in detail: manufacturer codes, "
+"versions, special features"
+msgstr ""
+"💡 Kad dalį būtų lengviau rasti, aprašykite ją išsamiai: gamintojo kodai, "
+"versijos, ypatybės"
+
+#: templates/listings/parts_listing_create.html
+msgid "Current Photos"
+msgstr "Esamos nuotraukos"
+
+#: templates/listings/parts_listing_create.html
+msgid "Drag to reorder. Hover for options."
+msgstr "Tempkite, kad pakeistumėte tvarką. Užveskite pelę — daugiau veiksmų."
+
+#: templates/listings/parts_listing_create.html
+msgid "PNG, JPG up to 20MB each (Max 10 images)"
+msgstr "PNG, JPG iki 20 MB kiekviena (daugiausia 10)"
+
+#: templates/listings/parts_listing_create.html
+msgid "← Change category"
+msgstr "← Keisti kategoriją"
+
+#: templates/listings/parts_listing_create.html
+msgid "Wagon"
+msgstr "Universalas"
+
+#: templates/listings/parts_listing_create.html
+msgid "Van"
+msgstr "Furgonas"
+
+#: templates/listings/parts_listing_create.html
+msgid "Front (FWD)"
+msgstr "Priekiniai (FWD)"
+
+#: templates/listings/parts_listing_create.html
+msgid "Rear (RWD)"
+msgstr "Galiniai (RWD)"
+
+#: templates/listings/parts_listing_create.html
+msgid "All-Wheel (AWD)"
+msgstr "Visi (AWD)"
+
+#: templates/listings/parts_listing_create.html
+msgid "Error loading"
+msgstr "Nepavyko įkelti"
+
+#: apps/listings/parts_views.py
+msgid "Parts edit is only available for parts listings."
+msgstr "Taip redaguoti galima tik dalių skelbimus."
+
+#: apps/listings/parts_views.py
+msgid "Part category missing on this listing."
+msgstr "Šiam skelbimui nepriskirta dalies kategorija."
+
+#: apps/listings/parts_views.py
+msgid "Parts vehicle type not configured."
+msgstr "Dalių kategorija nesukonfigūruota."
+
+#: apps/listings/parts_views.py
+msgid "Listing updated successfully."
+msgstr "Skelbimas atnaujintas."
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Lighting"
+msgstr "Apšvietimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine"
+msgstr "Variklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brakes"
+msgstr "Stabdžiai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Exhaust System"
+msgstr "Išmetimo sistema"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel System"
+msgstr "Kuro sistema"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Gearbox / Clutch / Transmission"
+msgstr "Pavarų dėžė / sankaba / transmisija"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Axle"
+msgstr "Priekinė ašis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Axle"
+msgstr "Galinė ašis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheels / Tyres"
+msgstr "Ratai / padangos"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Body"
+msgstr "Kėbulas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Exterior Parts"
+msgstr "Priekinės išorės dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Exterior Parts"
+msgstr "Galinės išorės dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Doors"
+msgstr "Durys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Glass"
+msgstr "Stiklai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Window / Light Wash System"
+msgstr "Langų ir žibintų apliejimo sistema"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Interior"
+msgstr "Salonas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Electrical Systems"
+msgstr "Elektros sistemos"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "A/C, Heating, Radiators"
+msgstr "Kondicionierius, šildymas, radiatoriai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Other Parts"
+msgstr "Kitos dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Lights"
+msgstr "Galiniai žibintai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Lights"
+msgstr "Priekiniai žibintai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Turn Lights"
+msgstr "Posūkių žibintai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fog Lights"
+msgstr "Rūko žibintai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Interior Lighting"
+msgstr "Salono apšvietimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine Block"
+msgstr "Variklio blokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Intake & Boost"
+msgstr "Įsiurbimas ir pripūtimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine Auxiliary"
+msgstr "Variklio priedai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Parts"
+msgstr "Stabdžių dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Exhaust Parts"
+msgstr "Išmetimo sistemos dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Parts"
+msgstr "Kuro sistemos dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Manual Transmission"
+msgstr "Mechaninė transmisija"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Automatic Transmission"
+msgstr "Automatinė transmisija"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Drivetrain"
+msgstr "Pavara"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Axle Parts"
+msgstr "Priekinės ašies dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Axle Parts"
+msgstr "Galinės ašies dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheels"
+msgstr "Ratai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Tyres"
+msgstr "Padangos"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Body Panels"
+msgstr "Kėbulo dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Body"
+msgstr "Priekinė dalis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Body"
+msgstr "Galinė dalis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Parts"
+msgstr "Durų dalys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Vehicle Glass"
+msgstr "Automobilio stiklai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wash & Wipe"
+msgstr "Apliejimas ir valymas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Seats"
+msgstr "Sėdynės"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Dashboard"
+msgstr "Prietaisų skydelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Trim & Carpet"
+msgstr "Apdaila ir kilimai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Infotainment"
+msgstr "Multimedija"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Power"
+msgstr "Maitinimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Control Units"
+msgstr "Valdymo blokai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Sensors"
+msgstr "Davikliai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Ignition"
+msgstr "Uždegimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Climate"
+msgstr "Klimato kontrolė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Cooling"
+msgstr "Aušinimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Other"
+msgstr "Kita"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Light"
+msgstr "Galinis žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Light Bulb"
+msgstr "Galinio žibinto lemputė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Light Lens"
+msgstr "Galinio žibinto stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Light Housing"
+msgstr "Galinio žibinto korpusas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Light Wiring"
+msgstr "Galinio žibinto laidai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Light"
+msgstr "Stop žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Reverse Light"
+msgstr "Atbulinės eigos žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "License Plate Light"
+msgstr "Numerio apšvietimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Reflector"
+msgstr "Atšvaitas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headlight"
+msgstr "Priekinis žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headlight Bulb"
+msgstr "Priekinio žibinto lemputė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headlight Lens"
+msgstr "Priekinio žibinto stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headlight Housing"
+msgstr "Priekinio žibinto korpusas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headlight Wiring"
+msgstr "Priekinio žibinto laidai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headlight Adjuster"
+msgstr "Žibinto aukščio reguliatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Xenon Module"
+msgstr "Ksenono blokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "LED Module"
+msgstr "LED modulis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Daytime Running Light"
+msgstr "Dienos žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headlight Washer"
+msgstr "Žibintų apliejimo purkštukas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Turn Signal Front"
+msgstr "Priekinis posūkio žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Turn Signal Rear"
+msgstr "Galinis posūkio žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Turn Signal Side"
+msgstr "Šoninis posūkio žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Turn Signal Bulb"
+msgstr "Posūkio žibinto lemputė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Turn Signal Lens"
+msgstr "Posūkio žibinto stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Hazard Switch"
+msgstr "Avarinio signalo jungiklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fog Light Front"
+msgstr "Priekinis rūko žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fog Light Rear"
+msgstr "Galinis rūko žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fog Light Bulb"
+msgstr "Rūko žibinto lemputė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fog Light Switch"
+msgstr "Rūko žibintų jungiklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fog Light Housing"
+msgstr "Rūko žibinto korpusas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Dome Light"
+msgstr "Salono plafonas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Map Light"
+msgstr "Priekinis lubų žibintas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Trunk Light"
+msgstr "Bagažinės apšvietimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Glove Box Light"
+msgstr "Daiktadėžės apšvietimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Light"
+msgstr "Durų apšvietimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Ambient Light"
+msgstr "Dekoratyvinis salono apšvietimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Reading Light"
+msgstr "Skaitymo lemputė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine Assembly"
+msgstr "Variklis (komplektas)"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Cylinder Head"
+msgstr "Cilindrų galvutė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Cylinder Block"
+msgstr "Cilindrų blokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Piston"
+msgstr "Stūmoklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Piston Ring"
+msgstr "Stūmoklio žiedas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Connecting Rod"
+msgstr "Švaistiklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Crankshaft"
+msgstr "Alkūninis velenas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Camshaft"
+msgstr "Skirstomasis velenas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine Bearing"
+msgstr "Variklio įdėklai"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine Gasket Set"
+msgstr "Variklio tarpinių komplektas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Head Gasket"
+msgstr "Galvutės tarpinė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Oil Pan"
+msgstr "Alyvos karteris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Timing Belt"
+msgstr "Paskirstymo diržas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Timing Chain"
+msgstr "Paskirstymo grandinė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Timing Cover"
+msgstr "Paskirstymo dangtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Intake Manifold"
+msgstr "Įsiurbimo kolektorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Throttle Body"
+msgstr "Droselinė sklendė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Air Filter"
+msgstr "Oro filtras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Air Filter Housing"
+msgstr "Oro filtro korpusas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "MAF Sensor"
+msgstr "Oro srauto matuoklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Turbocharger"
+msgstr "Turbina"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Supercharger"
+msgstr "Mechaninis kompresorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Intercooler"
+msgstr "Interkūleris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Intercooler Hose"
+msgstr "Interkūlerio žarna"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Boost Pressure Sensor"
+msgstr "Pripūtimo slėgio daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine Mount"
+msgstr "Variklio pagalvė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine Oil Cooler"
+msgstr "Alyvos aušintuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Oil Filter Housing"
+msgstr "Alyvos filtro korpusas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "PCV Valve"
+msgstr "Karterio ventiliacijos vožtuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "EGR Valve"
+msgstr "EGR vožtuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "EGR Cooler"
+msgstr "EGR aušintuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Vacuum Pump"
+msgstr "Vakuuminis siurblys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Engine Wiring Harness"
+msgstr "Variklio laidų pynė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Belt Tensioner"
+msgstr "Diržo įtempėjas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Drive Belt"
+msgstr "Pavaros diržas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Idler Pulley"
+msgstr "Kreipiantysis skriemulys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Disc"
+msgstr "Stabdžių diskas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Pad"
+msgstr "Stabdžių kaladėlės"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Caliper"
+msgstr "Stabdžių suportas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Drum"
+msgstr "Stabdžių būgnas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Shoe"
+msgstr "Būgninių stabdžių trinkelės"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Hose"
+msgstr "Stabdžių žarnelė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Line"
+msgstr "Stabdžių vamzdelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Master Cylinder"
+msgstr "Pagrindinis stabdžių cilindras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Brake Booster"
+msgstr "Stabdžių stiprintuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "ABS Sensor"
+msgstr "ABS daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "ABS Module"
+msgstr "ABS blokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Handbrake Cable"
+msgstr "Rankinio stabdžio trosas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Exhaust Manifold"
+msgstr "Išmetimo kolektorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Catalytic Converter"
+msgstr "Katalizatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "DPF Filter"
+msgstr "DPF filtras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Particulate Filter"
+msgstr "Kietųjų dalelių filtras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Muffler"
+msgstr "Duslintuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Resonator"
+msgstr "Rezonatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Exhaust Pipe"
+msgstr "Išmetimo vamzdis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Exhaust Clamp"
+msgstr "Išmetimo apkaba"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Exhaust Hanger"
+msgstr "Išmetimo pakaba"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Lambda Sensor"
+msgstr "Lambda zondas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Pump"
+msgstr "Kuro siurblys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Injector"
+msgstr "Purkštukas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Rail"
+msgstr "Kuro rampa"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Filter"
+msgstr "Kuro filtras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Tank"
+msgstr "Kuro bakas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Line"
+msgstr "Kuro vamzdelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Pressure Regulator"
+msgstr "Kuro slėgio reguliatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuel Pressure Sensor"
+msgstr "Kuro slėgio daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "High Pressure Pump"
+msgstr "Aukšto slėgio kuro siurblys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Manual Gearbox"
+msgstr "Mechaninė pavarų dėžė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Gear Shifter"
+msgstr "Pavarų perjungimo svirtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Shift Linkage"
+msgstr "Pavarų perjungimo trauklės"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Clutch Kit"
+msgstr "Sankabos komplektas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Clutch Disc"
+msgstr "Sankabos diskas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Clutch Pressure Plate"
+msgstr "Sankabos krepšys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Flywheel"
+msgstr "Smagratis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Clutch Master Cylinder"
+msgstr "Pagrindinis sankabos cilindras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Clutch Slave Cylinder"
+msgstr "Sankabos darbinis cilindras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Automatic Gearbox"
+msgstr "Automatinė pavarų dėžė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Torque Converter"
+msgstr "Hidrotransformatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Valve Body"
+msgstr "Hidroblokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "ATF Filter"
+msgstr "Automatinės pavarų dėžės filtras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Mechatronics"
+msgstr "Mechatronika"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "DSG Clutch"
+msgstr "DSG sankaba"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Driveshaft"
+msgstr "Kardaninis velenas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "CV Joint"
+msgstr "Granata"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "CV Boot"
+msgstr "Granatos gumelė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Differential"
+msgstr "Diferencialas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Transfer Case"
+msgstr "Skirstomoji dėžė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Control Arm Front"
+msgstr "Priekinė svirtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Ball Joint Front"
+msgstr "Priekinis šarnyras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Tie Rod"
+msgstr "Vairo traukė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Tie Rod End"
+msgstr "Vairo traukės antgalis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheel Bearing Front"
+msgstr "Priekinis rato guolis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheel Hub Front"
+msgstr "Priekinė stebulė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Shock Absorber Front"
+msgstr "Priekinis amortizatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Coil Spring Front"
+msgstr "Priekinė spyruoklė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Strut Mount Front"
+msgstr "Priekinio amortizatoriaus atrama"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Anti-roll Bar Front"
+msgstr "Priekinis stabilizatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Anti-roll Bar Link Front"
+msgstr "Priekinio stabilizatoriaus traukė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Steering Knuckle Front"
+msgstr "Priekinis pasukamasis kumštis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Subframe Front"
+msgstr "Priekinis pošėmis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Control Arm Rear"
+msgstr "Galinė svirtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheel Bearing Rear"
+msgstr "Galinis rato guolis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheel Hub Rear"
+msgstr "Galinė stebulė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Shock Absorber Rear"
+msgstr "Galinis amortizatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Coil Spring Rear"
+msgstr "Galinė spyruoklė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Strut Mount Rear"
+msgstr "Galinio amortizatoriaus atrama"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Anti-roll Bar Rear"
+msgstr "Galinis stabilizatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Anti-roll Bar Link Rear"
+msgstr "Galinio stabilizatoriaus traukė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Trailing Arm"
+msgstr "Išilginė svirtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Subframe Rear"
+msgstr "Galinis pošėmis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Alloy Wheel"
+msgstr "Lengvojo lydinio ratlankis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Steel Wheel"
+msgstr "Plieninis ratlankis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheel Bolt"
+msgstr "Rato varžtas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheel Nut"
+msgstr "Rato veržlė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheel Center Cap"
+msgstr "Ratlankio centrinis dangtelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "TPMS Sensor"
+msgstr "Padangų slėgio daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Summer Tyre"
+msgstr "Vasarinė padanga"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Winter Tyre"
+msgstr "Žieminė padanga"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fender"
+msgstr "Sparnas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Hood"
+msgstr "Variklio dangtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Trunk Lid"
+msgstr "Bagažinės dangtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Tailgate"
+msgstr "Bagažinės durys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Roof Panel"
+msgstr "Stogas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Quarter Panel"
+msgstr "Galinis sparnas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Sill Panel"
+msgstr "Slenkstis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Floor Pan"
+msgstr "Dugnas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Firewall"
+msgstr "Variklio skydas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Body Side Molding"
+msgstr "Šoninis moldingas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wheel Arch Trim"
+msgstr "Arkos apdaila"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Body Cladding"
+msgstr "Kėbulo plastikinė apdaila"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Underbody Cover"
+msgstr "Dugno apsauga"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Bumper"
+msgstr "Priekinis bamperis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Bumper Grille"
+msgstr "Priekinio bamperio grotelės"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Bumper Spoiler"
+msgstr "Priekinio bamperio spoileris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Radiator Grille"
+msgstr "Radiatoriaus grotelės"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Splitter"
+msgstr "Priekinis spliteris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Lip"
+msgstr "Priekinio bamperio lūpa"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Reinforcement Bar"
+msgstr "Priekinė bamperio sija"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Crash Bar"
+msgstr "Priekinis kengūrynas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Bumper"
+msgstr "Galinis bamperis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Bumper Grille"
+msgstr "Galinio bamperio grotelės"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Spoiler"
+msgstr "Galinis spoileris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Diffuser"
+msgstr "Galinis difuzorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Reinforcement Bar"
+msgstr "Galinė bamperio sija"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Crash Bar"
+msgstr "Galinis kengūrynas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Tow Hook Cover Rear"
+msgstr "Galinis buksyravimo kilpos dangtelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Trunk Spoiler"
+msgstr "Bagažinės spoileris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Roof Spoiler"
+msgstr "Stogo spoileris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Front Left"
+msgstr "Priekinės kairės durys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Front Right"
+msgstr "Priekinės dešinės durys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Rear Left"
+msgstr "Galinės kairės durys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Rear Right"
+msgstr "Galinės dešinės durys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Handle Exterior"
+msgstr "Išorinė durų rankena"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Handle Interior"
+msgstr "Vidinė durų rankena"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Mirror"
+msgstr "Šoninis veidrodėlis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Lock"
+msgstr "Durų spyna"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Hinge"
+msgstr "Durų vyris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Window Regulator"
+msgstr "Lango pakėlimo mechanizmas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Window Motor"
+msgstr "Lango pakėlimo variklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Seal"
+msgstr "Durų sandarinimo guma"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Windshield Front"
+msgstr "Priekinis stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Windshield Rear"
+msgstr "Galinis stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Window Front"
+msgstr "Priekinių durų stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Window Rear"
+msgstr "Galinių durų stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Quarter Glass"
+msgstr "Šoninis trikampis stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Sunroof Glass"
+msgstr "Liuko stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Mirror Glass"
+msgstr "Veidrodėlio stiklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Windshield Trim"
+msgstr "Priekinio stiklo apdaila"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Windshield Seal"
+msgstr "Priekinio stiklo tarpinė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wiper Blade Front"
+msgstr "Priekinis valytuvo šepetėlis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wiper Blade Rear"
+msgstr "Galinis valytuvo šepetėlis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wiper Arm Front"
+msgstr "Priekinio valytuvo svirtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wiper Arm Rear"
+msgstr "Galinio valytuvo svirtis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wiper Motor Front"
+msgstr "Priekinių valytuvų variklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Wiper Motor Rear"
+msgstr "Galinio valytuvo variklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Washer Pump"
+msgstr "Apliejimo siurbliukas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Washer Reservoir"
+msgstr "Apliejimo skysčio bakelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Washer Nozzle"
+msgstr "Apliejimo purkštukas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headlight Washer Pump"
+msgstr "Žibintų apliejimo siurbliukas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Seat Left"
+msgstr "Priekinė kairė sėdynė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Front Seat Right"
+msgstr "Priekinė dešinė sėdynė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Rear Seat"
+msgstr "Galinė sėdynė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Seat Cover"
+msgstr "Sėdynės užvalkalas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Seat Belt"
+msgstr "Saugos diržas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Seat Belt Tensioner"
+msgstr "Saugos diržo įtempiklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Seat Motor"
+msgstr "Sėdynės reguliavimo variklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Seat Heater"
+msgstr "Sėdynės šildymas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Instrument Cluster"
+msgstr "Prietaisų panelė (spidometras)"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Glove Box"
+msgstr "Daiktadėžė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Center Console"
+msgstr "Centrinė konsolė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Steering Wheel"
+msgstr "Vairas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Steering Column"
+msgstr "Vairo kolonėlė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Pedal Assembly"
+msgstr "Pedalų blokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Door Panel Trim"
+msgstr "Durų apmušalas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Headliner"
+msgstr "Lubų apmušalas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Pillar Trim"
+msgstr "Statramsčių apdaila"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Floor Carpet"
+msgstr "Grindų kilimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Trunk Carpet"
+msgstr "Bagažinės kilimas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Head Unit Radio"
+msgstr "Magnetola"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Display Screen"
+msgstr "Ekranas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Speaker"
+msgstr "Garsiakalbis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Amplifier"
+msgstr "Stiprintuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Antenna"
+msgstr "Antena"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Microphone"
+msgstr "Mikrofonas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Reversing Camera"
+msgstr "Galinio vaizdo kamera"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Battery"
+msgstr "Akumuliatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Starter Motor"
+msgstr "Starteris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Alternator"
+msgstr "Generatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Battery Cable"
+msgstr "Akumuliatoriaus laidas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Battery Tray"
+msgstr "Akumuliatoriaus padėklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Fuse Box"
+msgstr "Saugiklių dėžė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Main Wiring Harness"
+msgstr "Pagrindinė laidų pynė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "ECU Engine Control"
+msgstr "Variklio kompiuteris (ECU)"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "TCU Transmission"
+msgstr "Pavarų dėžės kompiuteris (TCU)"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "BCM Body Control"
+msgstr "Kėbulo valdymo blokas (BCM)"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Comfort Module"
+msgstr "Komforto blokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Gateway Module"
+msgstr "Gateway blokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Immobilizer"
+msgstr "Imobilaizeris"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Key Fob"
+msgstr "Rakto pultelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Lock Module"
+msgstr "Centrinio užrakto blokas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Crankshaft Sensor"
+msgstr "Alkūninio veleno daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Camshaft Sensor"
+msgstr "Skirstomojo veleno daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Knock Sensor"
+msgstr "Detonacijos daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Oxygen Sensor"
+msgstr "Deguonies daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Parking Sensor"
+msgstr "Parkavimo daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Spark Plug"
+msgstr "Uždegimo žvakė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Glow Plug"
+msgstr "Kaitinimo žvakė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Ignition Coil"
+msgstr "Uždegimo ritė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Ignition Switch"
+msgstr "Uždegimo spynelė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "A/C Compressor"
+msgstr "Kondicionieriaus kompresorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "A/C Condenser"
+msgstr "Kondicionieriaus radiatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "A/C Evaporator"
+msgstr "Kondicionieriaus garintuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "A/C Expansion Valve"
+msgstr "Kondicionieriaus plėtimosi vožtuvas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "A/C Hose"
+msgstr "Kondicionieriaus žarna"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "A/C Pipe"
+msgstr "Kondicionieriaus vamzdelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "A/C Pressure Switch"
+msgstr "Kondicionieriaus slėgio daviklis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Heater Core"
+msgstr "Pečiuko radiatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Heater Blower Motor"
+msgstr "Pečiuko ventiliatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Heater Resistor"
+msgstr "Pečiuko rezistorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Climate Control Panel"
+msgstr "Klimato kontrolės pultas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Cabin Filter"
+msgstr "Salono filtras"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Radiator"
+msgstr "Aušinimo radiatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Radiator Fan"
+msgstr "Radiatoriaus ventiliatorius"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Radiator Hose Upper"
+msgstr "Viršutinė radiatoriaus žarna"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Radiator Hose Lower"
+msgstr "Apatinė radiatoriaus žarna"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Coolant Reservoir"
+msgstr "Aušinimo skysčio bakelis"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Water Pump"
+msgstr "Vandens pompa"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Thermostat"
+msgstr "Termostatas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Tow Hook"
+msgstr "Buksyravimo kilpa"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Tow Bar"
+msgstr "Priekabos kablys"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Tools Kit"
+msgstr "Įrankių komplektas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Jack"
+msgstr "Domkratas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Warning Triangle"
+msgstr "Avarinio sustojimo ženklas"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "First Aid Kit"
+msgstr "Vaistinėlė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Roof Rack"
+msgstr "Stogo bagažinė"
+
+#: apps/listings/translatable_db.py
+msgctxt "dalių kategorija"
+msgid "Floor Mats"
+msgstr "Kilimėliai"

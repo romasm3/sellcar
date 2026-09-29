@@ -3960,6 +3960,15 @@ class PartCategory(models.Model):
 
 
 
+    # Rodomas pavadinimas vartotojo kalba. `name_en` yra ir msgid, ir
+    # slug'o šaltinis — DB jo nekeičiam, verčiam per .po (kontekstas
+    # „dalių kategorija", kad „Power", „Engine", „Glass" nesusimaišytų su
+    # bendrais msgid). Sąrašas makemessages'ui — translatable_db.py.
+    @property
+    def pavadinimas(self):
+        from django.utils.translation import pgettext
+        return pgettext('dalių kategorija', self.name_en)
+
     @property
 
     def is_subcategory(self):
@@ -3998,7 +4007,7 @@ class PartCategory(models.Model):
 
     def breadcrumb_text(self, separator=" › "):
 
-        return separator.join(n.name_en for n in self.breadcrumb())
+        return separator.join(n.pavadinimas for n in self.breadcrumb())
 
 # ═══════════════════════════════════════════════════════════════════
 # PADANGŲ IR RATLANKIŲ SĄRAŠAI — VIENAS ŠALTINIS FORMAI IR FILTRUI.

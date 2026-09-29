@@ -379,13 +379,13 @@
 
 
 
-        <!-- Breadcrumb -->
+        {# Breadcrumb #}
 
         <div class="breadcrumb mb-4">
 
             <a href="{% url 'parts_category_select' %}" class="hover:underline" style="color: var(--teal);">
 
-                ← Back to categories
+                {% trans "← Back to categories" %}
 
             </a>
 
@@ -407,7 +407,7 @@
 
         <h1 class="text-2xl font-bold text-gray-900 mb-1">
 
-            Car, van parts
+            {% trans "Car, van parts" %}
 
         </h1>
 
@@ -415,13 +415,13 @@
 
 
 
-        <!-- Errors -->
+        {# Errors #}
 
         {% if errors %}
 
         <div class="error-banner">
 
-            <strong class="text-red-900">Please fix the following:</strong>
+            <strong class="text-red-900">{% trans "Please fix the following:" %}</strong>
 
             <ul>
 
@@ -447,21 +447,21 @@
 
 
 
-            <!-- ═══ Basic listing details ═══ -->
+            {# ═══ Basic listing details ═══ #}
 
             <div class="section-card">
 
-                <h2 class="section-title">Basic listing details</h2>
+                <h2 class="section-title">{% trans "Basic listing details" %}</h2>
 
 
 
-                <!-- Row 1: Part Name + Part Code -->
+                {# Row 1: Part Name + Part Code #}
 
                 <div class="form-row" style="grid-template-columns: 1fr 1fr;">
 
                     <div class="form-group">
 
-                        <label class="form-label">Part Name <span class="req">*</span></label>
+                        <label class="form-label">{% trans "Part Name" %} <span class="req">*</span></label>
 
                         <input type="text" name="title" class="form-input"
 
@@ -473,7 +473,7 @@
 
                         <div class="text-xs text-gray-500 mt-1">
 
-                            🔒 Auto-set from category — cannot be changed
+                            {% trans "🔒 Auto-set from category — cannot be changed" %}
 
                         </div>
 
@@ -481,13 +481,13 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Part Code</label>
+                        <label class="form-label">{% trans "Part Code" %}</label>
 
                         <input type="text" name="oem_code" class="form-input"
 
                                value="{{ form_data.oem_code|default:'' }}"
 
-                               placeholder="e.g., 63217160797">
+                               placeholder="{% trans "e.g., 63217160797" %}">
 
                     </div>
 
@@ -495,25 +495,25 @@
 
 
 
-                <!-- Row 2: Condition + Brand + Model + Modification -->
+                {# Row 2: Condition + Brand + Model + Modification #}
 
                 <div class="form-row">
 
                     <div class="form-group">
 
-                        <label class="form-label">Condition <span class="req">*</span></label>
+                        <label class="form-label">{% trans "Condition" %} <span class="req">*</span></label>
 
                         <select name="condition" class="form-select" required>
 
                             <option value="">--------</option>
 
-                            <option value="new" {% if form_data.condition == 'new' %}selected{% endif %}>New</option>
+                            <option value="new" {% if form_data.condition == 'new' %}selected{% endif %}>{% trans "New" context "dalies būklė" %}</option>
 
-                            <option value="used" {% if form_data.condition == 'used' %}selected{% endif %}>Used</option>
+                            <option value="used" {% if form_data.condition == 'used' %}selected{% endif %}>{% trans "Used" context "dalies būklė" %}</option>
 
-                            <option value="refurbished" {% if form_data.condition == 'refurbished' %}selected{% endif %}>Refurbished</option>
+                            <option value="refurbished" {% if form_data.condition == 'refurbished' %}selected{% endif %}>{% trans "Refurbished" context "dalies būklė" %}</option>
 
-                            <option value="damaged" {% if form_data.condition == 'damaged' %}selected{% endif %}>Damaged</option>
+                            <option value="damaged" {% if form_data.condition == 'damaged' %}selected{% endif %}>{% trans "Damaged" context "dalies būklė" %}</option>
 
                         </select>
 
@@ -521,7 +521,7 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Brand</label>
+                        <label class="form-label">{% trans "Brand" %}</label>
 
                         <select name="brand" class="form-select" id="brandSelect">
 
@@ -559,13 +559,13 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Modification</label>
+                        <label class="form-label">{% trans "Modification" %}</label>
 
                         <input type="text" name="modification" class="form-input"
 
                                value="{{ form_data.modification|default:'' }}"
 
-                               placeholder="M3, Sport, etc.">
+                               placeholder="{% trans "M3, Sport, etc." %}">
 
                     </div>
 
@@ -573,13 +573,13 @@
 
 
 
-                <!-- Row 3: Year + Version + Fuel Type + Engine Size -->
+                {# Row 3: Year + Version + Fuel Type + Engine Size #}
 
                 <div class="form-row">
 
                     <div class="form-group">
 
-                        <label class="form-label">Year</label>
+                        <label class="form-label">{% trans "Year" %}</label>
 
                         <select name="year_from" class="form-select">
 
@@ -597,19 +597,19 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Version</label>
+                        <label class="form-label">{% trans "Version" %}</label>
 
                         <input type="text" name="version" class="form-input"
 
                                value="{{ form_data.version|default:'' }}"
 
-                               placeholder="LCI, pre-facelift">
+                               placeholder="{% trans "LCI, pre-facelift" %}">
 
                     </div>
 
                     <div class="form-group">
 
-                        <label class="form-label">Fuel Type</label>
+                        <label class="form-label">{% trans "Fuel Type" %}</label>
 
                         <select name="fuel_type" class="form-select">
 
@@ -627,13 +627,13 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Engine Size (L)</label>
+                        <label class="form-label">{% trans "Engine Size (L)" %}</label>
 
                         <input type="number" step="0.1" name="engine_capacity" data-unit-field="engine_capacity" class="form-input"
 
                                value="{{ form_data.engine_capacity|default:'' }}"
 
-                               placeholder="e.g. 2.0">
+                               placeholder="{% trans "e.g. 2.0" %}">
 
                     </div>
 
@@ -641,13 +641,13 @@
 
 
 
-                <!-- Row 4: Power + Gearbox + Body Type + Doors -->
+                {# Row 4: Power + Gearbox + Body Type + Doors #}
 
                 <div class="form-row">
 
                     <div class="form-group">
 
-                        <label class="form-label">Power (kW)</label>
+                        <label class="form-label">{% trans "Power (kW)" %}</label>
 
                         <input type="number" name="power" data-unit-field="power" class="form-input"
 
@@ -659,7 +659,7 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Gearbox</label>
+                        <label class="form-label">{% trans "Gearbox" %}</label>
 
                         <select name="transmission" class="form-select">
 
@@ -677,27 +677,27 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Body Type</label>
+                        <label class="form-label">{% trans "Body Type" %}</label>
 
                         <select name="body_type" class="form-select">
 
                             <option value="">--------</option>
 
-                            <option value="sedan" {% if form_data.body_type == 'sedan' %}selected{% endif %}>Sedan</option>
+                            <option value="sedan" {% if form_data.body_type == 'sedan' %}selected{% endif %}>{% trans "Sedan" %}</option>
 
-                            <option value="hatchback" {% if form_data.body_type == 'hatchback' %}selected{% endif %}>Hatchback</option>
+                            <option value="hatchback" {% if form_data.body_type == 'hatchback' %}selected{% endif %}>{% trans "Hatchback" %}</option>
 
-                            <option value="suv" {% if form_data.body_type == 'suv' %}selected{% endif %}>SUV</option>
+                            <option value="suv" {% if form_data.body_type == 'suv' %}selected{% endif %}>{% trans "SUV" %}</option>
 
-                            <option value="coupe" {% if form_data.body_type == 'coupe' %}selected{% endif %}>Coupe</option>
+                            <option value="coupe" {% if form_data.body_type == 'coupe' %}selected{% endif %}>{% trans "Coupe" %}</option>
 
-                            <option value="convertible" {% if form_data.body_type == 'convertible' %}selected{% endif %}>Convertible</option>
+                            <option value="convertible" {% if form_data.body_type == 'convertible' %}selected{% endif %}>{% trans "Convertible" %}</option>
 
-                            <option value="wagon" {% if form_data.body_type == 'wagon' %}selected{% endif %}>Wagon</option>
+                            <option value="wagon" {% if form_data.body_type == 'wagon' %}selected{% endif %}>{% trans "Wagon" %}</option>
 
-                            <option value="pickup" {% if form_data.body_type == 'pickup' %}selected{% endif %}>Pickup</option>
+                            <option value="pickup" {% if form_data.body_type == 'pickup' %}selected{% endif %}>{% trans "Pickup" %}</option>
 
-                            <option value="van" {% if form_data.body_type == 'van' %}selected{% endif %}>Van</option>
+                            <option value="van" {% if form_data.body_type == 'van' %}selected{% endif %}>{% trans "Van" %}</option>
 
                         </select>
 
@@ -705,7 +705,7 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Number of Doors</label>
+                        <label class="form-label">{% trans "Number of Doors" %}</label>
 
                         <select name="doors" class="form-select">
 
@@ -723,23 +723,23 @@
 
 
 
-                <!-- Row 5: Drive Wheels + Color + Color Code + (empty) -->
+                {# Row 5: Drive Wheels + Color + Color Code + (empty) #}
 
                 <div class="form-row">
 
                     <div class="form-group">
 
-                        <label class="form-label">Drive Wheels</label>
+                        <label class="form-label">{% trans "Drive Wheels" %}</label>
 
                         <select name="drive_type" class="form-select">
 
                             <option value="">--------</option>
 
-                            <option value="fwd" {% if form_data.drive_type == 'fwd' %}selected{% endif %}>Front (FWD)</option>
+                            <option value="fwd" {% if form_data.drive_type == 'fwd' %}selected{% endif %}>{% trans "Front (FWD)" %}</option>
 
-                            <option value="rwd" {% if form_data.drive_type == 'rwd' %}selected{% endif %}>Rear (RWD)</option>
+                            <option value="rwd" {% if form_data.drive_type == 'rwd' %}selected{% endif %}>{% trans "Rear (RWD)" %}</option>
 
-                            <option value="awd" {% if form_data.drive_type == 'awd' %}selected{% endif %}>All-Wheel (AWD)</option>
+                            <option value="awd" {% if form_data.drive_type == 'awd' %}selected{% endif %}>{% trans "All-Wheel (AWD)" %}</option>
 
                             <option value="4wd" {% if form_data.drive_type == '4wd' %}selected{% endif %}>4WD</option>
 
@@ -749,19 +749,19 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Color</label>
+                        <label class="form-label">{% trans "Color" %}</label>
 
                         <input type="text" name="color" class="form-input"
 
                                value="{{ form_data.color|default:'' }}"
 
-                               placeholder="Black, Silver, etc.">
+                               placeholder="{% trans "Black, Silver, etc." %}">
 
                     </div>
 
                     <div class="form-group">
 
-                        <label class="form-label">Color Code</label>
+                        <label class="form-label">{% trans "Color Code" %}</label>
 
                         <input type="text" name="color_code" class="form-input"
 
@@ -777,13 +777,13 @@
 
 
 
-                <!-- Row 6: Engine Code + Gearbox Code + Price + (empty) -->
+                {# Row 6: Engine Code + Gearbox Code + Price + (empty) #}
 
                 <div class="form-row">
 
                     <div class="form-group">
 
-                        <label class="form-label">Engine Code</label>
+                        <label class="form-label">{% trans "Engine Code" %}</label>
 
                         <input type="text" name="engine_code" class="form-input"
 
@@ -795,7 +795,7 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Gearbox Code</label>
+                        <label class="form-label">{% trans "Gearbox Code" %}</label>
 
                         <input type="text" name="transmission_code" class="form-input"
 
@@ -807,7 +807,7 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Price (€) <span class="req">*</span></label>
+                        <label class="form-label">{% trans "Price (€)" %} <span class="req">*</span></label>
 
                         <input type="number" step="1" name="price" class="form-input"
 
@@ -825,7 +825,7 @@
 
                                    {% if form_data.negotiable %}checked{% endif %}>
 
-                            Negotiable
+                            {% trans "Negotiable" context "dalies forma" %}
 
                         </label>
 
@@ -837,19 +837,19 @@
 
 
 
-            <!-- ═══ Comments ═══ -->
+            {# ═══ Comments ═══ #}
 
             <div class="section-card">
 
-                <h2 class="section-title">Comments</h2>
+                <h2 class="section-title">{% trans "Comments" context "dalies forma" %}</h2>
 
                 <textarea name="description" class="form-textarea"
 
-                          placeholder="Describe the part in detail">{{ form_data.description|default:'' }}</textarea>
+                          placeholder="{% trans "Describe the part in detail" %}">{{ form_data.description|default:'' }}</textarea>
 
                 <div class="tip-box">
 
-                    💡 For easier searching, describe the part in detail: manufacturer codes, versions, special features
+                    {% trans "💡 For easier searching, describe the part in detail: manufacturer codes, versions, special features" %}
 
                 </div>
 
@@ -858,24 +858,24 @@
 
 
             {% if is_edit_mode and existing_images %}
-            <div class="card mb-6"><h2 class="section-title">Current Photos</h2><p class="text-xs text-gray-500 mb-3">Drag to reorder. Hover for options.</p><div class="grid grid-cols-3 md:grid-cols-6 gap-3" id="existing-photos">{% for img in existing_images %}<div class="relative group aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100 cursor-move existing-photo" data-existing-img-id="{{ img.pk }}" draggable="true"><img src="{{ img.image.url }}" class="w-full h-full object-cover pointer-events-none">{% if img.is_main %}<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow pointer-events-none">&#9733; MAIN</span>{% else %}<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">{{ forloop.counter }}</span>{% endif %}<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">{% if not img.is_main %}<button type="button" onclick="event.stopPropagation(); mpSetMain({{ img.pk }})" title="Set as main" class="flex-1 bg-white/90 hover:bg-white text-gray-900 text-[11px] font-bold py-1 rounded">&#9733;</button>{% endif %}<button type="button" onclick="event.stopPropagation(); mpRotate({{ img.pk }}, 'ccw', this)" title="Rotate left" class="bg-white/90 hover:bg-white text-gray-900 text-[11px] py-1 px-2 rounded">&#8634;</button><button type="button" onclick="event.stopPropagation(); mpRotate({{ img.pk }}, 'cw', this)" title="Rotate right" class="bg-white/90 hover:bg-white text-gray-900 text-[11px] py-1 px-2 rounded">&#8635;</button></div><button type="button" onclick="event.stopPropagation(); mpDelete({{ img.pk }})" title="Delete" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-sm shadow z-10">&times;</button></div>{% endfor %}</div></div>
+            <div class="card mb-6"><h2 class="section-title">{% trans "Current Photos" %}</h2><p class="text-xs text-gray-500 mb-3">{% trans "Drag to reorder. Hover for options." %}</p><div class="grid grid-cols-3 md:grid-cols-6 gap-3" id="existing-photos">{% for img in existing_images %}<div class="relative group aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100 cursor-move existing-photo" data-existing-img-id="{{ img.pk }}" draggable="true"><img src="{{ img.image.url }}" class="w-full h-full object-cover pointer-events-none">{% if img.is_main %}<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow pointer-events-none">&#9733; {% trans "MAIN" %}</span>{% else %}<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">{{ forloop.counter }}</span>{% endif %}<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">{% if not img.is_main %}<button type="button" onclick="event.stopPropagation(); mpSetMain({{ img.pk }})" title="{% trans "Set as main" %}" class="flex-1 bg-white/90 hover:bg-white text-gray-900 text-[11px] font-bold py-1 rounded">&#9733;</button>{% endif %}<button type="button" onclick="event.stopPropagation(); mpRotate({{ img.pk }}, 'ccw', this)" title="{% trans "Rotate left" %}" class="bg-white/90 hover:bg-white text-gray-900 text-[11px] py-1 px-2 rounded">&#8634;</button><button type="button" onclick="event.stopPropagation(); mpRotate({{ img.pk }}, 'cw', this)" title="{% trans "Rotate right" %}" class="bg-white/90 hover:bg-white text-gray-900 text-[11px] py-1 px-2 rounded">&#8635;</button></div><button type="button" onclick="event.stopPropagation(); mpDelete({{ img.pk }})" title="{% trans "Delete" %}" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-sm shadow z-10">&times;</button></div>{% endfor %}</div></div>
             {% endif %}
-            <!-- ═══ Photos ═══ -->
+            {# ═══ Photos ═══ #}
 
             <div class="section-card">
 
-                <h2 class="section-title">Photos</h2>
+                <h2 class="section-title">{% trans "Photos" %}</h2>
 
 
 
-                <div id="uploadProgress" class="hidden mb-4"><div class="flex items-center justify-between mb-1"><span id="uploadProgressLabel" class="text-xs font-medium text-gray-600">Uploading photos...</span><span id="uploadProgressPercent" class="text-xs font-semibold text-gray-700">0%</span></div><div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden"><div id="uploadProgressBar" class="bg-orange-500 h-2.5 rounded-full transition-all duration-200" style="width:0%"></div></div></div>
+                <div id="uploadProgress" class="hidden mb-4"><div class="flex items-center justify-between mb-1"><span id="uploadProgressLabel" class="text-xs font-medium text-gray-600">{% trans "Uploading photos..." %}</span><span id="uploadProgressPercent" class="text-xs font-semibold text-gray-700">0%</span></div><div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden"><div id="uploadProgressBar" class="bg-orange-500 h-2.5 rounded-full transition-all duration-200" style="width:0%"></div></div></div>
                 <div class="photo-drop-zone" id="dropZone" onclick="document.getElementById('photoInput').click();">
 
                     <div class="text-3xl mb-2">📷</div>
 
-                    <div class="text-sm font-medium text-gray-700">Click to upload or drag and drop</div>
+                    <div class="text-sm font-medium text-gray-700">{% trans "Click to upload or drag and drop" %}</div>
 
-                    <div class="text-xs text-gray-500 mt-1">PNG, JPG up to 20MB each (Max 10 images)</div>
+                    <div class="text-xs text-gray-500 mt-1">{% trans "PNG, JPG up to 20MB each (Max 10 images)" %}</div>
 
                     <input type="file" id="photoInput" name="images" multiple accept="image/*" style="display:none;">
 
@@ -889,12 +889,12 @@
 
 
 
-            <!-- ═══ Contacts ═══ -->
+            {# ═══ Contacts ═══ #}
             {% include 'listings/partials/contact_block.html' with css_style='custom' card_class='section-card' card_title_class='section-title' grid_class='form-row' cls_group='form-group' cls_label='form-label' cls_star='req' cls_input='form-input' cls_select='form-select' val_phone=form_data.phone|default:listing_telefonas siulomas_telefonas=user_phone val_email=user_email val_country=form_data.country val_state=form_data.state val_city=form_data.city val_postal=form_data.postal_code val_address=form_data.address show_postal=True %}
 
 
 
-            <!-- ═══ Terms & Submit ═══ -->
+            {# ═══ Terms & Submit ═══ #}
 
             <div class="section-card">
 
@@ -904,13 +904,13 @@
 
                     <a href="{% url 'parts_category_select' %}" class="btn-secondary">
 
-                        ← Change category
+                        {% trans "← Change category" %}
 
                     </a>
 
                     <button type="submit" class="btn-primary">
 
-                        {% if is_edit_mode %}Save Changes{% else %}Continue to Plan Selection →{% endif %}
+                        {% if is_edit_mode %}{% trans "Save Changes" %}{% else %}{% trans "Continue to Plan Selection →" %}{% endif %}
 
                     </button>
 
@@ -979,7 +979,7 @@
 
 
 
-    // Brand → Model AJAX
+    // Markė → modelis (AJAX)
 
     const brandSel = document.getElementById('brandSelect');
 
@@ -996,7 +996,7 @@
 
         const brandId = brandSel.value;
 
-        modelSel.innerHTML = '<option value="">Loading...</option>';
+        modelSel.innerHTML = '<option value="">{% filter escapejs %}{% trans "Loading..." %}{% endfilter %}</option>';
 
 
 
@@ -1032,7 +1032,7 @@
 
             .catch(() => {
 
-                modelSel.innerHTML = '<option value="">Error loading</option>';
+                modelSel.innerHTML = '<option value="">{% filter escapejs %}{% trans "Error loading" %}{% endfilter %}</option>';
 
             });
 
@@ -1187,7 +1187,7 @@ window.partEditUpload=function(fileList){var files=Array.from(fileList).filter(f
 
 function mpSetMain(id){var fd=new FormData();fd.append('csrfmiddlewaretoken',PCSRF);fetch('/image/'+id+'/set-main/',{method:'POST',headers:{'X-CSRFToken':PCSRF,'X-Requested-With':'XMLHttpRequest'},body:fd}).then(function(){location.reload();}).catch(function(){location.reload();});}
 
-function mpDelete(id){if(!confirm('Delete this photo?'))return;var fd=new FormData();fd.append('csrfmiddlewaretoken',PCSRF);fetch('/image/'+id+'/delete/',{method:'POST',headers:{'X-CSRFToken':PCSRF},body:fd}).then(function(){location.reload();});}
+function mpDelete(id){if(!confirm('{% filter escapejs %}{% trans "Delete this photo?" %}{% endfilter %}'))return;var fd=new FormData();fd.append('csrfmiddlewaretoken',PCSRF);fetch('/image/'+id+'/delete/',{method:'POST',headers:{'X-CSRFToken':PCSRF},body:fd}).then(function(){location.reload();});}
 
 function mpRotate(id,dir,btn){var orig=btn?btn.innerHTML:'';if(btn){btn.disabled=true;btn.innerHTML='&#8230;';}var fd=new FormData();fd.append('csrfmiddlewaretoken',PCSRF);fd.append('direction',dir);fetch('/ajax/rotate-listing-image/'+id+'/',{method:'POST',headers:{'X-CSRFToken':PCSRF},body:fd}).then(function(r){return r.json();}).then(function(d){if(d&&d.success){var card=document.querySelector('[data-existing-img-id="'+id+'"]');if(card){var im=card.querySelector('img');if(im)im.src=d.url+'?t='+Date.now();}}else{alert('Rotate failed');}if(btn){btn.disabled=false;btn.innerHTML=orig;}}).catch(function(){alert('Rotate failed');if(btn){btn.disabled=false;btn.innerHTML=orig;}});}
 

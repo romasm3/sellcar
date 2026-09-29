@@ -194,13 +194,13 @@ def parts_subtree_ajax(request):
 
         data.append({
 
-            'name': group.name_en,
+            'name': group.pavadinimas,
 
             'slug': group.slug,
 
             'children': [
 
-                {'name': sub.name_en, 'slug': sub.slug}
+                {'name': sub.pavadinimas, 'slug': sub.slug}
 
                 for sub in subs
 
@@ -210,7 +210,7 @@ def parts_subtree_ajax(request):
 
 
 
-    return JsonResponse({'groups': data, 'category_name': category.name_en})
+    return JsonResponse({'groups': data, 'category_name': category.pavadinimas})
 
 
 
@@ -228,17 +228,19 @@ def parts_search_ajax(request):
 
 
 
-    subs = PartCategory.objects.filter(
-
-        level=PartCategory.LEVEL_SUBCATEGORY,
-
-        is_active=True,
-
-    ).filter(
-
-        Q(name_en__icontains=query) | Q(name_lt__icontains=query)
-
-    ).select_related('parent', 'parent__parent')[:20]
+    # Ieškom ir vartotojo kalba („žibintas"), ir angliškai — rodomi
+    # pavadinimai verčiami per .po, DB jų nėra, tad lyginam Python'e
+    # (lapų ~300, viena užklausa).
+    q_cf = query.casefold()
+    subs = [
+        sub for sub in PartCategory.objects.filter(
+            level=PartCategory.LEVEL_SUBCATEGORY,
+            is_active=True,
+        ).select_related('parent', 'parent__parent')
+        if q_cf in sub.name_en.casefold()
+        or q_cf in (sub.name_lt or '').casefold()
+        or q_cf in sub.pavadinimas.casefold()
+    ][:20]
 
 
 
@@ -250,7 +252,7 @@ def parts_search_ajax(request):
 
         results.append({
 
-            'name': sub.name_en,
+            'name': sub.pavadinimas,
 
             'slug': sub.slug,
 
@@ -319,11 +321,11 @@ def parts_listing_create(request):
     if is_edit_mode:
         listing = get_object_or_404(Listing, pk=edit_pk, seller=request.user)
         if not listing.vehicle_type or listing.vehicle_type.slug != 'parts':
-            messages.error(request, 'Parts edit is only available for parts listings.')
+            messages.error(request, _('Parts edit is only available for parts listings.'))
             return redirect('listing_edit_hub', pk=edit_pk)
         part_subcategory = listing.part_category
         if part_subcategory is None:
-            messages.error(request, 'Part category missing on this listing.')
+            messages.error(request, _('Part category missing on this listing.'))
             return redirect('my_listings')
     else:
         sub_slug = request.GET.get('sub', '').strip() or request.POST.get('sub', '').strip()
@@ -342,7 +344,7 @@ def parts_listing_create(request):
 
         title = (request.POST.get('title', '') or '').strip()
         if not title:
-            title = part_subcategory.name_en
+            title = part_subcategory.pavadinimas
 
         condition = request.POST.get('condition', '')
         if condition not in ('new', 'used', 'refurbished', 'damaged'):
@@ -385,7 +387,7 @@ def parts_listing_create(request):
             try:
                 parts_vt = VehicleType.objects.get(slug='parts')
             except VehicleType.DoesNotExist:
-                messages.error(request, 'Parts vehicle type not configured.')
+                messages.error(request, _('Parts vehicle type not configured.'))
                 return redirect('parts_category_select')
 
             # Kuri „Dalys“ subkategorija buvo pasirinkta pikeryje. Anksčiau
@@ -512,7 +514,7 @@ def parts_listing_create(request):
                     )
                 except Exception as e:
                     print(f"[parts_edit] image upload failed: {e}")
-            messages.success(request, 'Listing updated successfully.')
+            messages.success(request, _('Listing updated successfully.'))
             return redirect('listing_edit_hub', pk=target.pk)
         else:
             for i, image in enumerate(images[:10]):
@@ -590,9 +592,9 @@ def _render_parts_form(request, part_subcategory, errors=None, listing=None, is_
     context = {
         'subcategory': part_subcategory,
         'breadcrumb': part_subcategory.breadcrumb_text(separator=" › "),
-        'category_name': part_subcategory.parent.parent.name_en if part_subcategory.parent and part_subcategory.parent.parent else '',
-        'group_name': part_subcategory.parent.name_en if part_subcategory.parent else '',
-        'sub_name': part_subcategory.name_en,
+        'category_name': part_subcategory.parent.parent.pavadinimas if part_subcategory.parent and part_subcategory.parent.parent else '',
+        'group_name': part_subcategory.parent.pavadinimas if part_subcategory.parent else '',
+        'sub_name': part_subcategory.pavadinimas,
         'sub_slug': part_subcategory.slug,
         'for_sub': (
             request.POST.get('for', '') or request.GET.get('for', '')
