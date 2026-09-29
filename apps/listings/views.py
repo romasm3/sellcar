@@ -2088,8 +2088,7 @@ def listing_list(request, panel_fragment=False, category=None):
             Q(title__icontains=_dal_tekstas) | Q(description__icontains=_dal_tekstas)
         )
     if (request.GET.get('oem_code') or '').strip():
-        listings = daliu_paieska.su_normalizuotu_oem(listings).filter(
-            _oem_norm__contains=daliu_paieska.normalizuok(request.GET['oem_code']))
+        listings = daliu_paieska.pagal_koda(listings, request.GET['oem_code'])
     _vk = (request.GET.get('engine_code_search') or request.GET.get('engine_code') or '').strip()
     if _vk:
         listings = listings.filter(engine_code__icontains=_vk)
@@ -8542,8 +8541,7 @@ def filter_listings(params, user=None, category=None, base_qs=None):
 
     # Dalių kodai — mūsų priedas prie etalono (Autogidas kodų paieškos neturi)
     if (params.get('oem_code') or '').strip():
-        listings = daliu_paieska.su_normalizuotu_oem(listings).filter(
-            _oem_norm__contains=daliu_paieska.normalizuok(params['oem_code']))
+        listings = daliu_paieska.pagal_koda(listings, params['oem_code'])
     _var_kodas = (params.get('engine_code_search') or params.get('engine_code') or '').strip()
     if _var_kodas:
         listings = listings.filter(engine_code__icontains=_var_kodas)

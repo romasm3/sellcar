@@ -45,6 +45,9 @@ def kodai(tekstas):
 
 def su_normalizuotu_oem(qs):
     """Prideda `_oem_norm` stulpelį — oem_code be tarpų, brūkšnelių, taškų."""
+    # ?q ir ?oem kartu — antrą kartą to paties stulpelio nededam.
+    if '_oem_norm' in qs.query.annotations:
+        return qs
     israiska = Upper('oem_code')
     for zenklas in SIUKSLES:
         israiska = Replace(israiska, Value(zenklas), Value(''))
@@ -64,6 +67,19 @@ def teksto_filtras(q):
     if kodas:
         salyga |= Q(_oem_norm__contains=kodas)
     return salyga
+
+
+def pagal_koda(qs, kodas):
+    """Tik detalės numeris (?oem=, ?oem_code=) — be pavadinimo ir aprašymo.
+
+    Pasvirasis brūkšnys lieka, tad „A / B" laukas atitinka ir A, ir B,
+    bet ne suklijuotą „AB".
+    """
+    # Vien „/" (ar „ / ") atitiktų kiekvieną kelių kodų lauką — ne paieška.
+    kodas = normalizuok(kodas).strip('/')
+    if not kodas:
+        return qs
+    return su_normalizuotu_oem(qs).filter(_oem_norm__contains=kodas)
 
 
 def ieskoti(qs, q):

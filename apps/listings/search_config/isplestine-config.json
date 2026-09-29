@@ -6417,6 +6417,16 @@
    "slug": "automobiliu-mikroautobusu-dalys",
    "fields": [
     {
+     "label": "Detalės numeris",
+     "type": "text",
+     "db_field": "oem_code",
+     "param": "oem",
+     "multi": false,
+     "active": true,
+     "placeholder": "pvz. 51128075031",
+     "note": "Mūsų priedas (etalone nėra). Normalizuojama kaip q — apps/listings/daliu_paieska.py."
+    },
+    {
      "label": "(be label)",
      "type": "text",
      "name": "f_376",
@@ -23324,6 +23334,9 @@
    "vt_slug": "parts",
    "layout": [
     [
+     "Detalės numeris"
+    ],
+    [
      "Markė",
      "Modelis"
     ],
@@ -23359,6 +23372,16 @@
    "url": "https://autogidas.lt/paieska/motociklu-dalys/",
    "slug": "motociklu-dalys",
    "fields": [
+    {
+     "label": "Detalės numeris",
+     "type": "text",
+     "db_field": "oem_code",
+     "param": "oem",
+     "multi": false,
+     "active": true,
+     "placeholder": "pvz. 51128075031",
+     "note": "Mūsų priedas (etalone nėra). Normalizuojama kaip q — apps/listings/daliu_paieska.py."
+    },
     {
      "label": "(be label)",
      "type": "text",
@@ -24689,6 +24712,16 @@
    "url": "https://autogidas.lt/paieska/sunkiojo-transporto-dalys/",
    "slug": "sunkiojo-transporto-dalys",
    "fields": [
+    {
+     "label": "Detalės numeris",
+     "type": "text",
+     "db_field": "oem_code",
+     "param": "oem",
+     "multi": false,
+     "active": true,
+     "placeholder": "pvz. 51128075031",
+     "note": "Mūsų priedas (etalone nėra). Normalizuojama kaip q — apps/listings/daliu_paieska.py."
+    },
     {
      "label": "(be label)",
      "type": "text",
@@ -26025,6 +26058,16 @@
    "slug": "zemes-ukio-spec-dalys",
    "fields": [
     {
+     "label": "Detalės numeris",
+     "type": "text",
+     "db_field": "oem_code",
+     "param": "oem",
+     "multi": false,
+     "active": true,
+     "placeholder": "pvz. 51128075031",
+     "note": "Mūsų priedas (etalone nėra). Normalizuojama kaip q — apps/listings/daliu_paieska.py."
+    },
+    {
      "label": "(be label)",
      "type": "text",
      "name": "f_376",
@@ -27088,6 +27131,9 @@
    "subcategory_slug": "agri-special-parts",
    "layout": [
     [
+     "Detalės numeris"
+    ],
+    [
      "Metai"
     ],
     [
@@ -27109,6 +27155,16 @@
    "url": "https://autogidas.lt/paieska/aksesuarai-akumuliatoriai-tuning/",
    "slug": "aksesuarai-akumuliatoriai-tuning",
    "fields": [
+    {
+     "label": "Detalės numeris",
+     "type": "text",
+     "db_field": "oem_code",
+     "param": "oem",
+     "multi": false,
+     "active": true,
+     "placeholder": "pvz. 51128075031",
+     "note": "Mūsų priedas (etalone nėra). Normalizuojama kaip q — apps/listings/daliu_paieska.py."
+    },
     {
      "label": "Tipas",
      "type": "select",
@@ -27608,6 +27664,9 @@
    "vt_slug": "parts",
    "subcategory_slug": "accessories-tuning",
    "layout": [
+    [
+     "Detalės numeris"
+    ],
     [
      "Kaina",
      "Šalis"

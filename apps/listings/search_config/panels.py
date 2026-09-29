@@ -732,6 +732,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
             'unit': f.get('unit') or '',
             'free_input': bool(f.get('free_input')),
             'multi': bool(f.get('multi')),
+            'placeholder': _(f['placeholder']) if f.get('placeholder') else '',
         }
 
         if f['type'] == 'range':
@@ -987,6 +988,13 @@ def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', s
                     listings = listings.filter(
                         Q(title__icontains=q) | Q(description__icontains=q)
                     )
+            elif db == 'oem_code':
+                # Detalės numeris (?oem=) — ta pati normalizacija kaip q:
+                # „5112 807-5031" randa „51128075031 / 51128085093".
+                val = _get(params, f.get('param'))
+                if val:
+                    from apps.listings import daliu_paieska
+                    listings = daliu_paieska.pagal_koda(listings, val)
             else:
                 # Tekstinis laukas su savo stulpeliu (pvz. Modelis) —
                 # icontains TAME lauke, ne bendra paieška pavadinime.
