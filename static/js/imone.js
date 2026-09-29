@@ -1,8 +1,10 @@
 /**
- * ĮMONĖS PUSLAPIS — mažas žemėlapis šoninėje kortelėje ir „Įsiminti".
+ * ĮMONĖS PUSLAPIS — „Įsiminti".
  *
- * Žemėlapis — Leaflet su OpenStreetMap plytelėmis, tas pats šaltinis
- * kaip kūrimo formos vietos bloke (ODbL nuoroda rodoma prie žemėlapio).
+ * Čia buvo ir mažas Leaflet žemėlapis su OSM viešomis plytelėmis
+ * (#imMap). Jo elemento nė viename šablone nebėra, o OSM
+ * viešų plytelių taip naudoti negalima — kodas pašalintas. Įmonių
+ * žemėlapiai (/imones/ sąrašas ir žemėlapis) eina per Google Maps.
  *
  * „Įsiminti įmonę" 1 etape gyvena naršyklėje (localStorage), kaip ir
  * peržiūrėti skelbimai — paskyros sąrašas ateis su 2 etapu.
@@ -39,19 +41,6 @@
         }
     }
 
-    function ikelkLeaflet(kai) {
-        if (window.L) return kai();
-        var css = document.createElement('link');
-        css.rel = 'stylesheet';
-        css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-        document.head.appendChild(css);
-        var js = document.createElement('script');
-        js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-        js.onload = kai;
-        js.onerror = function () { /* be žemėlapio puslapis veikia toliau */ };
-        document.head.appendChild(js);
-    }
-
     function paruosk() {
         // Mygtukų gali būti daug: šoninė kortelė puslapyje ir širdys sąraše
         var sarasas = skaityk();
@@ -63,19 +52,6 @@
                 e.preventDefault(); e.stopPropagation();   // kortelė yra nuoroda
                 perjunk(m.dataset.isiminti, m);
             });
-        });
-
-        var el = document.getElementById('imMap');
-        if (!el) return;
-        ikelkLeaflet(function () {
-            var lat = parseFloat(el.dataset.lat), lng = parseFloat(el.dataset.lng);
-            if (isNaN(lat) || isNaN(lng)) return;
-            var zem = L.map(el, { zoomControl: false, scrollWheelZoom: false,
-                                  dragging: false, attributionControl: false })
-                       .setView([lat, lng], 15);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 })
-                .addTo(zem);
-            L.marker([lat, lng]).addTo(zem).bindTooltip(el.dataset.vardas || '');
         });
     }
 

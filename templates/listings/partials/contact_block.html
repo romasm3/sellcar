@@ -112,9 +112,9 @@ Behaviour (matches the cars quick form, which is the reference):
         {% endif %}
     </div>
 
-    {% comment %}Vieta žemėlapyje — adreso siūlymai, tempiamas žymeklis ir
-    tikslumo pasirinkimas. Viena vieta visoms kategorijų formoms; „slėpti
-    tikslų adresą" varnelė perėjo į šio bloko „Rodyti tik apytiksliai".
+    {% comment %}Vietos tikslumas (tiksli / apytikslė). Žemėlapio formoje
+    nebėra — koordinates po išsaugojimo nustato serveris (žr.
+    _vietos_blokas.html). Viena vieta visoms kategorijų formoms.
     {% endcomment %}
     {% if not be_zemelapio %}
     {% include 'listings/partials/_vietos_blokas.html' %}
@@ -167,4 +167,3 @@ JS savo sąrašo neturi, todėl nauja tokia šalis atsiranda vienoje vietoje.
 <script>window.VALSTIJU_SALYS = '{{ valstiju_salys }}'.split(',');</script>
 {# Country → state cascade + contact validation, shared by every form. #}
 <script src="{% static 'js/contact_block.js' %}"></script>
-{% if not be_zemelapio %}<script src="{% static 'js/vietos_zemelapis.js' %}"></script>{% endif %}
