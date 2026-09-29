@@ -1,0 +1,16 @@
+{% load i18n listing_filters %}{% comment %}
+Detalės numeris (oem_code) — dalių skelbimuose svarbiausias laukas: pagal
+jį pirkėjas ir ieško. Iki šiol jo skelbimo puslapyje nebuvo visai.
+
+Viena vieta visiems specifikacijų blokams (listing_detail.html jų turi
+kelis — sunkiajam, „dalims" ir bendrą). Kodų būna keli, skiriami „ / ";
+rodom kiekvieną atskira eilute, kad būtų patogu kopijuoti po vieną.
+Tuščias laukas nerodo nieko.
+{% endcomment %}{% if listing.oem_code %}
+<div class="flex justify-between py-3 border-b border-gray-200">
+    <span class="text-gray-600">{% trans "Detalės numeris" %}</span>
+    <span class="font-medium text-gray-900 text-right">
+        {% for kodas in listing.oem_code|daliu_kodai %}<span class="block select-all">{{ kodas }}</span>{% endfor %}
+    </span>
+</div>
+{% endif %}

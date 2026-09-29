@@ -43,6 +43,7 @@ from .forms import (
 from . import salys
 from . import juodrasciai
 from . import titulinis
+from . import daliu_paieska
 from .kontaktai import (issaugok_pasta, issaugok_telefona,
                         telefono_reiksme)
 from . import skaiciai
@@ -1841,6 +1842,20 @@ COMING_SOON_PICKER = [
 # Rezultatu puslapis renderina sonine juosta tik ne telefonams
 # (context_processors.device_kind), todel atsakymas priklauso nuo
 # User-Agent ir tai turi buti pasakyta kesams.
+def _kategorija_is_sekcijos(sekcija):
+    """?section= → VehicleType slug'as, jei tokia kategorija apskritai yra.
+
+    Sekcijos, kurios nėra atskiras VehicleType (wheels, motogear,
+    moto-tyres...), grąžina None — jų skelbimai gyvena kitose lentelėse
+    arba po kita kategorija, ir filtruoti Listing pagal jas būtų
+    beprasmiška.
+    """
+    sekcija = (sekcija or '').strip()
+    if not sekcija:
+        return None
+    return sekcija if sekcija in SEARCH_PANEL_CATEGORIES else None
+
+
 @vary_on_headers('User-Agent')
 def listing_list(request, panel_fragment=False, category=None):
     """Rezultatų/pagrindinis puslapis.
@@ -1983,7 +1998,12 @@ def listing_list(request, panel_fragment=False, category=None):
     # ?category=all — „Visos kategorijos" iš antraštės paieškos. Be jo
     # tuščia kategorija krinta į „cars", todėl paieška be kategorijos
     # slėpdavo dalis, nuomą, techniką ir kitas kategorijas.
-    category_filter = request.GET.get('category', 'cars')
+    # ?section=<kategorija> irgi nurodo kategoriją. Be šito
+    # /?section=parts&q=bamperis ieškodavo AUTOMOBILIUOSE (tuščia
+    # kategorija krinta į „cars"), tad dalių paieška grąžindavo „Rasta 0"
+    # net tada, kai skelbimas egzistuoja.
+    category_filter = request.GET.get('category') or _kategorija_is_sekcijos(
+        request.GET.get('section')) or 'cars'
     if category_filter == 'all':
         category_filter = None
     brand_filter = request.GET.get('brand')
@@ -2033,7 +2053,12 @@ def listing_list(request, panel_fragment=False, category=None):
         listings, category_filter, request.GET, source='advanced', sub_slug=_sub_slug)
 
     if search_query:
-        listings = listings.filter(title__icontains=search_query)
+        if category_filter == 'parts':
+            # Dalims vien pavadinimo maža: numeris gali būti tik
+            # `oem_code` lauke, ir dar kitaip suformatuotas.
+            listings = daliu_paieska.ieskoti(listings, search_query)
+        else:
+            listings = listings.filter(title__icontains=search_query)
     # Markės/modelio poros — „arba" tarp porų; skaičiukas ir sąrašas eina
     # per tą pačią funkciją, todėl niekada neišsiskiria.
     listings, _poros_pritaikytos = taikyti_markiu_poras(
@@ -2049,7 +2074,8 @@ def listing_list(request, panel_fragment=False, category=None):
             Q(title__icontains=_dal_tekstas) | Q(description__icontains=_dal_tekstas)
         )
     if (request.GET.get('oem_code') or '').strip():
-        listings = listings.filter(oem_code__icontains=request.GET['oem_code'].strip())
+        listings = daliu_paieska.su_normalizuotu_oem(listings).filter(
+            _oem_norm__contains=daliu_paieska.normalizuok(request.GET['oem_code']))
     _vk = (request.GET.get('engine_code_search') or request.GET.get('engine_code') or '').strip()
     if _vk:
         listings = listings.filter(engine_code__icontains=_vk)
@@ -2126,8 +2152,13 @@ def listing_list(request, panel_fragment=False, category=None):
         listings = listings.filter(city__icontains=city_filter_val)
 
     # ═══ Text search via 'q' (sidebar uses 'q', top filter uses 'search') ═══
+    # ANTRAS teksto filtras tame pačiame vaizde. Jis ieško TIK pavadinime,
+    # tad susidėjęs su aukščiau esančiu (ir su deklaratyviu varikliu, kuris
+    # ieško ir aprašyme) palikdavo vien title atitikmenis. Būtent dėl jo
+    # dalių paieška „neveikė visai": nei aprašymas, nei detalės numeris
+    # nebepradėdavo nieko rasti.
     q_param = request.GET.get('q', '').strip()
-    if q_param:
+    if q_param and q_param != search_query:
         listings = listings.filter(title__icontains=q_param)
 
     # ═══ VIN required ═══
@@ -8479,11 +8510,15 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     # paiešką valdo deklaratyvus variklis (ieško ir aprašyme), šituos
     # praleidžiam — kitaip susidėję duotų tik title atitikmenis.
     _engine_text = panel_config.owns_text_search(category)
-    if params.get('search') and not _engine_text:
-        listings = listings.filter(title__icontains=params['search'])
-    q = (params.get('q') or '').strip()
-    if q and not _engine_text:
-        listings = listings.filter(title__icontains=q)
+    _tekstas = (params.get('search') or '').strip() or (params.get('q') or '').strip()
+    if _tekstas and not _engine_text:
+        if category == 'parts':
+            # Ta pati užklausa kaip sąraše (listing_list), kad mygtuko
+            # skaičius ir rezultatai nesiskirtų.
+            listings = daliu_paieska.ieskoti(listings, _tekstas)
+        else:
+            listings = listings.filter(title__icontains=_tekstas)
+    q = _tekstas
 
     part_query = (params.get('part_query') or '').strip()
     if part_query:
@@ -8493,7 +8528,8 @@ def filter_listings(params, user=None, category=None, base_qs=None):
 
     # Dalių kodai — mūsų priedas prie etalono (Autogidas kodų paieškos neturi)
     if (params.get('oem_code') or '').strip():
-        listings = listings.filter(oem_code__icontains=params['oem_code'].strip())
+        listings = daliu_paieska.su_normalizuotu_oem(listings).filter(
+            _oem_norm__contains=daliu_paieska.normalizuok(params['oem_code']))
     _var_kodas = (params.get('engine_code_search') or params.get('engine_code') or '').strip()
     if _var_kodas:
         listings = listings.filter(engine_code__icontains=_var_kodas)

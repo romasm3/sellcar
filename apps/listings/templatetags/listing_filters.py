@@ -244,3 +244,14 @@ def kategorijos_ikona(slug, dydis=22, cls='', pav=''):
     return format_html(
         '<i class="fa-solid {} {}" style="font-size:{}px" aria-hidden="true"></i>',
         ikona, cls, dydis)
+
+
+@register.filter
+def daliu_kodai(reiksme):
+    """„A / B / C" → ['A', 'B', 'C'] — kad šablonas kiekvieną detalės
+    numerį rodytų atskira eilute ir juos būtų patogu kopijuoti po vieną.
+
+    Viena vieta su paieška: `apps/listings/daliu_paieska.kodai`.
+    """
+    from apps.listings.daliu_paieska import kodai
+    return kodai(reiksme)

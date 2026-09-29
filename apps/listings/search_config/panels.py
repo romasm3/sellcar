@@ -975,7 +975,15 @@ def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', s
             if db == '__text__':
                 # ?q, o jei tuščias — legacy ?search, kad senos nuorodos veiktų
                 q = _get(params, f.get('param')) or _get(params, 'search')
-                if q:
+                if q and vt_slug == 'parts':
+                    # Dalims tekstas apima ir detalės numerį (oem_code),
+                    # dar ir nepriklausomai nuo tarpų ar brūkšnelių. Jei
+                    # čia liktų tik title|description, kodo paieška nieko
+                    # nerastų: filtrai dedasi kaip IR, tad vėlesnis, platesnis
+                    # filtras nebegalėtų nieko pridėti.
+                    from apps.listings import daliu_paieska
+                    listings = daliu_paieska.ieskoti(listings, q)
+                elif q:
                     listings = listings.filter(
                         Q(title__icontains=q) | Q(description__icontains=q)
                     )

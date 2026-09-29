@@ -1679,6 +1679,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         {% endif %}
 
                         {# MILEAGE — km + mi #}
+                        {% include 'listings/partials/_detales_numeris.html' %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
@@ -2172,6 +2173,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="font-medium text-gray-900">{{ listing.color_code }}</span>
                         </div>
                         {% endif %}
+                        {% include 'listings/partials/_detales_numeris.html' %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
@@ -2194,6 +2196,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             </span>
                         </div>
                         {% endif %}
+                        {% include 'listings/partials/_detales_numeris.html' %}
                         {% if listing.engine_code %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Engine code" %}</span>
@@ -2435,6 +2438,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="font-medium text-gray-900">{{ listing.get_defects_display|default:_("No defects") }}</span>
                         </div>
 
+                        {% include 'listings/partials/_detales_numeris.html' %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
