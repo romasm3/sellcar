@@ -1895,6 +1895,20 @@ def listing_list(request, panel_fragment=False, category=None):
         _p['sidebar'] = '1'
         return redirect(f"{request.path}?{_p.urlencode()}")
 
+    # /?section=parts&q=… — tekstinė paieška iš panelės skirtuko. Be šito
+    # atsidarydavo pagrindinis puslapis (jame sąrašo nėra), ir „Rasta 0"
+    # ten buvo šalies skaitiklis, ne paieškos rezultatas. Be q ?section=
+    # lieka tik skirtuko pasirinkimu.
+    _sekcijos_kat = _kategorija_is_sekcijos(request.GET.get('section'))
+    if (_sekcijos_kat and not request.GET.get('category')
+            and ((request.GET.get('q') or '').strip()
+                 or (request.GET.get('search') or '').strip())):
+        _p = request.GET.copy()
+        _p.pop('section', None)
+        _p['category'] = _sekcijos_kat
+        _p['sidebar'] = '1'
+        return redirect(f"{request.path}?{_p.urlencode()}")
+
     if request.GET.get('category') == 'motorcycles':
         # Auto-redirect to moto-gear if subcategory is gear-related
         subcategory_id = request.GET.get('subcategory')

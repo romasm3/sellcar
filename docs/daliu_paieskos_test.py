@@ -77,12 +77,22 @@ def pasejk():
     return l
 
 
+class _Rasta(list):
+    """Skelbimų, kurių nuorodos yra IŠVESTAME HTML, sąrašas.
+
+    Ne a.context['listings']: pagrindinis puslapis tą kintamąjį turi, bet
+    sąrašo nerodo — testas buvo žalias, o lankytojas matė „Rasta 0".
+    """
+
+
 def rasta(c, q):
     """Ar paieška grąžina mūsų skelbimą (per tikrą puslapį, ne ORM)."""
     a = c.get(f'/?section=parts&q={q}', follow=True)
     if a.status_code != 200:
         return None
-    return a.context['listings'] if a.context and 'listings' in a.context else None
+    html = a.content.decode('utf-8', 'replace')
+    pk = Listing.objects.get(title=PAVADINIMAS).pk
+    return _Rasta([type('L', (), {'pk': pk})()] if f'/{pk}/' in html else [])
 
 
 def main():
