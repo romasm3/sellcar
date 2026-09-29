@@ -463,6 +463,15 @@
 
                         <label class="form-label">{% trans "Part Name" %} <span class="req">*</span></label>
 
+                        {% comment %}Redaguojant — ESAMAS skelbimo pavadinimas ir laisvai
+                        taisomas. Anksčiau čia visada buvo sub_name + readonly, tad
+                        išsaugojus redagavimą savas pavadinimas („BMW M3 G80 galinis
+                        bamperis") vienu paspaudimu virsdavo kategorija („Galinis
+                        bamperis"). Kuriant — kategorija kaip pradinė reikšmė.{% endcomment %}
+                        {% if is_edit_mode %}
+                        <input type="text" name="title" class="form-input" required maxlength="200"
+                               value="{{ form_data.title|default:sub_name }}">
+                        {% else %}
                         <input type="text" name="title" class="form-input"
 
                                value="{{ sub_name }}"
@@ -476,6 +485,7 @@
                             {% trans "🔒 Auto-set from category — cannot be changed" %}
 
                         </div>
+                        {% endif %}
 
                     </div>
 
