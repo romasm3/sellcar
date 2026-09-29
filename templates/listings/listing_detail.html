@@ -38,6 +38,12 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
     — {% if listing.is_shadow_banned %}{% trans "paslėptas moderavimo" %}{% else %}{{ listing.get_status_display }}{% endif %}.
     {% if is_staff_view %}{% trans "Matote jį kaip administratorius." %}{% else %}{% trans "Viešai jo nesimato." %}{% endif %}
   </span>
+  {% if gali_aktyvuoti %}
+  <span class="ld-neaktyvus-veiksmai">
+    <a href="{% url 'listing_edit_hub' listing.pk %}" class="ld-nv-antr">{% trans "Redaguoti" %}</a>
+    <a href="{% url 'listing_select_plan' listing.pk %}" class="ld-nv-pgr" data-aktyvuoti>{% trans "Aktyvuoti" %}</a>
+  </span>
+  {% endif %}
 </div>
 <style>
   .ld-neaktyvus { display:flex; align-items:center; gap:var(--sp-2);
@@ -45,6 +51,14 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                   background:#FFF7ED; border:1px solid #FED7AA; border-radius:var(--r-md);
                   color:#9A3412; font-size:var(--fs-sm); }
   .ld-neaktyvus svg { width:18px; height:18px; flex:none; }
+  .ld-neaktyvus-veiksmai { margin-left:auto; display:flex; gap:var(--sp-2); flex-wrap:wrap; }
+  .ld-neaktyvus-veiksmai a { padding:6px 14px; border-radius:var(--r-md); font-weight:600;
+                             white-space:nowrap; text-decoration:none; }
+  .ld-nv-antr { border:1px solid #FDBA74; color:#9A3412; background:#fff; }
+  .ld-nv-pgr { background:#EA580C; color:#fff; }
+  .ld-nv-pgr:hover { background:#C2410C; }
+  @media (max-width:640px) { .ld-neaktyvus { flex-wrap:wrap; }
+                             .ld-neaktyvus-veiksmai { margin-left:0; width:100%; } }
 </style>
 {% endif %}
 <div class="bg-gray-50 min-h-screen py-8">

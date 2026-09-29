@@ -2795,6 +2795,11 @@ def listing_detail(request, pk):
         'pardavejo_url': pardavejo_url,
         # Juosta „Skelbimas neaktyvus" — rodoma tik tiems, kas jį apskritai mato
         'rodyti_neaktyvu': _neaktyvus or listing.is_shadow_banned,
+        # Juodraštis/neaktyvus — savininkui aiškus kitas žingsnis juostoje:
+        # „Aktyvuoti" (select-plan) ir „Redaguoti". Po redagavimo formos
+        # (cars/moto/trucks) grąžina būtent čia.
+        'gali_aktyvuoti': (is_owner and not listing.is_shadow_banned
+                           and listing.status in ('draft', 'expired')),
         'is_staff_view': is_staff,
         'is_saved': is_saved,
         'grouped_equipment': grouped_equipment,

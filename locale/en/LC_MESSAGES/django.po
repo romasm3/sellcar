@@ -24689,3 +24689,7 @@ msgstr "below average"
 #: templates/listings/listing_list.html
 msgid "Kol kas nėra pakankamai skelbimų kainoms palyginti."
 msgstr "Not enough listings yet to compare prices."
+
+#: templates/listings/listing_detail.html
+msgid "Aktyvuoti"
+msgstr "Activate"
