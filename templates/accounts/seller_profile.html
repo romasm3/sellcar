@@ -8,19 +8,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ seller.profile.display_name }} - AutoLeft</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         * { font-family: 'Inter', sans-serif; }
         .tab-btn { transition: all 0.15s; }
+        /* Šis puslapis nepaveldi base.html — savas akcentas (violetinis),
+           kaip buvo jo tailwind.config. Kompiliuotas tailwind.css `primary`
+           ima iš šių kintamųjų. */
+        :root { --accent-rgb: 124 58 237; --accent-hover-rgb: 109 40 217;
+                --accent-soft-rgb: 237 233 254; }
     </style>
-    <script>
-        tailwind.config = {
-            theme: { extend: { colors: { primary: '#7C3AED', 'primary-dark': '#6D28D9' } } }
-        }
-    </script>
+    {# Tailwind — po savų stilių, kaip jį dėdavo cdn.tailwindcss.com. #}
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
 </head>
 <body class="bg-gray-100 min-h-screen">
 

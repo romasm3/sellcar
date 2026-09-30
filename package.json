@@ -1,0 +1,11 @@
+{
+  "name": "autoleft-frontend",
+  "private": true,
+  "description": "Tailwind CSS kompiliavimas (anksčiau — cdn.tailwindcss.com naršyklėje).",
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i frontend/tailwind.css -o static/css/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

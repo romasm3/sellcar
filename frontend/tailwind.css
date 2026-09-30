@@ -1,0 +1,6 @@
+/* Tailwind įvestis → static/css/tailwind.css (npm run build:css).
+   Anksčiau Tailwind generavo cdn.tailwindcss.com naršyklėje kiekviename
+   puslapyje (~400 KB JS + kompiliavimas klientui). */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

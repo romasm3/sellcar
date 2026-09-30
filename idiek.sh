@@ -10,6 +10,7 @@
 #    perkrovimą, kad atsukus niekas nedingtų iš istorijos).
 # 2. Įsimenam commit'ą ir ar svetainė JAU dabar grąžina 200.
 # 3. compilemessages + collectstatic + systemctl restart gunicorn.
+#    (Tailwind — npm run build:css — dar prieš 1 žingsnį.)
 # 4. https://autoleft.com/ iki 10 kartų po 2 s.
 # 5. 200 → „GYVA: <commit>".
 # 6. Ne 200, o prieš tai buvo 200 → git reset --hard HEAD~1, perkrovimas,
@@ -86,6 +87,20 @@ if venv/bin/python manage.py showmigrations --plan 2>/dev/null | grep -q '^\[ \]
     venv/bin/python manage.py showmigrations --plan | grep '^\[ \]' | sed 's/^/    /'
     echo "Pirma pg_dump į /root/backups/, tada: venv/bin/python manage.py migrate"
     exit 1
+fi
+
+# ── 0b. Tailwind — kompiliuojam PRIEŠ commit'ą ──────────────────────────
+# Anksčiau Tailwind generavo cdn.tailwindcss.com naršyklėje. Dabar klasės
+# surenkamos iš šablonų/JS/Python į static/css/tailwind.css — nauja klasė
+# be perkompiliavimo liktų be stiliaus. Perkompiliuotas failas patenka į
+# tą patį commit'ą (žingsnis 1). Be node_modules (pvz. testų kopijose) —
+# tik įspėjimas: sucommit'intas tailwind.css lieka toks, koks yra.
+if [[ -f package.json ]]; then
+    if [[ -x node_modules/.bin/tailwindcss ]]; then
+        npm run -s build:css || { echo "SUSTOTA: Tailwind nesukompiliavo (npm run build:css)"; exit 1; }
+    else
+        echo "DĖMESIO: node_modules nėra — Tailwind neperkompiliuotas (paleisk: npm ci)"
+    fi
 fi
 
 # ── 1. Commit'as PRIEŠ perkrovimą ──────────────────────────────────────
