@@ -432,10 +432,10 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
     # vartotojas grąžinamas į pikerį — taip DB atsirado „Untitled draft“.
     if vt_slug not in IMPLEMENTED_VEHICLE_TYPE_SLUGS:
         messages.info(request, _('Ši kategorija dar ruošiama.'))
-        return redirect('/create/?step=1')
+        return redirect('listing_create')
     if subcategory_slug in UNIMPLEMENTED_SUBCATEGORY_SLUGS:
         messages.info(request, _('Ši kategorija dar ruošiama.'))
-        return redirect('/create/?step=1')
+        return redirect('listing_create')
 
     # ═══ LISTING LIMIT GUARD ═══
     can_create, active_count, limit = can_create_listing(request.user)
@@ -531,7 +531,7 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
             pk=subcategory_id, children__isnull=False).first() if subcategory_id else None
         if _sub:
             return redirect(
-                f'/create/?step=1&vt={vt_slug}&sub={subcategory_slug}')
+                f"{reverse('listing_create')}?vt={vt_slug}&sub={subcategory_slug}")
 
     # ═══ ATSARGINĖ ŠAKA ═══
     # Anksčiau čia buvo sukuriamas cars draft'as ir vartotojas siunčiamas
@@ -542,7 +542,7 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
     # Kiekviena įgyvendinta kategorija turi savo šaką aukščiau arba įrašą
     # CREATE_URL_BY_VEHICLE_TYPE; jei atsidūrėm čia — formos tam VT dar nėra.
     messages.info(request, _('Ši kategorija dar ruošiama.'))
-    return redirect('/create/?step=1')
+    return redirect('listing_create')
 
 
 @login_required
@@ -3386,13 +3386,19 @@ def save_cars_draft_ajax(request):
 
 @login_required
 def listing_create(request):
-    step = int(request.GET.get('step', 1))
     resume_draft_id = _int_or_none(request.GET.get('draft'))
 
-    # ─── 7-step flow pensijoj: gyvas tik Step 1 (kategorijų pikeris). ───
-    # cars → quick, moto/trucks/boats turi savo flow. Bet koks 2–7 → atgal į pikerį.
-    if step != 1 and not resume_draft_id:
-        return redirect('/create/?step=1')
+    # ─── ?step= NEBENAUDOJAMAS (CREATE-02) ───
+    # 7 žingsnių srautas pensijoj, gyvas tik kategorijų pikeris, tad
+    # /create/ ir /create/?step=1 buvo tas pats puslapis. Senos nuorodos
+    # (?step=1, ?step=1&pick_sub=288, laiškai, žymės) nelūžta: nukreipiam
+    # į tą patį adresą be step, kitus parametrus paliekam.
+    # Išimtis — ?draft= (senasis automobilio juodraščio tęsimas).
+    if 'step' in request.GET and not resume_draft_id:
+        _likę = request.GET.copy()
+        _likę.pop('step', None)
+        return redirect(reverse('listing_create') + (f'?{_likę.urlencode()}' if _likę else ''))
+    step = int(request.GET.get('step', 1)) if resume_draft_id else 1
 
     # ─── BE-JS pasirinkimas ───
     # Pikerio nuorodos yra tikri <a href>, todėl išjungus JS galutinis
@@ -3444,7 +3450,7 @@ def listing_create(request):
             request.session[CARS_DRAFT_SESSION_KEY] = existing_draft.pk
             request.session.modified = True
             if 'step' not in request.GET:
-                return redirect('/create/?step=2')
+                return redirect('listing_create')
         except Listing.DoesNotExist:
             messages.error(request, 'Draft not found or already published.')
             return redirect('/create/')
@@ -3503,7 +3509,7 @@ def listing_create(request):
 
             if not current_draft:
                 messages.error(request, 'Draft not found, please start over.')
-                return redirect('/create/?step=1')
+                return redirect('listing_create')
 
             brand_id = _int_or_none(request.POST.get('brand'))
             model_id = _int_or_none(request.POST.get('model'))
@@ -3565,7 +3571,7 @@ def listing_create(request):
 
         elif step == 3:
             if not current_draft:
-                return redirect('/create/?step=1')
+                return redirect('listing_create')
 
             brand_id = _int_or_none(request.POST.get('step3_brand'))
             model_id = _int_or_none(request.POST.get('step3_model'))
@@ -3670,7 +3676,7 @@ def listing_create(request):
 
         elif step == 4:
             if not current_draft:
-                return redirect('/create/?step=1')
+                return redirect('listing_create')
 
             equipment_ids = request.POST.getlist('equipment')
             ListingEquipment.objects.filter(listing=current_draft).delete()
@@ -3687,7 +3693,7 @@ def listing_create(request):
 
         elif step == 5:
             if not current_draft:
-                return redirect('/create/?step=1')
+                return redirect('listing_create')
 
             form = Step5PriceForm(request.POST)
             if form.is_valid():
@@ -3698,7 +3704,7 @@ def listing_create(request):
 
         elif step == 6:
             if not current_draft:
-                return redirect('/create/?step=1')
+                return redirect('listing_create')
 
             form = Step6DescriptionForm(request.POST)
             if form.is_valid():
@@ -3708,7 +3714,7 @@ def listing_create(request):
 
         elif step == 7:
             if not current_draft:
-                return redirect('/create/?step=1')
+                return redirect('listing_create')
 
             form = Step7ContactForm(request.POST)
             phone_val = request.POST.get('phone', '').strip()
@@ -3814,7 +3820,7 @@ def listing_create(request):
                 }
             form = Step7ContactForm(initial=initial)
         else:
-            return redirect('/create/?step=1')
+            return redirect('listing_create')
 
     progress_percent = int((step / 7) * 100)
     brand_name = current_draft.brand.name if (current_draft and current_draft.brand) else ''
@@ -5510,7 +5516,7 @@ def listing_activation_plans(request, pk):
                 request.session[CARS_DRAFT_SESSION_KEY] = listing.pk
                 request.session.modified = True
                 messages.info(request, 'Complete the listing before activating it.')
-                return redirect('/create/?step=2')
+                return redirect('listing_create')
 
     plans = list(PricingPlan.objects.filter(
         vehicle_type=listing.vehicle_type,
@@ -5660,7 +5666,7 @@ def listing_activate(request, pk):
             return redirect('motorcycle_listing_create')
         request.session[CARS_DRAFT_SESSION_KEY] = listing.pk
         request.session.modified = True
-        return redirect('/create/?step=2')
+        return redirect('listing_create')
 
     payments_enabled = mokejimai_ijungti()
 

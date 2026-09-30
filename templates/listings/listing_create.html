@@ -70,9 +70,9 @@
                 {# ═══════════════════════════════════════════════════════════ #}
                 {# KATEGORIJŲ PIKERIS — vienas siauras sąrašas su drill-in.    #}
                 {# Visas medis atiduodamas iš karto (picker_tree), todėl       #}
-                {# veikia ir be JS: nuorodos ?vt= / ?sub= parenka aktyvią      #}
-                {# panelę serveryje, o ?pick_vt= / ?pick_sub= atlieka galutinį #}
-                {# pasirinkimą. JS tik perjungia paneles be užklausos.         #}
+                {# punktai su pomeniu — <button type="button"> (kaip autogide): #}
+                {# JS perjungia panelę, URL nesikeičia. Lapai — tikros nuorodos #}
+                {# /create/?pick_vt= / ?pick_sub= (veikia ir naujame skirtuke).#}
                 {# ═══════════════════════════════════════════════════════════ #}
                 <div class="clp">
 
@@ -91,14 +91,14 @@
                                         <span class="clp-soon">{% trans "NETRUKUS" %}</span>
                                     </span>
                                 {% elif vt.has_subs %}
-                                    <a class="clp-item" href="?step=1&amp;vt={{ vt.slug }}"
-                                       data-open="vt-{{ vt.slug }}">
+                                    <button type="button" class="clp-item"
+                                            data-open="vt-{{ vt.slug }}">
                                         <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
                                         <span class="clp-name">{{ vt.name|tdb }}</span>
                                         <span class="clp-chev" aria-hidden="true">›</span>
-                                    </a>
+                                    </button>
                                 {% else %}
-                                    <a class="clp-item" href="?step=1&amp;pick_vt={{ vt.pk }}">
+                                    <a class="clp-item" href="{% url 'listing_create' %}?pick_vt={{ vt.pk }}">
                                         <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
                                         <span class="clp-name">{{ vt.name|tdb }}</span>
                                     </a>
@@ -113,8 +113,8 @@
                         <section class="clp-panel{% if picker_active_vt == vt.slug and not picker_active_sub %} is-active{% endif %}"
                                  id="clp-vt-{{ vt.slug }}" data-panel="vt-{{ vt.slug }}">
                             <div class="clp-head">
-                                <a class="clp-back" href="?step=1" data-open="root"
-                                   aria-label="{% trans 'Atgal' %}">‹</a>
+                                <button type="button" class="clp-back" data-open="root"
+                                        aria-label="{% trans 'Atgal' %}">‹</button>
                                 <h1 class="clp-h1">{{ vt.name|tdb }}</h1>
                             </div>
 
@@ -127,14 +127,14 @@
                                             <span class="clp-soon">{% trans "NETRUKUS" %}</span>
                                         </span>
                                     {% elif sub.kids %}
-                                        <a class="clp-item" href="?step=1&amp;vt={{ vt.slug }}&amp;sub={{ sub.slug }}"
-                                           data-open="sub-{{ vt.slug }}-{{ sub.slug }}">
+                                        <button type="button" class="clp-item"
+                                                data-open="sub-{{ vt.slug }}-{{ sub.slug }}">
                                             <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
                                             <span class="clp-name">{{ sub.name|tdb }}</span>
                                             <span class="clp-chev" aria-hidden="true">›</span>
-                                        </a>
+                                        </button>
                                     {% else %}
-                                        <a class="clp-item" href="?step=1&amp;pick_sub={{ sub.pk }}">
+                                        <a class="clp-item" href="{% url 'listing_create' %}?pick_sub={{ sub.pk }}">
                                             <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
                                             <span class="clp-name">{{ sub.name|tdb }}</span>
                                         </a>
@@ -150,15 +150,15 @@
                                      id="clp-sub-{{ vt.slug }}-{{ sub.slug }}"
                                      data-panel="sub-{{ vt.slug }}-{{ sub.slug }}">
                                 <div class="clp-head">
-                                    <a class="clp-back" href="?step=1&amp;vt={{ vt.slug }}"
-                                       data-open="vt-{{ vt.slug }}" aria-label="{% trans 'Atgal' %}">‹</a>
+                                    <button type="button" class="clp-back"
+                                            data-open="vt-{{ vt.slug }}" aria-label="{% trans 'Atgal' %}">‹</button>
                                     <h1 class="clp-h1">{{ sub.name|tdb }}</h1>
                                 </div>
 
                                 <div class="clp-list">
                                     {% for kid in sub.kids %}
                                         {% if kid.is_implemented %}
-                                        <a class="clp-item" href="?step=1&amp;pick_sub={{ kid.pk }}">
+                                        <a class="clp-item" href="{% url 'listing_create' %}?pick_sub={{ kid.pk }}">
                                             <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
                                             <span class="clp-name">{{ kid.name|tdb }}</span>
                                         </a>
@@ -811,7 +811,7 @@
         text-align: left; cursor: pointer; color: var(--ink);
         text-decoration: none; transition: background .15s, border-color .15s;
     }
-    a.clp-item:hover { background: #f7f8f9; border-color: #dcdee2; }
+    a.clp-item:hover, button.clp-item:hover { background: #f7f8f9; border-color: #dcdee2; }
 
     .clp-ico {
         width: 30px; height: 30px; border-radius: 7px; background: var(--accent-soft);
@@ -1534,8 +1534,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // ═══════════════════════════════════════════════════════════
 // KATEGORIJŲ PIKERIS — panelių perjungimas.
 // Visas medis jau atiduotas serverio, todėl jokių fetch'ų: JS tik
-// keičia aktyvią panelę. Be JS tos pačios nuorodos veikia kaip
-// įprasti ?vt= / ?sub= perkrovimai.
+// keičia aktyvią panelę. Punktai su pomeniu — <button type="button">
+// (kaip autogidas.lt/v2/naujas-skelbimas): URL renkantis nesikeičia.
 // ═══════════════════════════════════════════════════════════
 (function initCategoryPicker() {
     var root = document.querySelector('.clp');
@@ -1552,19 +1552,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     root.addEventListener('click', function (e) {
-        var link = e.target.closest('[data-open]');
-        if (!link || !root.contains(link)) return;
-        // Ctrl/Cmd/Shift — leidžiam atidaryti naujame tabe.
-        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
-        if (show(link.dataset.open)) {
-            e.preventDefault();
-            history.pushState({ clp: link.dataset.open }, '', link.getAttribute('href'));
-        }
-    });
-
-    // Naršyklės „atgal“ — grįžtam į atitinkamą panelę, o ne iš puslapio.
-    window.addEventListener('popstate', function (e) {
-        show((e.state && e.state.clp) || 'root');
+        var mygtukas = e.target.closest('[data-open]');
+        if (!mygtukas || !root.contains(mygtukas)) return;
+        if (show(mygtukas.dataset.open)) e.preventDefault();
     });
 })();
 

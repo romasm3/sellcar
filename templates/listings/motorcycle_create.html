@@ -15,7 +15,7 @@
                 <i class="fas fa-arrow-left mr-1"></i> {% trans "Back to listing" %}
             </a>
             {% else %}
-            <a href="/create/?step=1" class="text-sm text-gray-600 hover:text-gray-900">
+            <a href="{% url 'listing_create' %}" class="text-sm text-gray-600 hover:text-gray-900">
                 <i class="fas fa-arrow-left mr-1"></i> {% trans "Back to categories" %}
             </a>
             {% endif %}
@@ -409,7 +409,7 @@
                 <a href="/{{ edit_listing_id }}/" class="text-sm text-gray-700 hover:text-gray-900"><i class="fas fa-arrow-left mr-1"></i> {% trans "Cancel" %}</a>
                 <button type="submit" class="flex items-center gap-2 px-8 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold text-sm">{% trans "Save Changes" %} <i class="fas fa-check"></i></button>
                 {% else %}
-                <a href="/create/?step=1" class="text-sm text-gray-700 hover:text-gray-900"><i class="fas fa-arrow-left mr-1"></i> {% trans "Back" %}</a>
+                <a href="{% url 'listing_create' %}" class="text-sm text-gray-700 hover:text-gray-900"><i class="fas fa-arrow-left mr-1"></i> {% trans "Back" %}</a>
                 <button type="submit" class="flex items-center gap-2 px-8 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold text-sm">{% trans "Continue" %} <i class="fas fa-arrow-right"></i></button>
                 {% endif %}
             </div>
