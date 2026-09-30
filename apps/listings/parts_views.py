@@ -342,7 +342,13 @@ def parts_listing_create(request):
     if request.method == 'POST':
         errors = []
 
+        # Redaguojant pavadinimas — iš formos, o tuščias palieka esamą.
+        # Kategorijos vardas — tik naujam skelbimui: anksčiau jis
+        # perrašydavo savą pavadinimą („BMW M3 G80 galinis bamperis" →
+        # „Galinis bamperis").
         title = (request.POST.get('title', '') or '').strip()
+        if not title and is_edit_mode:
+            title = (listing.title or '').strip()
         if not title:
             title = part_subcategory.pavadinimas
 
