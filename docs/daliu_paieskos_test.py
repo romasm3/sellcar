@@ -49,6 +49,24 @@ APRASYMAS = 'Visiškai originalus, be defektų.'
 gerai = blogai = 0
 
 
+
+def _uztikrink_nuotrauka(l):
+    """Skelbimas be nuotraukų nebeviešas (pilnumo patikra) — duodam vieną."""
+    import io, tempfile
+    from django.conf import settings as _s
+    from django.core.files.base import ContentFile
+    from PIL import Image
+    from apps.listings.models import ListingImage
+    if l.images.exists():
+        return
+    if not getattr(_s, '_PATIKRA_MEDIA', None):
+        _s.MEDIA_ROOT = _s._PATIKRA_MEDIA = tempfile.mkdtemp(prefix='patikra_media_')
+    b = io.BytesIO()
+    Image.new('RGB', (40, 30), 'gray').save(b, 'JPEG')
+    img = ListingImage(listing=l, is_main=True)
+    img.image.save('patikra.jpg', ContentFile(b.getvalue()), save=False)
+    img.save()
+
 def tikrink(salyga, tekstas, papildomai=''):
     global gerai, blogai
     if salyga:
@@ -74,6 +92,7 @@ def pasejk():
     l.oem_code = KODAI
     l.description = APRASYMAS
     l.save()
+    _uztikrink_nuotrauka(l)
     return l
 
 

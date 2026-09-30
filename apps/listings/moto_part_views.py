@@ -1,4 +1,5 @@
 from .search_params import sanitize as sanitize_search_params
+from .aktyvavimas import aktyvuok
 from apps.listings import units
 """
 Single moto part srautas — autogidas.lt "Motociklų dalys" 1:1 forma.
@@ -308,7 +309,7 @@ def _handle_post(request, edit_listing=None):
             print(f"[moto_part] image upload failed: {e}")
 
     # Single part flow → planų puslapis
-    return redirect('listing_select_plan', pk=listing.pk)
+    return aktyvuok(request, listing)
 
 
 def _moto_part_form_data(request, listing):

@@ -124,17 +124,13 @@
             </button>
         </form>
 
-        {% if is_active %}
-            <a href="{% url 'listing_select_plan' listing.pk %}"
+        {# Aktyvavimas / pratęsimas — tik POST (GET būsenos nekeičia) #}
+        <form method="post" action="{% url 'listing_aktyvuoti' listing.pk %}" style="display:inline">{% csrf_token %}
+            <button type="submit"
                class="inline-block px-6 py-2.5 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">
-                Extend validity
-            </a>
-        {% else %}
-            <a href="{% url 'listing_select_plan' listing.pk %}"
-               class="inline-block px-6 py-2.5 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">
-                Activate listing
-            </a>
-        {% endif %}
+                {% if is_active %}{% trans "Pratęsti galiojimą" %}{% else %}{% trans "Aktyvuoti skelbimą" %}{% endif %}
+            </button>
+        </form>
     </div>
 
 </div>

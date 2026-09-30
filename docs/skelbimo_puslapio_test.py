@@ -45,6 +45,24 @@ from apps.listings.models import Listing, SubCategory, VehicleType  # noqa: E402
 gerai = blogai = 0
 
 
+
+def _uztikrink_nuotrauka(l):
+    """Skelbimas be nuotraukų nebeviešas (pilnumo patikra) — duodam vieną."""
+    import io, tempfile
+    from django.conf import settings as _s
+    from django.core.files.base import ContentFile
+    from PIL import Image
+    from apps.listings.models import ListingImage
+    if l.images.exists():
+        return
+    if not getattr(_s, '_PATIKRA_MEDIA', None):
+        _s.MEDIA_ROOT = _s._PATIKRA_MEDIA = tempfile.mkdtemp(prefix='patikra_media_')
+    b = io.BytesIO()
+    Image.new('RGB', (40, 30), 'gray').save(b, 'JPEG')
+    img = ListingImage(listing=l, is_main=True)
+    img.image.save('patikra.jpg', ContentFile(b.getvalue()), save=False)
+    img.save()
+
 def tikrink(salyga, tekstas, papildomai=''):
     global gerai, blogai
     if salyga:
@@ -65,6 +83,7 @@ def dalis(u, pav, koordinates, redaguota):
     l.price, l.year, l.mileage, l.condition = Decimal('50'), 2020, 0, 'used'
     l.expires_at = timezone.now() + timedelta(days=30)
     l.save()
+    _uztikrink_nuotrauka(l)
     # save() pats geokoduoja miestą — būseną nustatom tiesiai DB
     atnaujinta = timezone.now()
     Listing.objects.filter(pk=l.pk).update(

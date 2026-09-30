@@ -25,6 +25,7 @@ from .views import (
 from apps.listings import brands as brand_source
 from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
+from .aktyvavimas import aktyvuok
 from apps.listings import units
 
 
@@ -274,7 +275,7 @@ def _finish(request, target, is_edit_mode, old_price, new_images):
         return redirect(
             reverse('listing_success', kwargs={'pk': target.pk}) + '?action=published'
         )
-    return redirect('listing_select_plan', pk=target.pk)
+    return aktyvuok(request, target)
 
 
 def _guard(request, is_edit_mode, edit_pk, expect_attachment):

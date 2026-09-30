@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n listing_filters %}
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+AKTYVAVIMAS — be mokėjimo, plano, trukmės ar paslaugų pasirinkimo.
+
+GET tik parodo, kas bus padaryta; būsena keičiama TIK paspaudus mygtuką
+(POST su CSRF). Čia ateina laiškų ir senos nuorodos (select-plan,
+activation-plans). Jei skelbimui ko nors trūksta, vaizdas čia neateina —
+nukreipia į redagavimą su pažymėtais laukais (views.listing_aktyvuoti).
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% block title %}{% if pratesimas %}{% trans "Pratęsti skelbimą" %}{% else %}{% trans "Aktyvuoti skelbimą" %}{% endif %} - AutoLeft{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-10">
+  <div class="max-w-xl mx-auto px-4">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <h1 class="text-xl font-bold text-gray-900 mb-1">
+        {% if pratesimas %}{% trans "Pratęsti skelbimą" %}{% else %}{% trans "Aktyvuoti skelbimą" %}{% endif %}
+      </h1>
+      <p class="text-gray-600 mb-5">{{ listing.title }}</p>
+
+      <p class="text-sm text-gray-600 mb-6" data-busena>
+        {% include 'listings/partials/_busena.html' with listing=listing %}
+      </p>
+
+      <form method="post" action="{% url 'listing_aktyvuoti' listing.pk %}">
+        {% csrf_token %}
+        <div class="flex flex-wrap gap-3">
+          <button type="submit" class="px-5 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark" data-aktyvuoti>
+            {% if pratesimas %}{% trans "Pratęsti galiojimą" %}{% else %}{% trans "Aktyvuoti skelbimą" %}{% endif %}
+          </button>
+          <a href="{% url 'listing_edit_hub' listing.pk %}" class="px-5 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+            {% trans "Redaguoti" %}
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

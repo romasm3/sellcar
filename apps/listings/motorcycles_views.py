@@ -46,6 +46,7 @@ from .models import (
     Transmission,
     SavedListing,
 )
+from .aktyvavimas import aktyvuok
 
 
 # ═══════════════════════════════════════════════════════════
@@ -873,7 +874,7 @@ def _handle_post(request):
             reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published'
         )
     else:
-        return redirect('listing_select_plan', pk=listing.pk)
+        return aktyvuok(request, listing)
 
 
 # ═══════════════════════════════════════════════════════════════════════════

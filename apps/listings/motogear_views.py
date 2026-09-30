@@ -28,6 +28,7 @@ from .models import (
     ListingEquipment,
     GearBrand,
 )
+from .aktyvavimas import aktyvuok
 
 
 # Kiek dienų skelbimas laikomas nauju — vienas šaltinis modelyje
@@ -839,7 +840,7 @@ def _handle_post(request, edit_listing=None):
             reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published'
         )
     else:
-        return redirect('listing_select_plan', pk=listing.pk)
+        return aktyvuok(request, listing)
 
 
 # ═══════════════════════════════════════════════════════════

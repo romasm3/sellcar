@@ -48,6 +48,7 @@ from . import skaiciai
 from . import sunkusis
 from . import units
 from . import valiutos
+from .aktyvavimas import aktyvuok
 NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
 CURRENCY_CHOICES = [
@@ -834,7 +835,7 @@ def trucks_listing_create(request):
                 reverse('listing_success', kwargs={'pk': draft.pk}) + '?action=published'
             )
         else:
-            return redirect('listing_select_plan', pk=draft.pk)
+            return aktyvuok(request, draft)
 
     # GET — render form
     data = _listing_to_form_data(draft)

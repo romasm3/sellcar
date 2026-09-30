@@ -80,6 +80,7 @@ LOAD_BRANDS = _BrandList()
 from .equipment_registry import LOAD_EQUIPMENT_DEFINITION  # noqa: E402
 from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
+from .aktyvavimas import aktyvuok
 from apps.listings import units
 
 
@@ -298,7 +299,7 @@ def loading_listing_create(request):
             return redirect(
                 reverse('listing_success', kwargs={'pk': target.pk}) + '?action=published'
             )
-        return redirect('listing_select_plan', pk=target.pk)
+        return aktyvuok(request, target)
 
     return _render_form(request, listing, is_edit_mode, None)
 

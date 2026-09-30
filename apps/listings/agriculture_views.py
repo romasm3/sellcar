@@ -107,6 +107,7 @@ AGRI_DEFAULT_SUBCATEGORY = 'other-agricultural'
 from .equipment_registry import AGRI_EQUIPMENT_DEFINITION  # noqa: E402
 from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
+from .aktyvavimas import aktyvuok
 from apps.listings import units
 
 
@@ -384,7 +385,7 @@ def agriculture_listing_create(request):
             return redirect(
                 reverse('listing_success', kwargs={'pk': target.pk}) + '?action=published'
             )
-        return redirect('listing_select_plan', pk=target.pk)
+        return aktyvuok(request, target)
 
     return _render_form(request, listing=listing, selected_sub=selected_sub,
                         preselected_type=preselected_type, is_edit_mode=is_edit_mode,

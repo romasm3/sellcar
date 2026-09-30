@@ -1,0 +1,8 @@
+{% load i18n %}{% comment %}
+BŪSENOS UŽRAŠAS — sutampa su tikrove (ACT-02).
+
+Jei skelbimas neišlaiko pilnumo patikros (apps/listings/pilnumas.py),
+jis NĖRA viešas, net jei DB statusas „active" — tad ir rašom
+„Juodraštis – trūksta: kaina, nuotraukos", o ne „Aktyvus · Galioja iki…".
+Parametras: listing.
+{% endcomment %}{% with trukstamu=listing.trukstamu_tekstas %}{% if trukstamu and listing.status != 'sold' %}<span class="font-medium text-amber-700" data-busena-trukstamu>{% trans "Juodraštis" %} – {% trans "trūksta" %}: {{ trukstamu }}</span>{% else %}<span class="font-medium {% if listing.status == 'active' %}text-green-600{% elif listing.status == 'reserved' %}text-yellow-600{% elif listing.status == 'sold' %}text-blue-600{% else %}text-gray-600{% endif %}">{{ listing.get_status_display }}</span>{% if listing.status == 'active' and listing.expires_at %} · {% blocktrans with date=listing.expires_at|date:"Y-m-d" %}Galioja iki {{ date }}{% endblocktrans %}{% endif %}{% endif %}{% endwith %}

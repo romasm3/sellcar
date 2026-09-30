@@ -14,7 +14,7 @@ Tikrinam TIKRĄ HTML:
     ar be jo (išskyrus mygtuką „Naujas skelbimas")
   • /<id>/edit/ (→ sunkiasvorių forma) išvestame HTML yra ABIEJŲ
     nuotraukų media adresai ir jų id (trynimui)
-  • skelbimo puslapyje savininkas mato „Aktyvuoti" → /listings/<id>/select-plan/
+  • skelbimo puslapyje savininkas mato „Aktyvuoti" — POST į /listings/<id>/aktyvuoti/
 
 Paleidimas (TIK su laikina sqlite baze, ne produkcijoje):
     PATIKRA_DB=<laikinas failas> python docs/redagavimo_nuorodu_test.py
@@ -131,8 +131,9 @@ def main():
     print('\n— Kitas žingsnis po išsaugojimo: „Aktyvuoti"')
     for l in (sunkus, juodrastis):
         html = c.get(f'/{l.pk}/', follow=True).content.decode('utf-8', 'replace')
-        tikrink(f'href="/listings/{l.pk}/select-plan/"' in html and 'data-aktyvuoti' in html,
-                f'#{l.pk} ({l.status}) puslapyje yra „Aktyvuoti" → select-plan')
+        tikrink(re.search(rf'<form method="post" action="/listings/{l.pk}/aktyvuoti/"', html) is not None
+                and 'data-aktyvuoti' in html,
+                f'#{l.pk} ({l.status}) puslapyje yra „Aktyvuoti" — POST /listings/{l.pk}/aktyvuoti/')
     tikrink(Listing(pk=sunkus.pk, status='draft').get_edit_url() == f'/{sunkus.pk}/edit/',
             'get_edit_url() juodraščiui = /<id>/edit/')
 

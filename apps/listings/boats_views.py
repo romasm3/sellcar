@@ -26,6 +26,7 @@ from .views import (
     _send_saved_listing_price_drop_emails,
     COUNTRY_FLAGS,
 )
+from .aktyvavimas import aktyvuok
 
 
 # ═══════════════════════════════════════════════════════════
@@ -332,7 +333,7 @@ def boats_listing_create(request):
             return redirect(
                 reverse('listing_success', kwargs={'pk': target.pk}) + '?action=published'
             )
-        return redirect('listing_select_plan', pk=target.pk)
+        return aktyvuok(request, target)
 
     # ═══ GET ═══
     return _render_boats_form(

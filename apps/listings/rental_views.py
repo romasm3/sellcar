@@ -28,6 +28,7 @@ from .views import (
     _send_saved_listing_price_drop_emails,
     COUNTRY_FLAGS,
 )
+from .aktyvavimas import aktyvuok
 
 
 # ═══════════════════════════════════════════════════════════
@@ -321,7 +322,7 @@ def _handle(request, form_key, parse_fields):
             _send_listing_published_email(target, request.user)
             return redirect(
                 reverse('listing_success', kwargs={'pk': target.pk}) + '?action=published')
-        return redirect('listing_select_plan', pk=target.pk)
+        return aktyvuok(request, target)
 
     return _render(request, form_key, listing, is_edit_mode, None)
 

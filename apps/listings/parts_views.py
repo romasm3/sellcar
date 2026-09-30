@@ -1,5 +1,6 @@
 
 """
+from .aktyvavimas import aktyvuok
 
 Single part / parts kit srautas.
 
@@ -533,7 +534,7 @@ def parts_listing_create(request):
                     )
                 except Exception as e:
                     print(f"[parts_create] image upload failed: {e}")
-            return redirect('listing_select_plan', pk=target.pk)
+            return aktyvuok(request, target)
 
     return _render_parts_form(request, part_subcategory, listing=listing, is_edit_mode=is_edit_mode)
 

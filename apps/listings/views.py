@@ -47,6 +47,7 @@ from . import daliu_paieska
 from .kontaktai import (issaugok_pasta, issaugok_telefona,
                         telefono_reiksme)
 from . import skaiciai
+from .aktyvavimas import aktyvuok
 from apps.listings import units
 from .models import (
     Listing,
@@ -2731,6 +2732,12 @@ def listing_detail(request, pk):
     # Parduoti rodomi visiems dar SOLD_DISPLAY_DAYS dienų (kaip sąrašuose).
     _vieši = {'active'}
     _neaktyvus = listing.status not in _vieši
+    # ACT-02: aktyvus, bet neišlaikantis pilnumo patikros (be nuotraukų,
+    # kainos, vietos…) — pirkėjams nerodomas; savininkas mato juostą
+    # „Juodraštis – trūksta: …". Galioja ir jau esantiems DB įrašams.
+    _trukstami = listing.trukstami_laukai() if listing.status in _vieši else []
+    if _trukstami:
+        _neaktyvus = True
     if listing.status == 'sold' and listing.sold_at:
         _neaktyvus = listing.sold_at < timezone.now() - timedelta(days=Listing.SOLD_DISPLAY_DAYS)
     if _neaktyvus and not (is_owner or is_staff):
@@ -2795,7 +2802,8 @@ def listing_detail(request, pk):
         # „Aktyvuoti" (select-plan) ir „Redaguoti". Po redagavimo formos
         # (cars/moto/trucks) grąžina būtent čia.
         'gali_aktyvuoti': (is_owner and not listing.is_shadow_banned
-                           and listing.status in ('draft', 'expired')),
+                           and (listing.status in ('draft', 'expired') or bool(_trukstami))),
+        'trukstami_laukai': _trukstami,
         'is_staff_view': is_staff,
         'is_saved': is_saved,
         'grouped_equipment': grouped_equipment,
@@ -5453,6 +5461,12 @@ def listing_activation_plans(request, pk):
             'Patikrinkite, ar prisijungėte ta paskyra, kuriai atėjo laiškas.'))
         return redirect('my_listings')
 
+    # Mokėjimai išjungti — planų čia nėra. Anksčiau šio vaizdo POST
+    # aktyvuodavo BE JOKIOS PATIKROS (#869 tapo viešas be nuotraukų).
+    # Laiško nuoroda veda į tą patį aktyvavimo puslapį kaip visi kiti.
+    if not mokejimai_ijungti():
+        return redirect('listing_aktyvuoti', pk=listing.pk)
+
     if listing.status in ('active', 'reserved'):
         messages.info(request, _('Šis skelbimas jau aktyvus — aktyvuoti iš naujo nereikia.'))
         return redirect('listing_detail', pk=listing.pk)
@@ -5573,65 +5587,14 @@ def listing_activation_plans(request, pk):
     return render(request, 'listings/listing_activation_plans.html', context)
 
 
-# Ko dar reikalaujam iš kiekvienos kategorijos — TIK tų laukų, kuriuos
-# jos forma iš tikrųjų renka. Anksčiau iš VISŲ buvo reikalaujama metų,
-# registracijos datos ir kuro; dalių, ratlankių, elektronikos,
-# paslaugų, dviračių, valčių ir nuomos formose tokių laukų nėra visai,
-# tad tie skelbimai niekada nebūdavo išleidžiami — žmogus paspausdavo
-# „Įkelti" ir grįždavo į tą pačią formą su prierašu „užpildykite".
-PAPILDOMI_LAUKAI = {
-    'cars': ('year', 'brand_id', 'body_type', 'transmission_id',
-             'doors', 'mileage'),
-    'motorcycles': ('year',),
-    'trucks': ('year', 'truck_brand_id', 'truck_model_text', 'truck_type'),
-    'trailers': ('year',),
-    'agriculture': ('year',),
-    'construction': ('year',),
-    'forestry': ('year',),
-    'loading-equipment': ('year',),
-    'camping-houses': ('year',),
-}
-
-
-# Modelio laukas → formos name="" (kur skiriasi).
-_FORMOS_LAUKAS = {'brand_id': 'brand', 'transmission_id': 'transmission',
-                  'truck_brand_id': 'truck_brand', 'subcategory_id': 'subcategory'}
+# Pilnumo patikra — apps/listings/pilnumas.py (vienas šaltinis modeliui,
+# aktyvavimui, skelbimo puslapiui ir būsenos užrašui).
+from .pilnumas import PAPILDOMI_LAUKAI  # noqa: E402  (suderinamumui)
 
 
 def trukstami_laukai(listing):
-    """KONKRETŪS laukai (formos name=""), be kurių skelbimo aktyvuoti negalima.
-
-    Anksčiau buvo tik taip/ne (_skelbimas_uzpildytas), tad aktyvavimas
-    nukreipdavo į formą su „Užpildykite skelbimą…", bet NEPASAKYDAVO ko
-    trūksta — #777 liko kilpoje aktyvuoti → edit → aktyvuoti. Dabar tas
-    pats sąrašas pažymimas formoje (formos_klaidos_tags).
-
-    Bendra visoms kategorijoms: kaina, šalis, miestas, bent viena
-    nuotrauka (be jos activate() atsisako). Kita — pagal kategoriją
-    (PAPILDOMI_LAUKAI); ko forma nerenka, to nereikalaujam.
-    """
-    laukai = []
-    if not (listing.price and listing.price > 0):
-        laukai.append('price')
-    if not listing.country:
-        laukai.append('country')
-    if not listing.city or listing.city.strip() in ('—', '-'):
-        laukai.append('city')
-
-    is_moto_gear = (listing.subcategory_id
-                    and listing.subcategory.slug in MOTO_GEAR_SLUGS)
-    if is_moto_gear:
-        papildomi = ('subcategory_id', 'condition')
-    else:
-        slug = listing.vehicle_type.slug if listing.vehicle_type else ''
-        papildomi = PAPILDOMI_LAUKAI.get(slug, ())
-    for laukas in papildomi:
-        if not getattr(listing, laukas, None):
-            laukai.append(_FORMOS_LAUKAS.get(laukas, laukas))
-
-    if not listing.turi_nuotrauku():
-        laukai.append('images')
-    return laukai
+    """Konkretūs formos laukai, be kurių skelbimo aktyvuoti negalima."""
+    return listing.trukstami_laukai()
 
 
 def _skelbimas_uzpildytas(listing):
@@ -5681,16 +5644,38 @@ def _publikuok_nemokamai(request, listing):
 
 
 @login_required
+def listing_aktyvuoti(request, pk):
+    """/listings/<id>/aktyvuoti/ — aktyvavimas be mokėjimo.
+
+    GET  — nieko nekeičia: trūksta laukų → redagavimas su jais; kitaip
+           patvirtinimo puslapis su mygtuku „Aktyvuoti skelbimą" (POST).
+           Čia veda laiškų ir senos (select-plan, activation-plans) nuorodos.
+    POST — aktyvuoja / pratęsia (aktyvavimas.aktyvuok), su CSRF.
+    """
+    listing = get_object_or_404(Listing, pk=pk, seller=request.user)
+    if mokejimai_ijungti():
+        return redirect('listing_select_plan', pk=listing.pk)
+    if request.method == 'POST':
+        return aktyvuok(request, listing)
+    laukai = listing.trukstami_laukai()
+    if laukai and listing.status != 'sold':
+        return _i_redagavima_su_trukstamais(request, listing, laukai)
+    return render(request, 'listings/aktyvuoti.html', {
+        'listing': listing,
+        'pratesimas': listing.status == 'active',
+    })
+
+
+@login_required
 def listing_activate(request, pk):
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
     if request.method != 'POST':
         return redirect('listing_edit_hub', pk=listing.pk)
 
-    # Juodraštis — ta pati patikra kaip select-plan: trūksta ko nors →
-    # REDAGAVIMAS (/<id>/edit/) su konkrečiais laukais, ne /create/.
-    # Anksčiau juodraščiai keliaudavo į kūrimo formas per sesiją.
-    if listing.status == 'draft':
-        return redirect('listing_select_plan', pk=listing.pk)
+    # Viena vieta: trūksta ko nors → redagavimas su konkrečiais laukais,
+    # kitaip aktyvuojama (apps/listings/aktyvavimas.py).
+    if not mokejimai_ijungti():
+        return aktyvuok(request, listing)
 
     payments_enabled = mokejimai_ijungti()
 
@@ -7511,7 +7496,7 @@ def listing_create_cars_quick(request):
             # 4-as+ skelbimas — redirect į planų puslapį, NE auto-publish
             request.session[CARS_DRAFT_SESSION_KEY] = None
             request.session.modified = True
-            return redirect('listing_select_plan', pk=target.pk)
+            return aktyvuok(request, target)
 
     # ═══ GET: render template ═══
     return _render_quick_form(
@@ -7749,13 +7734,10 @@ def listing_select_plan(request, pk):
     # nuorodos („Aktyvuoti", „Pratęsti") ir laiškų saitai, tad aklavietės
     # čia būti negali: aktyvuojam nemokamai ir vedam į „pavyko".
     if not mokejimai_ijungti():
-        # Neaktyvus (juodraštis ar pasibaigęs) ir neužpildytas → į
-        # redagavimą su KONKREČIAIS trūkstamais laukais (ACT-01).
-        if listing.status != 'active':
-            laukai = trukstami_laukai(listing)
-            if laukai:
-                return _i_redagavima_su_trukstamais(request, listing, laukai)
-        return _publikuok_nemokamai(request, listing)
+        # Senas adresas (laiškai, žymės) → /listings/<id>/aktyvuoti/.
+        # GET BŪSENOS NEKEIČIA: anksčiau čia GET tyliai aktyvuodavo ar
+        # pratęsdavo galiojimą (perkrovus, išankstinis užkrovimas).
+        return redirect('listing_aktyvuoti', pk=listing.pk)
 
     # Aktyvus skelbimas — PRATĘSIMO režimas: tas pats planų puslapis,
     # tik dienos pridedamos prie likusio galiojimo, o ne skaičiuojamos iš naujo.

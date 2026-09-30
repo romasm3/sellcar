@@ -2186,6 +2186,22 @@ class Listing(PaskelbimoLaikas, models.Model):
         """
         return self.images.exists()
 
+    def trukstami_laukai(self):
+        """Ko trūksta, kad skelbimas būtų viešas (apps/listings/pilnumas.py)."""
+        from apps.listings import pilnumas
+        return pilnumas.trukstami_laukai(self)
+
+    @property
+    def yra_viesas(self):
+        """Aktyvus IR išlaiko pilnumo patikrą — tik toks matomas pirkėjams."""
+        return self.status == 'active' and not self.trukstami_laukai()
+
+    @property
+    def trukstamu_tekstas(self):
+        """„kaina, nuotraukos" — būsenos užrašui „Juodraštis – trūksta: …"."""
+        from apps.listings import pilnumas
+        return pilnumas.trukstamu_tekstas(self.trukstami_laukai())
+
     def activate(self, days=None):
         # Tikrinam ČIA, o ne formose: `activate()` yra vienintelė vieta,
         # pro kurią eina visi keliolika kvietimų (views, admin, planai,
@@ -2196,7 +2212,9 @@ class Listing(PaskelbimoLaikas, models.Model):
         # veiksmas, ne programos klaida. Kviečiantysis, kuris tikrina
         # grąžinimą, parodo žinutę; tas, kuris netikrina, bent jau
         # NEPASKELBIA tuščio skelbimo.
-        if not self.turi_nuotrauku():
+        # Visa pilnumo patikra (kaina, vieta, kategorijos laukai,
+        # nuotraukos) — ne tik nuotraukos (apps/listings/pilnumas.py).
+        if self.trukstami_laukai():
             return False
         if days is None:
             days = self.DEFAULT_ACTIVE_DAYS
@@ -4491,3 +4509,24 @@ class SavedWheelListing(models.Model):
         unique_together = ('user', 'listing')
         ordering = ['-saved_at']
 
+
+
+# ═══════════════════════════════════════════════════════════════════
+# PASKUTINĖ NUOTRAUKA IŠTRINTA → SKELBIMAS NEBEVIEŠAS (ACT-02)
+#
+# Nuotraukos trinamos keliose vietose (image_delete, motociklų AJAX,
+# redagavimo formos). Aktyvus skelbimas be nuotraukų neišlaiko pilnumo
+# patikros (apps/listings/pilnumas.py), tad grąžinamas į juodraštį —
+# kitaip jis liktų sąrašuose su tuščia kortele. queryset.update, ne
+# save(): kaskadinis skelbimo trynimas trina ir nuotraukas.
+# ═══════════════════════════════════════════════════════════════════
+from django.db.models.signals import post_delete  # noqa: E402
+from django.dispatch import receiver               # noqa: E402
+
+
+@receiver(post_delete, sender=ListingImage, dispatch_uid='nuotrauka_istrinta_ne_viesas')
+def _paskutine_nuotrauka_istrinta(sender, instance, **kwargs):
+    lid = instance.listing_id
+    if not lid or ListingImage.objects.filter(listing_id=lid).exists():
+        return
+    Listing.objects.filter(pk=lid, status='active').update(status='draft')
