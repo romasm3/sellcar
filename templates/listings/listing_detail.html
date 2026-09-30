@@ -2521,12 +2521,14 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Įkelta" %}</span>
                             <span class="font-medium text-gray-900"><time datetime="{{ listing.created_at|date:'c' }}" data-ikelta>{{ listing.created_at|date:"Y-m-d" }}</time></span>
                         </div>
-                        {% if listing.updated_at and listing.updated_at|date:"Y-m-d" != listing.created_at|date:"Y-m-d" %}
+                        {% comment %}„Atnaujinta" — tik savininkui ir administratoriui;
+                        „Įkelta" lieka vieša.{% endcomment %}
+                        {% if is_owner or is_staff_view %}{% if listing.updated_at and listing.updated_at|date:"Y-m-d" != listing.created_at|date:"Y-m-d" %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Atnaujinta" %}</span>
                             <span class="font-medium text-gray-900"><time datetime="{{ listing.updated_at|date:'c' }}">{{ listing.updated_at|date:"Y-m-d" }}</time></span>
                         </div>
-                        {% endif %}
+                        {% endif %}{% endif %}
                         {% else %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
@@ -3075,9 +3077,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
     </div>
 </div>
 
-{% if listing.latitude and listing.longitude %}
-<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}"></script>
-{% endif %}
 
 {% comment %}
 Nuotraukų sluoksnis. GLightbox iš CDN atsisakyta: jis nustojo perimti
@@ -3243,7 +3242,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 {% if listing.latitude and listing.longitude %}
-document.addEventListener('DOMContentLoaded', function() {
+// MAP-03: Google Maps kraunamas ASINCHRONIŠKAI (žr. <script async> po šio
+// bloko) ir tik skelbimams su koordinatėmis. Anksčiau sinchroninis
+// skriptas stabdė puslapį (ekrano kadras /917/ krisdavo „script
+// injection timed out"). API iškviečia šią funkciją, kai pasikrauna.
+window.alSkelbimoZemelapis = function () {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', window.alSkelbimoZemelapis, { once: true });
+        return;
+    }
     const mapElement = document.getElementById('locationMap');
     if (mapElement) {
         const lat = {{ listing.latitude }};
@@ -3274,13 +3281,16 @@ document.addEventListener('DOMContentLoaded', function() {
         new google.maps.Marker({
             position: { lat: lat, lng: lng },
             map: map,
-            title: '{{ listing.title }}'
+            title: '{{ listing.title|escapejs }}'
         });
         {% endif %}
     }
-});
+};
 {% endif %}
 </script>
+{% if listing.latitude and listing.longitude %}
+<script async src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&amp;loading=async&amp;callback=alSkelbimoZemelapis"></script>
+{% endif %}
 
 {% comment %}Telefono atskleidimas — vienas komponentas visiems skelbimams.{% endcomment %}
 <script>
