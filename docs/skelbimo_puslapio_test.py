@@ -108,6 +108,9 @@ def main():
             'callback apibrėžtas')
     tikrink(h.index('window.alSkelbimoZemelapis') < h.index(zyma) if zyma else False,
             'callback apibrėžtas PRIEŠ skripto žymą')
+    koord = re.findall(r'const (lat|lng) = ([^;]*);', h)
+    tikrink(len(koord) == 2 and all(re.fullmatch(r'-?\d+\.\d+', v) for _k, v in koord),
+            'koordinatės JS — su tašku, ne kableliu (LT lokalė)', f'{koord}')
 
     print(f'\n— PARTS-23b: redaguotas (#{su.pk})')
     tikrink('Atnaujinta' in html(savininkas, su), 'savininkas mato „Atnaujinta"')

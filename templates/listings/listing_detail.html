@@ -3253,8 +3253,9 @@ window.alSkelbimoZemelapis = function () {
     }
     const mapElement = document.getElementById('locationMap');
     if (mapElement) {
-        const lat = {{ listing.latitude }};
-        const lng = {{ listing.longitude }};
+        {# unlocalize: LT lokalė išspausdindavo „54,898214" — JS sintaksės klaida #}
+        const lat = {{ listing.latitude|unlocalize }};
+        const lng = {{ listing.longitude|unlocalize }};
         const map = new google.maps.Map(mapElement, {
             // Toks pat elgesys kaip žemėlapio paieškoje: ratukas be Ctrl
             gestureHandling: 'greedy',
