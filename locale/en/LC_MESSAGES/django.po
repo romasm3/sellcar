@@ -1628,7 +1628,7 @@ msgstr "Damaged"
 
 #: apps/listings/models.py:347 apps/listings/models.py:2864
 msgid "Juodraštis"
-msgstr "Profile"
+msgstr "Draft"
 
 #: apps/listings/models.py:348 apps/listings/models.py:2865
 msgid "Aktyvus"
@@ -24717,3 +24717,76 @@ msgstr "photos"
 #: templates/listings/listing_detail.html
 msgid "Detalės numeris"
 msgstr "Part number"
+
+#: templates/listings/aktyvuoti.html
+msgid "Aktyvuoti skelbimą"
+msgstr "Activate listing"
+
+#: templates/listings/aktyvuoti.html
+msgid "Pratęsti skelbimą"
+msgstr "Extend listing"
+
+#: templates/listings/aktyvuoti.html
+msgid "trūksta"
+msgstr "missing"
+
+#: templates/listings/aktyvuoti.html
+#, python-format
+msgid "Galioja iki %(date)s"
+msgstr "Valid until %(date)s"
+
+#: templates/listings/aktyvuoti.html
+msgid "kaina"
+msgstr "price"
+
+#: templates/listings/aktyvuoti.html
+msgid "šalis"
+msgstr "country"
+
+#: templates/listings/aktyvuoti.html
+msgid "miestas"
+msgstr "city"
+
+#: templates/listings/aktyvuoti.html
+msgid "nuotraukos"
+msgstr "photos"
+
+#: templates/listings/aktyvuoti.html
+msgid "metai"
+msgstr "year"
+
+#: templates/listings/aktyvuoti.html
+msgid "markė"
+msgstr "make"
+
+#: templates/listings/aktyvuoti.html
+msgid "kėbulo tipas"
+msgstr "body type"
+
+#: templates/listings/aktyvuoti.html
+msgid "pavarų dėžė"
+msgstr "gearbox"
+
+#: templates/listings/aktyvuoti.html
+msgid "durų skaičius"
+msgstr "number of doors"
+
+#: templates/listings/aktyvuoti.html
+msgid "rida"
+msgstr "mileage"
+
+#: templates/listings/aktyvuoti.html
+msgid "modelis"
+msgstr "model"
+
+#: templates/listings/aktyvuoti.html
+msgid "tipas"
+msgstr "type"
+
+#: templates/listings/aktyvuoti.html
+msgid "būklė"
+msgstr "condition"
+
+#: templates/listings/aktyvuoti.html
+msgid "kategorija"
+msgstr "category"
