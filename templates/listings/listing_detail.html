@@ -71,6 +71,9 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <li><a href="/?category=trucks" class="hover:text-primary">{% trans "Browse Trucks" %}</a></li>
                 {% elif listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles' %}
                     <li><a href="/?category=motorcycles" class="hover:text-primary">{% trans "Browse Motorcycles" %}</a></li>
+                {% elif listing.yra_dalis %}
+                    {# PARTS-22: dalis — ne „Naršyti automobilius" #}
+                    <li><a href="{% url 'visi_skelbimai' %}?kategorija=parts" class="hover:text-primary">{% trans "Dalys" %}</a></li>
                 {% else %}
                     <li><a href="{% url 'home' %}" class="hover:text-primary">{% trans "Browse Cars" %}</a></li>
                 {% endif %}
@@ -2358,6 +2361,49 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                 <!-- Title & Quick Stats -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>
+                    {% if listing.yra_dalis %}
+                    {% comment %}Dalis: rida, kuras ir pavarų dėžė jai nieko nesako
+                    (PARTS-13, PARTS-19) — metai, detalės numeris, būklė,
+                    nuotraukos; tušti nerodomi (PARTS-21).{% endcomment %}
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        {% if listing.year %}
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-calendar-alt text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Year" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.year }}</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% with nr=listing.oem_code|daliu_kodai %}{% if nr %}
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-hashtag text-primary text-xl"></i>
+                            <div class="min-w-0">
+                                <div class="text-xs text-gray-600">{% trans "Detalės numeris" %}</div>
+                                <div class="font-semibold text-gray-900 truncate select-all">{{ nr.0 }}</div>
+                            </div>
+                        </div>
+                        {% endif %}{% endwith %}
+                        {% if listing.condition %}
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-check-circle text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Condition" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.get_condition_display }}</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% with kiek=listing.images.all|length %}{% if kiek %}
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-camera text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Nuotraukos" %}</div>
+                                <div class="font-semibold text-gray-900">{{ kiek }}</div>
+                            </div>
+                        </div>
+                        {% endif %}{% endwith %}
+                    </div>
+                    {% else %}
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-calendar-alt text-primary text-xl"></i>
@@ -2388,6 +2434,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             </div>
                         </div>
                     </div>
+                    {% endif %}{# /dalis ar ne #}
                     <div class="border-t border-gray-200 pt-6 lg:hidden">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
                         <p class="text-4xl font-bold text-primary lg:hidden">
@@ -2421,44 +2468,73 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                 {% endif %}
 
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Vehicle Details" %}</h2>
+                    {# PARTS-20: dalims — „Detalės duomenys", ne transporto priemonės #}
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% if listing.yra_dalis %}{% trans "Detalės duomenys" %}{% else %}{% trans "Vehicle Details" %}{% endif %}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% comment %}PARTS-21: tuščių laukų nerodom — anksčiau
+                        eilutės likdavo tuščios arba su „—".{% endcomment %}
+                        {% if listing.brand %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Make" %}</span>
                             <span class="font-medium text-gray-900">{{ listing.brand.name }}</span>
                         </div>
+                        {% endif %}
+                        {% if listing.model %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Model" %}</span>
                             <span class="font-medium text-gray-900">{{ listing.model.name }}</span>
                         </div>
+                        {% endif %}
+                        {% if listing.body_type %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Body Type" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.get_body_type_display|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_body_type_display }}</span>
                         </div>
+                        {% endif %}
+                        {% if listing.color %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Color" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.get_color_display|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_color_display }}</span>
                         </div>
+                        {% endif %}
+                        {% if listing.doors %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Doors" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.doors|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.doors }}</span>
                         </div>
+                        {% endif %}
+                        {% if listing.condition %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Condition" %}</span>
                             <span class="font-medium text-gray-900">{{ listing.get_condition_display }}</span>
                         </div>
+                        {% endif %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Defects" %}</span>
                             <span class="font-medium text-gray-900">{{ listing.get_defects_display|default:_("No defects") }}</span>
                         </div>
 
                         {% include 'listings/partials/_detales_numeris.html' %}
+                        {% if listing.yra_dalis %}
+                        {# PARTS-23: kada įkelta ir atnaujinta. Rida dalims nerodoma (PARTS-13). #}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Įkelta" %}</span>
+                            <span class="font-medium text-gray-900"><time datetime="{{ listing.created_at|date:'c' }}" data-ikelta>{{ listing.created_at|date:"Y-m-d" }}</time></span>
+                        </div>
+                        {% if listing.updated_at and listing.updated_at|date:"Y-m-d" != listing.created_at|date:"Y-m-d" %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Atnaujinta" %}</span>
+                            <span class="font-medium text-gray-900"><time datetime="{{ listing.updated_at|date:'c' }}">{{ listing.updated_at|date:"Y-m-d" }}</time></span>
+                        </div>
+                        {% endif %}
+                        {% else %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>
                             </span>
                         </div>
+                        {% endif %}
 
                         {% if listing.engine_capacity %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
@@ -2621,37 +2697,47 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {# ─── 2x2 grid (Country | State / City | Address) ─── #}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 
+                        {% comment %}PARTS-21: tuščių langelių („—") nerodom.{% endcomment %}
                         {# Country #}
+                        {% if listing.country %}
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "Country" %}</p>
                             <p class="text-base font-semibold text-gray-900">
-                                {% if listing.country %}{{ listing.get_country_display }}{% else %}—{% endif %}
+                                {{ listing.get_country_display }}
                             </p>
                         </div>
+                        {% endif %}
 
                         {# State #}
+                        {% if listing.state %}
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "State" %}</p>
                             <p class="text-base font-semibold text-gray-900">
-                                {% if listing.state %}{{ listing.get_state_display }}{% else %}—{% endif %}
+                                {{ listing.get_state_display }}
                             </p>
                         </div>
+                        {% endif %}
 
                         {# City #}
+                        {% if listing.city and listing.city != "—" %}
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "City" %}</p>
                             <p class="text-base font-semibold text-gray-900">
-                                {% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% else %}—{% endif %}
+                                {{ listing.city|vietovardis }}
                             </p>
                         </div>
+                        {% endif %}
 
                         {# Address #}
+                        {% if listing.hide_exact_address or listing.address or listing.postal_code %}
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "Address" %}</p>
                             {% if not listing.hide_exact_address %}
+                                {% if listing.address %}
                                 <p class="text-base font-semibold text-gray-900">
-                                    {% if listing.address %}{{ listing.address }}{% else %}—{% endif %}
+                                    {{ listing.address }}
                                 </p>
+                                {% endif %}
                                 {% if listing.postal_code %}
                                 <p class="text-xs text-gray-500 mt-1">{{ listing.postal_code }}</p>
                                 {% endif %}
@@ -2661,6 +2747,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                                 </p>
                             {% endif %}
                         </div>
+                        {% endif %}
                     </div>
 
                     {% if listing.latitude and listing.longitude %}

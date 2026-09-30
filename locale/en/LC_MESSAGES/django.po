@@ -24693,3 +24693,27 @@ msgstr "Not enough listings yet to compare prices."
 #: templates/listings/listing_detail.html
 msgid "Aktyvuoti"
 msgstr "Activate"
+
+#: templates/listings/listing_detail.html
+msgid "Detalės duomenys"
+msgstr "Part details"
+
+#: templates/listings/listing_detail.html
+msgid "Įkelta"
+msgstr "Uploaded"
+
+#: templates/listings/listing_detail.html
+msgid "Atnaujinta"
+msgstr "Updated"
+
+#: templates/listings/listing_detail.html
+msgid "Nr."
+msgstr "No."
+
+#: templates/listings/listing_detail.html
+msgid "nuotr."
+msgstr "photos"
+
+#: templates/listings/listing_detail.html
+msgid "Detalės numeris"
+msgstr "Part number"

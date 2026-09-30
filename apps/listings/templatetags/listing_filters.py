@@ -86,6 +86,21 @@ def spec_eilute(listing):
 
     dalys = []
 
+    # Dalis: detalės numeris, metai, nuotraukų skaičius (PARTS-19). Kuro
+    # tipas dalyje — tik automobilio, kuriam ji tinka, požymis, o
+    # kortelėje jis atrodė kaip pačios dalies savybė („Benzinas").
+    if getattr(listing, 'yra_dalis', False):
+        from apps.listings.daliu_paieska import kodai
+        nr = kodai(listing.oem_code)
+        if nr:
+            dalys.append('%s %s' % (gettext('Nr.'), nr[0]))
+        if listing.year:
+            dalys.append(str(listing.year))
+        kiek = len(listing.images.all())       # prefetch'as, jei yra
+        if kiek:
+            dalys.append('%s %s' % (kiek, gettext('nuotr.')))
+        return ' · '.join(dalys)
+
     if getattr(listing, 'is_truck', False) and getattr(listing, 'truck_type', ''):
         dalys.append(listing.get_truck_type_display())
     elif getattr(listing, 'engine_capacity', None):

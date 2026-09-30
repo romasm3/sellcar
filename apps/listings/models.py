@@ -1840,6 +1840,16 @@ class Listing(PaskelbimoLaikas, models.Model):
 
     VIETOS_LAUKAI = ('city', 'address', 'country')
 
+    @property
+    def yra_dalis(self):
+        """Atskira dalis / detalė (VehicleType „parts"), ne transporto priemonė.
+
+        Dalims rida, kuro tipas ar kėbulas kortelėje ir skelbime nieko
+        nesako — rodom detalės numerį, metus ir nuotraukų skaičių.
+        """
+        vt = self.vehicle_type if self.vehicle_type_id else None
+        return bool(vt and vt.slug == 'parts')
+
     def _koordinates_jei_reikia(self, priverstinai=False):
         """Nustato latitude/longitude iš miesto+adreso+šalies (serveryje).
 
