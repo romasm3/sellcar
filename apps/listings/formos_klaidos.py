@@ -184,6 +184,35 @@ def laukas_pagal_teksta(tekstas):
     return None
 
 
+# Aktyvavimo patikra (views.trukstami_laukai) — laukai, kurių gali trūkti
+# neužpildytam skelbimui. Vardai — kaip formos name="".
+TRUKSTAMO_TEKSTAS = {
+    'price': 'Nurodykite kainą',
+    'country': 'Pasirinkite šalį',
+    'city': 'Nurodykite miestą',
+    'year': 'Nurodykite metus',
+    'brand': 'Pasirinkite markę',
+    'body_type': 'Pasirinkite kėbulo tipą',
+    'transmission': 'Pasirinkite pavarų dėžę',
+    'doors': 'Pasirinkite durų skaičių',
+    'mileage': 'Nurodykite ridą',
+    'truck_brand': 'Pasirinkite markę',
+    'truck_model_text': 'Nurodykite modelį',
+    'truck_type': 'Pasirinkite tipą',
+    'condition': 'Pasirinkite būklę',
+    'subcategory': 'Pasirinkite kategoriją',
+    'images': 'Įkelkite bent vieną nuotrauką',
+}
+
+SESIJOS_RAKTAS = 'trukstami_laukai'
+
+
+def trukstamu_zinutes(laukai):
+    """{laukas: lietuviškas tekstas} trūkstamiems laukams."""
+    return {l: _t(TRUKSTAMO_TEKSTAS[l]) if l in TRUKSTAMO_TEKSTAS else tekstas_laukui(l)
+            for l in laukai}
+
+
 def tekstas_laukui(laukas, atsarginis=''):
     """Lietuviškas tekstas laukui."""
     if laukas in LAUKO_TEKSTAS:

@@ -5593,32 +5593,63 @@ PAPILDOMI_LAUKAI = {
 }
 
 
-def _skelbimas_uzpildytas(listing):
-    """Ar juodraštyje užpildyta tai, be ko skelbimo skelbti negalima.
+# Modelio laukas → formos name="" (kur skiriasi).
+_FORMOS_LAUKAS = {'brand_id': 'brand', 'transmission_id': 'transmission',
+                  'truck_brand_id': 'truck_brand', 'subcategory_id': 'subcategory'}
 
-    Ta pati sąlyga naudojama ir planų puslapyje (mokėjimai įjungti), ir
-    nemokamame publikavime — kad nemokamas srautas nepraleistų į
-    svetainę pusiau tuščio skelbimo.
 
-    Bendra dalis visoms kategorijoms: kaina ir vieta. Viskas kita —
-    pagal kategoriją (PAPILDOMI_LAUKAI); ko forma nerenka, to ir
-    nereikalaujam.
+def trukstami_laukai(listing):
+    """KONKRETŪS laukai (formos name=""), be kurių skelbimo aktyvuoti negalima.
+
+    Anksčiau buvo tik taip/ne (_skelbimas_uzpildytas), tad aktyvavimas
+    nukreipdavo į formą su „Užpildykite skelbimą…", bet NEPASAKYDAVO ko
+    trūksta — #777 liko kilpoje aktyvuoti → edit → aktyvuoti. Dabar tas
+    pats sąrašas pažymimas formoje (formos_klaidos_tags).
+
+    Bendra visoms kategorijoms: kaina, šalis, miestas, bent viena
+    nuotrauka (be jos activate() atsisako). Kita — pagal kategoriją
+    (PAPILDOMI_LAUKAI); ko forma nerenka, to nereikalaujam.
     """
-    bendra = bool(
-        listing.price and listing.price > 0
-        and listing.country and listing.city and listing.city != '—'
-    )
-    if not bendra:
-        return False
+    laukai = []
+    if not (listing.price and listing.price > 0):
+        laukai.append('price')
+    if not listing.country:
+        laukai.append('country')
+    if not listing.city or listing.city.strip() in ('—', '-'):
+        laukai.append('city')
 
     is_moto_gear = (listing.subcategory_id
                     and listing.subcategory.slug in MOTO_GEAR_SLUGS)
     if is_moto_gear:
-        return bool(listing.subcategory_id and listing.condition)
+        papildomi = ('subcategory_id', 'condition')
+    else:
+        slug = listing.vehicle_type.slug if listing.vehicle_type else ''
+        papildomi = PAPILDOMI_LAUKAI.get(slug, ())
+    for laukas in papildomi:
+        if not getattr(listing, laukas, None):
+            laukai.append(_FORMOS_LAUKAS.get(laukas, laukas))
 
-    slug = listing.vehicle_type.slug if listing.vehicle_type else ''
-    return all(getattr(listing, laukas, None)
-               for laukas in PAPILDOMI_LAUKAI.get(slug, ()))
+    if not listing.turi_nuotrauku():
+        laukai.append('images')
+    return laukai
+
+
+def _skelbimas_uzpildytas(listing):
+    """Ar užpildyta tai, be ko skelbimo skelbti negalima (žr. trukstami_laukai)."""
+    return not trukstami_laukai(listing)
+
+
+def _i_redagavima_su_trukstamais(request, listing, laukai):
+    """Nukreipia į /<id>/edit/ ir perduoda KONKREČIUS trūkstamus laukus.
+
+    Forma juos pažymi raudonai ir nuslenka prie pirmo
+    (formos_klaidos_tags → static/js/form_validation.js).
+    """
+    from . import formos_klaidos
+    request.session[formos_klaidos.SESIJOS_RAKTAS] = {'pk': listing.pk, 'laukai': laukai}
+    request.session.modified = True
+    messages.info(request, _('Užpildykite skelbimą prieš jo aktyvavimą.'))
+    return redirect(listing.get_edit_url())
 
 
 def _publikuok_nemokamai(request, listing):
@@ -5635,7 +5666,11 @@ def _publikuok_nemokamai(request, listing):
     else:
         action = 'extended'
 
-    listing.activate(days=Listing.DEFAULT_ACTIVE_DAYS)
+    if not listing.activate(days=Listing.DEFAULT_ACTIVE_DAYS):
+        # activate() atsisako (pvz. nėra nuotraukų) — anksčiau vis tiek
+        # vesdavom į „paskelbta", nors skelbimas liko neaktyvus.
+        return _i_redagavima_su_trukstamais(
+            request, listing, trukstami_laukai(listing) or ['images'])
 
     if previous_status == 'draft':
         _send_listing_published_email(listing, request.user)
@@ -5651,22 +5686,11 @@ def listing_activate(request, pk):
     if request.method != 'POST':
         return redirect('listing_edit_hub', pk=listing.pk)
 
+    # Juodraštis — ta pati patikra kaip select-plan: trūksta ko nors →
+    # REDAGAVIMAS (/<id>/edit/) su konkrečiais laukais, ne /create/.
+    # Anksčiau juodraščiai keliaudavo į kūrimo formas per sesiją.
     if listing.status == 'draft':
-        if listing.subcategory_id and listing.subcategory.slug in MOTO_GEAR_SLUGS:
-            request.session['active_motogear_draft_id'] = listing.pk
-            request.session.modified = True
-            return redirect('motogear_listing_create')
-        if listing.vehicle_type and listing.vehicle_type.slug == 'trucks':
-            request.session['active_trucks_draft_id'] = listing.pk
-            request.session.modified = True
-            return redirect('trucks_listing_create')
-        if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
-            request.session['active_moto_draft_id'] = listing.pk
-            request.session.modified = True
-            return redirect('motorcycle_listing_create')
-        request.session[CARS_DRAFT_SESSION_KEY] = listing.pk
-        request.session.modified = True
-        return redirect('listing_create')
+        return redirect('listing_select_plan', pk=listing.pk)
 
     payments_enabled = mokejimai_ijungti()
 
@@ -7725,9 +7749,12 @@ def listing_select_plan(request, pk):
     # nuorodos („Aktyvuoti", „Pratęsti") ir laiškų saitai, tad aklavietės
     # čia būti negali: aktyvuojam nemokamai ir vedam į „pavyko".
     if not mokejimai_ijungti():
-        if listing.status == 'draft' and not _skelbimas_uzpildytas(listing):
-            messages.info(request, _('Užpildykite skelbimą prieš jo aktyvavimą.'))
-            return redirect(listing.get_edit_url())
+        # Neaktyvus (juodraštis ar pasibaigęs) ir neužpildytas → į
+        # redagavimą su KONKREČIAIS trūkstamais laukais (ACT-01).
+        if listing.status != 'active':
+            laukai = trukstami_laukai(listing)
+            if laukai:
+                return _i_redagavima_su_trukstamais(request, listing, laukai)
         return _publikuok_nemokamai(request, listing)
 
     # Aktyvus skelbimas — PRATĘSIMO režimas: tas pats planų puslapis,
@@ -7735,9 +7762,10 @@ def listing_select_plan(request, pk):
     pratesimas = (listing.status == 'active')
 
     # Completeness guard: incomplete drafts must be filled before activating
-    if listing.status == 'draft' and not _skelbimas_uzpildytas(listing):
-        messages.info(request, 'Complete the listing before activating it.')
-        return redirect(listing.get_edit_url())
+    if listing.status != 'active':
+        laukai = trukstami_laukai(listing)
+        if laukai:
+            return _i_redagavima_su_trukstamais(request, listing, laukai)
 
     # ─── Plan'us paimam iš DB pagal kategoriją ───
     plans_qs = PricingPlan.objects.filter(

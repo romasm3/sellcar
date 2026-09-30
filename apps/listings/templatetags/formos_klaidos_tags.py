@@ -24,6 +24,12 @@ def formos_klaidos_kontekstas(context):
     zinutes = context.get('error_messages')
     eilutes = context.get('form_errors')
 
+    if not laukai and not eilutes:
+        # Aktyvavimas rado neužpildytą skelbimą ir nukreipė čia
+        # (views.listing_select_plan): konkretūs trūkstami laukai
+        # atkeliauja per sesiją — kontekstas po nukreipimo dingsta.
+        laukai, zinutes = _trukstami_is_sesijos(context.get('request'))
+
     if laukai and not eilutes:
         # View'as padavė tik laukus — dėžutės eilutes pasidarom patys
         eilutes = [{'laukas': l, 'tekstas': (zinutes or {}).get(l)
@@ -51,6 +57,26 @@ def formos_klaidos_kontekstas(context):
         'zinutes': zinutes or {},
         'eilutes': eilutes or [],
     }
+
+
+def _formos_skelbimo_pk(request):
+    """Kurio skelbimo forma atidaryta: /<pk>/edit-…/ arba ?edit= / ?draft_id=."""
+    atitikmuo = getattr(request, 'resolver_match', None)
+    pk = (atitikmuo.kwargs.get('pk') if atitikmuo else None) \
+        or request.GET.get('edit') or request.GET.get('draft_id')
+    return str(pk) if pk else ''
+
+
+def _trukstami_is_sesijos(request):
+    """Trūkstami laukai iš sesijos — TIK tam pačiam skelbimui ir vieną kartą."""
+    if request is None or not hasattr(request, 'session'):
+        return None, None
+    irasas = request.session.get(formos_klaidos.SESIJOS_RAKTAS)
+    if not irasas or str(irasas.get('pk')) != _formos_skelbimo_pk(request):
+        return None, None
+    request.session.pop(formos_klaidos.SESIJOS_RAKTAS, None)
+    laukai = list(irasas.get('laukai') or [])
+    return laukai, formos_klaidos.trukstamu_zinutes(laukai)
 
 
 @register.simple_tag(takes_context=True)
