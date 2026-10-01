@@ -24790,3 +24790,23 @@ msgstr "condition"
 #: templates/listings/aktyvuoti.html
 msgid "kategorija"
 msgstr "category"
+
+#: apps/listings/aktyvavimas.py
+msgid "Skelbimas aktyvuotas."
+msgstr "Listing activated."
+
+#: apps/listings/aktyvavimas.py
+msgid "Peržiūrėti"
+msgstr "View"
+
+#: apps/listings/aktyvavimas.py
+msgid "Deaktyvuoti"
+msgstr "Deactivate"
+
+#: apps/listings/aktyvavimas.py
+msgid "Skelbimas deaktyvuotas — viešai jo nebesimato."
+msgstr "Listing deactivated — it is no longer public."
+
+#: apps/listings/aktyvavimas.py
+msgid "Įkelkite bent vieną nuotrauką ir išsaugokite – skelbimas aktyvuosis"
+msgstr "Upload at least one photo and save – the listing will be activated"

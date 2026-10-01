@@ -31,7 +31,10 @@ from . import wheels_views
 
 urlpatterns = [
     path('upgrade/', views.listing_upgrade, name='listing_upgrade'),
-    path('listings/<int:pk>/aktyvuoti/', views.listing_aktyvuoti, name='listing_aktyvuoti'),
+    path('listings/<int:pk>/activate/', views.listing_aktyvuoti, name='listing_aktyvuoti'),
+    path('listings/<int:pk>/deactivate/', views.listing_deaktyvuoti, name='listing_deaktyvuoti'),
+    # Senas adresas (jau atvaizduoti puslapiai, žymės) — tas pats vaizdas
+    path('listings/<int:pk>/aktyvuoti/', views.listing_aktyvuoti),
     path('listings/<int:pk>/select-plan/', views.listing_select_plan, name='listing_select_plan'),
     path('listings/<int:pk>/pay-plan/<str:plan_code>/', views.listing_pay_plan, name='listing_pay_plan'),
     path('ajax/validate-promo-code/', views.validate_promo_code_ajax, name='validate_promo_code_ajax'),

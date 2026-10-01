@@ -236,6 +236,14 @@
                                            class="text-primary hover:underline font-medium">
                                             <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
                                         </a>
+                                    {% if listing.status == 'active' %}
+                                    {# Aktyviame: [Deaktyvuoti] [Redaguoti] — tik POST #}
+                                    <form method="post" action="{% url 'listing_deaktyvuoti' listing.pk %}" class="inline">{% csrf_token %}
+                                        <button type="submit" class="text-gray-600 hover:text-gray-900 font-medium" data-deaktyvuoti>
+                                            <i class="fas fa-pause text-xs"></i> {% trans "Deaktyvuoti" %}
+                                        </button>
+                                    </form>
+                                    {% endif %}
 
                                     {% if listing.status == 'active' and not listing.is_boosted %}
                                     <form method="post" action="{% url 'listing_boost_all' %}" class="inline">
@@ -521,7 +529,7 @@
                                     <i class="fas fa-info-circle text-gray-400"></i>
                                     {% blocktrans %}Ad is <strong>inactive</strong>{% endblocktrans %}
                                 </div>
-                                {% if listing.trukstami_laukai %}
+                                {% if listing.trukstamu_tekstas %}
                                 <div class="text-[11px] text-amber-700 text-center mb-2">{% include 'listings/partials/_busena.html' with listing=listing %}</div>
                                 {% endif %}
                                 {# Aktyvavimas — tik POST; trūksta ko nors → redagavimas su pažymėtais laukais #}

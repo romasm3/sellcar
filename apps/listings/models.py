@@ -2193,14 +2193,17 @@ class Listing(PaskelbimoLaikas, models.Model):
 
     @property
     def yra_viesas(self):
-        """Aktyvus IR išlaiko pilnumo patikrą — tik toks matomas pirkėjams."""
-        return self.status == 'active' and not self.trukstami_laukai()
+        """Aktyvus IR turi nuotrauką — tik toks matomas pirkėjams."""
+        return self.status == 'active' and self.turi_nuotrauku()
 
     @property
     def trukstamu_tekstas(self):
-        """„kaina, nuotraukos" — būsenos užrašui „Juodraštis – trūksta: …"."""
+        """„nuotraukos" — kai skelbimo negalima aktyvuoti / rodyti.
+
+        Vienintelis stabdys — nuotraukos; kiti trūkumai nieko nestabdo.
+        """
         from apps.listings import pilnumas
-        return pilnumas.trukstamu_tekstas(self.trukstami_laukai())
+        return '' if self.turi_nuotrauku() else pilnumas.trukstamu_tekstas(['images'])
 
     def activate(self, days=None):
         # Tikrinam ČIA, o ne formose: `activate()` yra vienintelė vieta,
@@ -2212,9 +2215,10 @@ class Listing(PaskelbimoLaikas, models.Model):
         # veiksmas, ne programos klaida. Kviečiantysis, kuris tikrina
         # grąžinimą, parodo žinutę; tas, kuris netikrina, bent jau
         # NEPASKELBIA tuščio skelbimo.
-        # Visa pilnumo patikra (kaina, vieta, kategorijos laukai,
-        # nuotraukos) — ne tik nuotraukos (apps/listings/pilnumas.py).
-        if self.trukstami_laukai():
+        # VIENINTELIS stabdys — nėra nė vienos nuotraukos. Visa kita
+        # savininkas pataiso „Redaguoti" jau aktyviame skelbime
+        # (žmogaus sprendimas 2026-10-01: „Aktyvuoti" turi tiesiog aktyvuoti).
+        if not self.turi_nuotrauku():
             return False
         if days is None:
             days = self.DEFAULT_ACTIVE_DAYS
@@ -4508,25 +4512,3 @@ class SavedWheelListing(models.Model):
     class Meta:
         unique_together = ('user', 'listing')
         ordering = ['-saved_at']
-
-
-
-# ═══════════════════════════════════════════════════════════════════
-# PASKUTINĖ NUOTRAUKA IŠTRINTA → SKELBIMAS NEBEVIEŠAS (ACT-02)
-#
-# Nuotraukos trinamos keliose vietose (image_delete, motociklų AJAX,
-# redagavimo formos). Aktyvus skelbimas be nuotraukų neišlaiko pilnumo
-# patikros (apps/listings/pilnumas.py), tad grąžinamas į juodraštį —
-# kitaip jis liktų sąrašuose su tuščia kortele. queryset.update, ne
-# save(): kaskadinis skelbimo trynimas trina ir nuotraukas.
-# ═══════════════════════════════════════════════════════════════════
-from django.db.models.signals import post_delete  # noqa: E402
-from django.dispatch import receiver               # noqa: E402
-
-
-@receiver(post_delete, sender=ListingImage, dispatch_uid='nuotrauka_istrinta_ne_viesas')
-def _paskutine_nuotrauka_istrinta(sender, instance, **kwargs):
-    lid = instance.listing_id
-    if not lid or ListingImage.objects.filter(listing_id=lid).exists():
-        return
-    Listing.objects.filter(pk=lid, status='active').update(status='draft')

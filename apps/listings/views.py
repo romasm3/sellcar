@@ -12,7 +12,6 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import JsonResponse, Http404
-from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -2735,7 +2734,10 @@ def listing_detail(request, pk):
     # ACT-02: aktyvus, bet neišlaikantis pilnumo patikros (be nuotraukų,
     # kainos, vietos…) — pirkėjams nerodomas; savininkas mato juostą
     # „Juodraštis – trūksta: …". Galioja ir jau esantiems DB įrašams.
-    _trukstami = listing.trukstami_laukai() if listing.status in _vieši else []
+    # Vienintelis stabdys — nuotraukos (2026-10-01): aktyvus be nė vienos
+    # nuotraukos pirkėjams nerodomas; kiti trūkumai — ne priežastis slėpti.
+    _trukstami = (['images'] if listing.status in _vieši
+                  and not listing.turi_nuotrauku() else [])
     if _trukstami:
         _neaktyvus = True
     if listing.status == 'sold' and listing.sold_at:
@@ -5656,14 +5658,31 @@ def listing_aktyvuoti(request, pk):
     if mokejimai_ijungti():
         return redirect('listing_select_plan', pk=listing.pk)
     if request.method == 'POST':
-        return aktyvuok(request, listing)
-    laukai = listing.trukstami_laukai()
-    if laukai and listing.status != 'sold':
-        return _i_redagavima_su_trukstamais(request, listing, laukai)
+        return aktyvuok(request, listing, grizti='skydelis')
+    # GET (laiškų, žymių nuorodos) būsenos nekeičia: be nuotraukos — į
+    # redagavimą su paaiškinimu, kitaip — vienas mygtukas (POST).
+    if not listing.turi_nuotrauku() and listing.status != 'sold':
+        from .aktyvavimas import _laukti_nuotraukos
+        return _laukti_nuotraukos(request, listing)
     return render(request, 'listings/aktyvuoti.html', {
         'listing': listing,
         'pratesimas': listing.status == 'active',
     })
+
+
+@login_required
+@require_POST
+def listing_deaktyvuoti(request, pk):
+    """[Deaktyvuoti] aktyviame skelbime — nuimamas nuo svetainės (Neaktyvus).
+
+    Tik savininkas, tik POST. Grįžtama į skydelį; vėl aktyvuoti — [Aktyvuoti].
+    """
+    listing = get_object_or_404(Listing, pk=pk, seller=request.user)
+    if listing.status in ('active', 'reserved'):
+        listing.status = 'expired'
+        listing.save(update_fields=['status'])
+        messages.success(request, _('Skelbimas deaktyvuotas — viešai jo nebesimato.'))
+    return redirect('my_listings')
 
 
 @login_required
@@ -5672,10 +5691,9 @@ def listing_activate(request, pk):
     if request.method != 'POST':
         return redirect('listing_edit_hub', pk=listing.pk)
 
-    # Viena vieta: trūksta ko nors → redagavimas su konkrečiais laukais,
-    # kitaip aktyvuojama (apps/listings/aktyvavimas.py).
+    # „Aktyvuoti" tiesiog aktyvuoja (apps/listings/aktyvavimas.py).
     if not mokejimai_ijungti():
-        return aktyvuok(request, listing)
+        return aktyvuok(request, listing, grizti='skydelis')
 
     payments_enabled = mokejimai_ijungti()
 
