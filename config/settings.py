@@ -446,3 +446,19 @@ ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
 ROSETTA_MESSAGES_PER_PAGE = 25
 ROSETTA_REQUIRES_AUTH = True
 ROSETTA_LOGIN_URL = '/accounts/login/'
+# ═══ KLAIDŲ ŽURNALAS ═══
+# Be šito 500 traceback'ai niekur neužsirašydavo (DEBUG=False → Django
+# juos siunčia tik mail_admins), tad journalctl -u gunicorn rodydavo tik
+# „POST … 500" be priežasties. Dabar request klaidos — į stderr, kurį
+# gunicorn perduoda į journald:  journalctl -u gunicorn | grep -A30 Traceback
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'stderr': {'class': 'logging.StreamHandler'},
+    },
+    'loggers': {
+        'django.request': {'handlers': ['stderr'], 'level': 'ERROR', 'propagate': False},
+        'apps': {'handlers': ['stderr'], 'level': 'WARNING', 'propagate': False},
+    },
+}
