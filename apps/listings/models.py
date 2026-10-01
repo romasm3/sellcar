@@ -2193,33 +2193,23 @@ class Listing(PaskelbimoLaikas, models.Model):
 
     @property
     def yra_viesas(self):
-        """Aktyvus IR turi nuotrauką — tik toks matomas pirkėjams."""
-        return self.status == 'active' and self.turi_nuotrauku()
+        """Aktyvus — matomas pirkėjams (ir be nuotraukų: rodomas placeholder)."""
+        return self.status == 'active'
 
     @property
     def trukstamu_tekstas(self):
-        """„nuotraukos" — kai skelbimo negalima aktyvuoti / rodyti.
+        """Niekas aktyvavimo nebestabdo (2026-10-01) — visada tuščia.
 
-        Vienintelis stabdys — nuotraukos; kiti trūkumai nieko nestabdo.
+        Paliekama šablonams (partials/_busena.html), kad nereikėtų jų
+        perrašinėti; tikri trūkumai — trukstami_laukai() redagavimo formai.
         """
-        from apps.listings import pilnumas
-        return '' if self.turi_nuotrauku() else pilnumas.trukstamu_tekstas(['images'])
+        return ''
 
     def activate(self, days=None):
-        # Tikrinam ČIA, o ne formose: `activate()` yra vienintelė vieta,
-        # pro kurią eina visi keliolika kvietimų (views, admin, planai,
-        # listing_helpers). Viena sąlyga modelyje yra tvirtesnė garantija
-        # nei dvidešimt patikrų, išbarstytų po vaizdus.
-        #
-        # Grąžinam False, o ne keliam klaidos: aktyvavimas yra vartotojo
-        # veiksmas, ne programos klaida. Kviečiantysis, kuris tikrina
-        # grąžinimą, parodo žinutę; tas, kuris netikrina, bent jau
-        # NEPASKELBIA tuščio skelbimo.
-        # VIENINTELIS stabdys — nėra nė vienos nuotraukos. Visa kita
-        # savininkas pataiso „Redaguoti" jau aktyviame skelbime
-        # (žmogaus sprendimas 2026-10-01: „Aktyvuoti" turi tiesiog aktyvuoti).
-        if not self.turi_nuotrauku():
-            return False
+        # Aktyvuoja VISADA — ir be nuotraukų, kainos ar miesto (žmogaus
+        # sprendimas 2026-10-01). Skelbimas be nuotraukų rodomas su
+        # placeholder'iu; trūkumus savininkas pataiso „Redaguoti".
+        # Grąžina True (kviečiantieji, kurie tikrina grąžinimą, lieka veikti).
         if days is None:
             days = self.DEFAULT_ACTIVE_DAYS
         self.status = 'active'

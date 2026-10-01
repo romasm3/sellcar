@@ -1,61 +1,81 @@
 # -*- coding: utf-8 -*-
 """
-AKTYVAVIMAS — „Aktyvuoti" tiesiog aktyvuoja (žmogaus sprendimas 2026-10-01).
+AKTYVAVIMAS — „Aktyvuoti" aktyvuoja VISADA (žmogaus sprendimai 2026-10-01).
 
     [Aktyvuoti] (POST /listings/<id>/activate/) → skelbimas aktyvus →
     atgal į /dashboard/announcements/ su „Skelbimas aktyvuotas" + nuoroda.
 
-VIENINTELIS stabdys — nėra nė vienos nuotraukos: tada NEaktyvuojam, o
-vedam į redagavimą su „Įkelkite bent vieną nuotrauką ir išsaugokite –
-skelbimas aktyvuosis". Skelbimas įsimenamas sesijoje (LAUKIA_RAKTAS), ir
-kai tik jis turi nuotrauką (išsaugota forma ar AJAX įkėlimas),
-AktyvavimoLaukimoMiddleware jį aktyvuoja — antrą kartą spausti nereikia.
+Jokių patikrų: ir be nuotraukų (rodomas placeholder), ir be kainos ar
+miesto. Vienintelis atsisakymas — ne savininkas (404). Trūkumus savininkas
+pataiso „Redaguoti" jau aktyviame skelbime. Jokio plano, paketo, kainos ar
+apmokėjimo (MOKEJIMAI_IJUNGTI = False; planų puslapis lieka kode ateičiai).
 
-Kiti trūkumai (kaina, miestas…) aktyvavimo NEstabdo: savininkas juos
-pataiso „Redaguoti" jau aktyviame skelbime. Jokio plano, paketo, kainos
-ar apmokėjimo žingsnio (MOKEJIMAI_IJUNGTI = False; planų puslapis lieka
-kode ateičiai ir rodomas tik įjungus mokėjimus).
+LAIŠKO NUORODA: GET /listings/<id>/activate/?t=<tokenas> aktyvuoja vienu
+paspaudimu, net neprisijungus — tokenas pasirašytas (TimestampSigner,
+galioja 30 d.) ir susietas su skelbimu IR jo savininku. Blogas ar
+pasenęs tokenas → 403, būsena nekeičiama. Be tokeno GET būsenos nekeičia
+(puslapis su POST mygtuku).
 
-Būsena keičiama TIK per POST. Šis modulis views neimportuoja modulio
-lygiu — jį importuoja kūrimo formų vaizdai.
+Šis modulis views neimportuoja modulio lygiu — jį importuoja kūrimo formų
+vaizdai.
 """
 from django.contrib import messages
+from django.core import signing
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
-LAUKIA_RAKTAS = 'laukia_aktyvavimo'
-BE_NUOTRAUKOS = 'Įkelkite bent vieną nuotrauką ir išsaugokite – skelbimas aktyvuosis'
+TOKENO_DRUSKA = 'autoleft.aktyvavimas'
+TOKENO_GALIOJIMAS = 60 * 60 * 24 * 30          # 30 dienų
+
+
+def _zenklas():
+    return signing.TimestampSigner(salt=TOKENO_DRUSKA)
+
+
+def aktyvavimo_tokenas(listing):
+    """Pasirašytas tokenas laiško nuorodai (skelbimas + savininkas)."""
+    return _zenklas().sign(f'{listing.pk}:{listing.seller_id}')
+
+
+def aktyvavimo_nuoroda(listing, site_url=''):
+    """Pilna vieno paspaudimo nuoroda laiškui."""
+    from urllib.parse import urlencode
+    return (f"{site_url}{reverse('listing_aktyvuoti', args=[listing.pk])}"
+            f"?{urlencode({'t': aktyvavimo_tokenas(listing)})}")
+
+
+def tokenas_tinka(listing, tokenas):
+    """Ar tokenas pasirašytas šiam skelbimui ir jo savininkui ir nepasenęs."""
+    try:
+        reiksme = _zenklas().unsign(tokenas or '', max_age=TOKENO_GALIOJIMAS)
+    except signing.BadSignature:                  # apima SignatureExpired
+        return False
+    return reiksme == f'{listing.pk}:{listing.seller_id}'
 
 
 def _paskelbk(listing, user):
-    """Aktyvuoja ir (juodraščiui) išsiunčia „paskelbta" laišką. True — pavyko."""
+    """Aktyvuoja ir (juodraščiui) išsiunčia „paskelbta" laišką."""
     buvo = listing.status
-    if not listing.activate():
-        return False
+    listing.activate()
     if buvo == 'draft':
         try:
             from .views import _send_listing_published_email
             _send_listing_published_email(listing, user)
         except Exception:                            # laiškas — ne priežastis lūžti
             pass
-    return True
 
 
-def _laukti_nuotraukos(request, listing):
-    """Be nuotraukos — į redagavimą; įsimenam, kad išsaugojus aktyvuotume."""
-    from . import formos_klaidos
-    laukia = [p for p in request.session.get(LAUKIA_RAKTAS, []) if p != listing.pk]
-    request.session[LAUKIA_RAKTAS] = laukia + [listing.pk]
-    request.session[formos_klaidos.SESIJOS_RAKTAS] = {'pk': listing.pk, 'laukai': ['images']}
-    request.session.modified = True
-    messages.warning(request, _(BE_NUOTRAUKOS))
-    return redirect(listing.get_edit_url())
+def _aktyvuota_zinute(request, listing):
+    messages.success(request, format_html(
+        '{} <a href="{}" class="underline font-semibold">{}</a>',
+        _('Skelbimas aktyvuotas.'), reverse('listing_detail', args=[listing.pk]),
+        _('Peržiūrėti')))
 
 
 def aktyvuok(request, listing, grizti='sekme'):
-    """POST veiksmas.
+    """POST veiksmas — aktyvuoja visada.
 
     grizti='sekme'    — kūrimo formos: į „pavyko" puslapį (kaip buvo);
     grizti='skydelis' — mygtukas „Aktyvuoti": atgal į skydelį su žinute.
@@ -66,59 +86,20 @@ def aktyvuok(request, listing, grizti='sekme'):
         return redirect('listing_select_plan', pk=listing.pk)
     if listing.status == 'sold':
         return redirect('listing_edit_hub', pk=listing.pk)
-    if not listing.turi_nuotrauku():
-        return _laukti_nuotraukos(request, listing)
 
     buvo = listing.status
     _paskelbk(listing, request.user)
 
     if grizti == 'skydelis':
-        messages.success(request, format_html(
-            '{} <a href="{}" class="underline font-semibold">{}</a>',
-            _('Skelbimas aktyvuotas.'), reverse('listing_detail', args=[listing.pk]),
-            _('Peržiūrėti')))
+        _aktyvuota_zinute(request, listing)
         return redirect('my_listings')
     veiksmas = {'draft': 'published', 'expired': 'reactivated'}.get(buvo, 'extended')
     return redirect(reverse('listing_success', kwargs={'pk': listing.pk}) + f'?action={veiksmas}')
 
 
-class AktyvavimoLaukimoMiddleware:
-    """Skelbimas, kurio aktyvavimą stabdė nuotraukų nebuvimas, aktyvuojasi,
-    kai tik jis jų turi — po redagavimo formos ar AJAX įkėlimo (POST).
-
-    Žiūrima TIK į to naudotojo sesijoje įsimintus skelbimus, todėl
-    kiti užklausų keliai nieko nekainuoja.
-    """
-
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        response = self.get_response(request)
-        try:
-            self._tikrink(request)
-        except Exception:                            # niekada nelaužom atsakymo
-            pass
-        return response
-
-    @staticmethod
-    def _tikrink(request):
-        if request.method != 'POST' or not hasattr(request, 'session'):
-            return
-        laukia = request.session.get(LAUKIA_RAKTAS)
-        if not laukia or not getattr(request, 'user', None) or not request.user.is_authenticated:
-            return
-        from .models import Listing
-        liko = []
-        for listing in Listing.objects.filter(pk__in=laukia, seller=request.user):
-            if listing.status in ('draft', 'expired') and listing.turi_nuotrauku():
-                if _paskelbk(listing, request.user):
-                    messages.success(request, format_html(
-                        '{} <a href="{}" class="underline font-semibold">{}</a>',
-                        _('Skelbimas aktyvuotas.'),
-                        reverse('listing_detail', args=[listing.pk]), _('Peržiūrėti')))
-                    continue
-            if listing.status in ('draft', 'expired'):
-                liko.append(listing.pk)
-        request.session[LAUKIA_RAKTAS] = liko
-        request.session.modified = True
+def aktyvuok_pagal_tokena(request, listing):
+    """Laiško nuoroda: aktyvuoja ir veda į /<id>/ su žinute (be prisijungimo)."""
+    if listing.status != 'sold':
+        _paskelbk(listing, listing.seller)
+    _aktyvuota_zinute(request, listing)
+    return redirect('listing_detail', pk=listing.pk)

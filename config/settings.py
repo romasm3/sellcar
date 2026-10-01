@@ -107,9 +107,6 @@ MIDDLEWARE = [
     # (404). Šitas nukreipia į /<kalba>/… Žr. apps/listings/kalbos_kelias.py
     "apps.listings.kalbos_kelias.KalbosKelioMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    # Po MessageMiddleware: be nuotraukos sustabdytas aktyvavimas įvyksta,
-    # kai skelbimas jų gauna (apps/listings/aktyvavimas.py)
-    "apps.listings.aktyvavimas.AktyvavimoLaukimoMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "apps.analytics.middleware.VisitorTrackingMiddleware",
 ]

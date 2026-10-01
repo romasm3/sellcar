@@ -94,6 +94,11 @@ def pasejk(u):
             img = ListingImage(listing=l, is_main=(i == 0), order=i)
             img.image.save(f'dalies_vaizdas_{i}.jpg', ContentFile(b.getvalue()), save=False)
             img.save()
+    # Bendroje laikinoje DB kiti testai kuria daug dalių — sėkla turi būti
+    # naujausia, kad būtų pirmame /skelbimai/ puslapyje.
+    Listing.objects.filter(pk=l.pk).update(created_at=timezone.now(), activated_at=timezone.now(),
+                                           updated_at=timezone.now())
+    l.refresh_from_db()
     return l, kuras
 
 

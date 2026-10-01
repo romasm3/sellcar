@@ -12,8 +12,8 @@ Tikrinam (force_login, tikras POST su multipart):
     fuel_type, description, phone, email, country=LT, city,
     hide_exact_address, agree_terms + nuotrauka) → 302 į /<id>/success/,
     skelbimas aktyvus
-  • tas pats be nuotraukos → ne 500, o 302 į redagavimą (trūksta
-    nuotraukos — aktyvuoti be jos negalima)
+  • tas pats be nuotraukos → ne 500, 302 į /<id>/success/ (nuotraukos
+    aktyvavimo nebestabdo — žmogaus sprendimas 2026-10-01)
   • trūkstami laukai → 200 su klaidomis (ne 500)
   • visi 17 vaizdų, kviečiančių aktyvuok(), jį importuoja MODULIO
     lygyje (ne docstring'e) — kad tokia klaida nepasikartotų kitur
@@ -118,10 +118,11 @@ def main():
     l = Listing.objects.filter(title='Patikra kurimas su nuotrauka').order_by('-pk').first()
     tikrink(l is not None and l.status == 'active', f'skelbimas aktyvus ({l and l.status})')
 
-    print('\n— Tas pats be nuotraukos — ne 500')
+    print('\n— Tas pats be nuotraukos — ne 500, aktyvuojama (2026-10-01: nuotraukos nebestabdo)')
     a = c.post(url, rinkinys(marke, modelis, kuras, 'Patikra kurimas be nuotraukos'))
-    tikrink(a.status_code == 302 and 'edit' in a.get('Location', ''),
-            f'302 → redagavimas (gauta {a.status_code} {a.get("Location")})')
+    vieta = urlparse(a.get('Location', '')).path
+    tikrink(a.status_code == 302 and re.fullmatch(r'/\d+/success/', vieta or ''),
+            f'302 → /<id>/success/ (gauta {a.status_code} {a.get("Location")})')
 
     print('\n— Trūkstami laukai — 200 su klaidomis')
     a = c.post(url, {'sub': LAPAS, 'title': 'x', 'price': '120', 'condition': 'used',

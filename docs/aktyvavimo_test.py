@@ -1,26 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-„AKTYVUOTI" TIESIOG AKTYVUOJA (žmogaus sprendimas 2026-10-01).
+„AKTYVUOTI" AKTYVUOJA VISADA (žmogaus sprendimai 2026-10-01).
 
     [Aktyvuoti] = POST /listings/<id>/activate/ (CSRF, tik savininkas) →
-    aktyvus → atgal į /dashboard/announcements/ su „Skelbimas aktyvuotas"
-    + nuoroda į /<id>/.
-Vienintelis stabdys — nėra nuotraukos: tada NEaktyvuojam, o vedam į
-redagavimą su „Įkelkite bent vieną nuotrauką ir išsaugokite – skelbimas
-aktyvuosis"; įkėlus ir išsaugojus — aktyvuojasi pats. Jokio plano,
-paketo, kainos ar apmokėjimo. Aktyviame — [Deaktyvuoti] [Redaguoti].
+    aktyvus → /dashboard/announcements/ su „Skelbimas aktyvuotas" + nuoroda.
+Jokių patikrų: ir be nuotraukų (placeholder), ir be kainos/miesto.
+Vienintelis atsisakymas — ne savininkas (404). Laiško nuoroda
+GET /listings/<id>/activate/?t=<pasirašytas tokenas> aktyvuoja vienu
+paspaudimu; blogas / pasenęs tokenas → 403. Laiškas — gavėjo kalba.
 
 Tikrinam (tikras HTML ir DB):
-  • juodraštis su 1 foto → POST activate → 302 į skydelį, žinutė su
-    nuoroda; anoniminis GET /<id>/ → 200
-  • juodraštis be kainos/miesto, bet su foto → vis tiek aktyvuojamas
-  • juodraštis be foto → 302 į redagavimą, lieka juodraštis; žinutė yra,
-    klaidų sąrašas NE tuščias
-  • įkėlus foto ir išsaugojus redagavimą → aktyvus be antro paspaudimo
+  • juodraštis su foto → POST activate → 302 į skydelį, žinutė su nuoroda;
+    anoniminis GET /<id>/ → 200
+  • juodraštis BE nuotraukų (ir be kainos/miesto) → POST activate → 302;
+    anoniminis GET /<id>/ → 200
+  • GET ?t=<geras tokenas> (neprisijungus) → 302 į /<id>/, aktyvus
+  • GET ?t=<blogas / pasenęs / kito skelbimo> → 403, būsena ta pati
   • ne savininkas → 403/404, būsena nepakinta
-  • GET activate ir GET select-plan būsenos nekeičia
+  • GET activate be tokeno ir GET select-plan būsenos nekeičia
   • aktyvaus skelbimo redagavimo išsaugojimas → lieka aktyvus (anonimui 200)
-  • [Deaktyvuoti] → nebeviešas; skydelyje aktyviam yra [Deaktyvuoti]
+  • [Deaktyvuoti] [Redaguoti] aktyviame; [Aktyvuoti] [Redaguoti] juodraštyje
+  • LT gavėjo laiške nėra „Activate my listing", yra „Aktyvuoti skelbimą";
+    mygtukas — vieno paspaudimo nuoroda su tokenu; „Redaguoti" → /<id>/edit/
   • niekur nėra plano / apmokėjimo žingsnio
 
 Paleidimas (TIK su laikina sqlite baze, NE prieš produkcijos DB):
@@ -121,46 +122,46 @@ def main():
     tikrink(anonimas.get(f'/{l.pk}/').status_code == 200, 'anoniminis GET /<id>/ → 200')
     be_mokejimo(h, '   skydelis')
 
-    print('\n— Juodraštis be kainos ir miesto, bet su foto → vis tiek aktyvuojamas')
-    m = juodrastis(u, 'Patikra be kainos su foto', kaina='0', miestas='—')
-    c.post(f'/listings/{m.pk}/activate/')
+    print('\n— Juodraštis BE nuotraukų, kainos ir miesto → vis tiek aktyvuojamas')
+    m = juodrastis(u, 'Patikra be nuotrauku', foto=False, kaina='0', miestas='—')
+    a = c.post(f'/listings/{m.pk}/activate/')
     m.refresh_from_db()
-    tikrink(m.status == 'active', f'aktyvus be kainos/miesto ({m.status})')
+    tikrink(a.status_code == 302 and a.get('Location') == '/dashboard/announcements/',
+            f'302 → skydelis (gauta {a.status_code} {a.get("Location")})')
+    tikrink(m.status == 'active' and not m.images.exists(), f'aktyvus be nuotraukų ({m.status})')
+    r = anonimas.get(f'/{m.pk}/')
+    tikrink(r.status_code == 200, f'anoniminis GET /{m.pk}/ → 200 (gauta {r.status_code})')
+    tikrink('Įkelkite bent vieną nuotrauką' not in html(c.get('/dashboard/announcements/')),
+            'jokio „Įkelkite bent vieną nuotrauką"')
 
-    print('\n— Juodraštis be foto → redagavimas, lieka juodraštis')
-    n = juodrastis(u, 'Patikra be foto', foto=False)
-    a = c.post(f'/listings/{n.pk}/activate/', follow=True)
-    galas = a.redirect_chain[-1][0] if a.redirect_chain else ''
-    n.refresh_from_db()
-    tikrink(a.redirect_chain and a.redirect_chain[0][0] == f'/{n.pk}/edit/',
-            f'302 → /{n.pk}/edit/ (grandinė {[x[0] for x in a.redirect_chain]})')
-    tikrink(n.status == 'draft', 'liko juodraštis')
-    h = html(a)
-    tikrink('Įkelkite bent vieną nuotrauką ir išsaugokite – skelbimas aktyvuosis' in h,
-            'žinutė „Įkelkite bent vieną nuotrauką ir išsaugokite…"')
-    k = re.search(r'id="serverio-klaidos">(.*?)</script>', h, re.S)
-    k = json.loads(k.group(1)) if k else {}
-    tikrink(k.get('laukai') == ['images'], f'klaidų sąrašas ne tuščias: {k.get("laukai")}')
-    tikrink('form-error-box' not in h or 'Įkelkite bent vieną nuotrauką' in h,
-            'nėra tuščios klaidų dėžutės')
-    be_mokejimo(h, '   redagavimo forma')
+    print('\n— Laiško nuoroda: GET ?t=<tokenas>')
+    from unittest import mock
+    import time as _time
+    from apps.listings.aktyvavimas import aktyvavimo_tokenas
+    t1 = juodrastis(u, 'Patikra tokenas geras', foto=False)
+    a = anonimas.get(f'/listings/{t1.pk}/activate/', {'t': aktyvavimo_tokenas(t1)})
+    t1.refresh_from_db()
+    tikrink(a.status_code == 302 and a.get('Location') == f'/{t1.pk}/',
+            f'geras tokenas (neprisijungus) → 302 /{t1.pk}/ (gauta {a.status_code} {a.get("Location")})')
+    tikrink(t1.status == 'active', f'   aktyvus ({t1.status})')
+    tikrink('Skelbimas aktyvuotas' in html(anonimas.get(f'/{t1.pk}/')), '   žinutė „Skelbimas aktyvuotas"')
 
-    print('\n— Įkėlus foto ir išsaugojus redagavimą → aktyvus pats')
-    nuotrauka(n)
-    url = galas
-    postas = {}
-    for raktas, reiksme in forma_testas.forma(html(c.get(url))).laukai:
-        postas.setdefault(raktas, []).append(reiksme)
-    a = c.post(url, postas)
-    n.refresh_from_db()
-    tikrink(n.status == 'active', f'po išsaugojimo aktyvus ({n.status}; POST {a.status_code})')
-    tikrink(anonimas.get(f'/{n.pk}/').status_code == 200, '   anonimui 200')
+    t2 = juodrastis(u, 'Patikra tokenas blogas', foto=False)
+    with mock.patch('django.core.signing.time.time', return_value=_time.time() - 31 * 86400):
+        pasenes = aktyvavimo_tokenas(t2)
+    kito = aktyvavimo_tokenas(t1)                 # galioja, bet kitam skelbimui
+    for pav, tok in (('blogas', 'blogas:tokenas'), ('pasenęs (31 d.)', pasenes),
+                     ('kito skelbimo', kito), ('tuščias', '')):
+        a = anonimas.get(f'/listings/{t2.pk}/activate/', {'t': tok})
+        t2.refresh_from_db()
+        tikrink(a.status_code == 403 and t2.status == 'draft',
+                f'{pav} tokenas → 403, liko juodraštis (gauta {a.status_code}, {t2.status})')
+    sv = t2
 
     print('\n— Ne savininkas')
     kitas = get_user_model().objects.filter(email='kitas@autoleft.lt').first() or \
         get_user_model().objects.create_user(username='kitas_patikra', email='kitas@autoleft.lt',
                                              password='Patikra123!')
-    sv = juodrastis(u, 'Patikra svetimas', foto=True)
     k2 = Client()
     k2.force_login(kitas)
     a = k2.post(f'/listings/{sv.pk}/activate/')
@@ -201,6 +202,42 @@ def main():
     l.refresh_from_db()
     tikrink(l.status != 'active' and anonimas.get(f'/{l.pk}/').status_code == 404,
             f'deaktyvuotas → anonimui 404 ({l.status})')
+
+    print('\n— Priminimo laiškas: gavėjo kalba ir vieno paspaudimo nuoroda')
+    from apps.listings.management.commands.send_draft_reminders import priminimo_laiskas
+    from apps.accounts.models import Profile
+    lj = juodrastis(u, 'Patikra laiskas', foto=False)
+    for kalba, turi, neturi in (('lt', 'Aktyvuoti skelbimą', 'Activate my listing'),
+                                ('en', 'Activate my listing', 'Aktyvuoti skelbimą')):
+        profilis, _sukurtas = Profile.objects.get_or_create(user=u)
+        profilis.language = kalba
+        profilis.save(update_fields=['language'])
+        lj.seller.refresh_from_db()
+        tema, tekstas, laiskas = priminimo_laiskas(lj, 'draft_reminder_first', site_url='')
+        tikrink(turi in laiskas and neturi not in laiskas,
+                f'{kalba.upper()} gavėjui: yra „{turi}", nėra „{neturi}"')
+        if kalba == 'lt':
+            tikrink('JŪSŲ JUODRAŠTIS' in laiskas.upper() and 'Kodėl verta aktyvuoti dabar?' in laiskas
+                    and 'Redaguoti skelbimą' in laiskas and 'Why activate' not in laiskas,
+                    '   LT: juodraštis, „Kodėl verta…", „Redaguoti skelbimą"')
+            tikrink('Užbaikite' in tema and 'Complete' not in tema, f'   LT tema: „{tema}"')
+            _t, _tekstas, kasdienis = priminimo_laiskas(lj, 'draft_reminder_daily', site_url='')
+            tikrink('Aktyvuoti skelbimą' in kasdienis and 'Activate' not in kasdienis,
+                    '   LT kasdienis laiškas išverstas')
+        # Nuorodos — gavėjo kalba (EN: /en/… priešdėlis), kad atsidarytų jo kalba
+        nuoroda = re.search(r'href="((?:/[a-z]{2})?/listings/\d+/activate/\?t=[^"]+)"', laiskas)
+        tikrink(nuoroda is not None
+                and re.search(rf'href="(?:/[a-z]{{2}})?/{lj.pk}/edit/"', laiskas) is not None,
+                '   mygtukas — /activate/?t=…, „Redaguoti" — /<id>/edit/ (ne /create/)')
+        if kalba == 'lt':
+            lt_nuoroda = nuoroda.group(1).replace('&amp;', '&') if nuoroda else ''
+    a = anonimas.get(lt_nuoroda, follow=True)
+    lj.refresh_from_db()
+    tikrink(a.status_code == 200 and lj.status == 'active'
+            and a.redirect_chain and a.redirect_chain[-1][0].rstrip('/').endswith(f'/{lj.pk}'),
+            f'laiško mygtukas aktyvuoja vienu paspaudimu ir veda į /<id>/ ({lj.status}, '
+            f'{[x[0] for x in a.redirect_chain]})')
+    Profile.objects.filter(user=u).update(language='lt')
 
     print(f'\n════ {gerai} gerai / {blogai} blogai ════')
     return 1 if blogai else 0

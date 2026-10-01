@@ -2734,12 +2734,9 @@ def listing_detail(request, pk):
     # ACT-02: aktyvus, bet neišlaikantis pilnumo patikros (be nuotraukų,
     # kainos, vietos…) — pirkėjams nerodomas; savininkas mato juostą
     # „Juodraštis – trūksta: …". Galioja ir jau esantiems DB įrašams.
-    # Vienintelis stabdys — nuotraukos (2026-10-01): aktyvus be nė vienos
-    # nuotraukos pirkėjams nerodomas; kiti trūkumai — ne priežastis slėpti.
-    _trukstami = (['images'] if listing.status in _vieši
-                  and not listing.turi_nuotrauku() else [])
-    if _trukstami:
-        _neaktyvus = True
+    # Aktyvus rodomas visada — ir be nuotraukų (placeholder). Žmogaus
+    # sprendimas 2026-10-01: nuotraukų patikra nebeslepia skelbimo.
+    _trukstami = []
     if listing.status == 'sold' and listing.sold_at:
         _neaktyvus = listing.sold_at < timezone.now() - timedelta(days=Listing.SOLD_DISPLAY_DAYS)
     if _neaktyvus and not (is_owner or is_staff):
@@ -5645,25 +5642,35 @@ def _publikuok_nemokamai(request, listing):
     )
 
 
-@login_required
 def listing_aktyvuoti(request, pk):
-    """/listings/<id>/aktyvuoti/ — aktyvavimas be mokėjimo.
+    """/listings/<id>/activate/ — aktyvavimas be mokėjimo (aktyvuoja VISADA).
 
-    GET  — nieko nekeičia: trūksta laukų → redagavimas su jais; kitaip
-           patvirtinimo puslapis su mygtuku „Aktyvuoti skelbimą" (POST).
-           Čia veda laiškų ir senos (select-plan, activation-plans) nuorodos.
-    POST — aktyvuoja / pratęsia (aktyvavimas.aktyvuok), su CSRF.
+    GET ?t=<tokenas> — laiško nuoroda: tinkamas (pasirašytas šiam skelbimui
+           ir savininkui, ne senesnis nei 30 d.) → aktyvuoja ir veda į
+           /<id>/; blogas ar pasenęs → 403, būsena nekeičiama. Prisijungti
+           nereikia — tokenas ir yra įrodymas.
+    GET  — be tokeno nieko nekeičia: puslapis su mygtuku (POST).
+    POST — aktyvuoja (aktyvavimas.aktyvuok), su CSRF, tik savininkas.
     """
+    from django.contrib.auth.views import redirect_to_login
+    from django.core.exceptions import PermissionDenied
+    from .aktyvavimas import aktyvuok_pagal_tokena, tokenas_tinka
+
+    if request.method == 'GET' and 't' in request.GET:
+        listing = Listing.objects.filter(pk=pk).select_related('seller').first()
+        if listing is None or not tokenas_tinka(listing, request.GET.get('t')):
+            raise PermissionDenied('Netinkama arba pasenusi aktyvavimo nuoroda.')
+        if mokejimai_ijungti():
+            return redirect('listing_select_plan', pk=listing.pk)
+        return aktyvuok_pagal_tokena(request, listing)
+
+    if not request.user.is_authenticated:
+        return redirect_to_login(request.get_full_path())
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
     if mokejimai_ijungti():
         return redirect('listing_select_plan', pk=listing.pk)
     if request.method == 'POST':
         return aktyvuok(request, listing, grizti='skydelis')
-    # GET (laiškų, žymių nuorodos) būsenos nekeičia: be nuotraukos — į
-    # redagavimą su paaiškinimu, kitaip — vienas mygtukas (POST).
-    if not listing.turi_nuotrauku() and listing.status != 'sold':
-        from .aktyvavimas import _laukti_nuotraukos
-        return _laukti_nuotraukos(request, listing)
     return render(request, 'listings/aktyvuoti.html', {
         'listing': listing,
         'pratesimas': listing.status == 'active',
