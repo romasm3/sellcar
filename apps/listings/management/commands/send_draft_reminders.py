@@ -19,7 +19,85 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from datetime import timedelta
 
+from django.utils import translation
+from django.utils.translation import gettext as _
+
 from apps.listings.models import Listing, EmailScenario
+
+# Temos — msgid angliški, vertimai locale/*/django.po (LT: „Užbaikite …").
+TEMOS = {
+    'draft_reminder_first': 'Complete your listing — just a few minutes left!',
+    'draft_reminder_24h': "Don't let your listing go to waste",
+    'draft_reminder_daily': 'Your listing is still waiting for activation',
+}
+SABLONAI = {
+    'draft_reminder_first': 'emails/draft_reminder_first.html',
+    'draft_reminder_24h': 'emails/draft_reminder_daily.html',
+    'draft_reminder_daily': 'emails/draft_reminder_daily.html',
+}
+
+
+def gavejo_kalba(user):
+    """Laiško kalba — iš vartotojo profilio, ne visada EN.
+
+    Profilio laukas pildomas, kai žmogus perjungia kalbą svetainėje
+    (accounts.middleware.UserLanguageMiddleware); tuščias → svetainės
+    numatytoji (settings.LANGUAGE_CODE, LT).
+    """
+    profilis = getattr(user, 'profile', None)
+    kalba = (getattr(profilis, 'language', '') or '').strip()
+    galimos = {k for k, _v in settings.LANGUAGES}
+    return kalba if kalba in galimos else settings.LANGUAGE_CODE
+
+
+def rodomas_pavadinimas(draft):
+    """Skelbimo pavadinimas laiške (vartotojo kalba jau aktyvuota)."""
+    if (draft.title or '').strip():
+        return draft.title.strip()
+    if draft.is_motorcycle and draft.motorcycle_brand:
+        dalys = [draft.motorcycle_brand.name]
+        if draft.motorcycle_model:
+            dalys.append(draft.motorcycle_model.name)
+    elif draft.brand:
+        dalys = [draft.brand.name]
+        if draft.model:
+            dalys.append(draft.model.name)
+    else:
+        return _('Your listing')
+    if draft.year:
+        dalys.append(str(draft.year))
+    return ' '.join(dalys)
+
+
+def priminimo_laiskas(draft, scenarijus, site_url=None):
+    """(tema, tekstas, html) — gavėjo kalba, su vieno paspaudimo nuoroda.
+
+    „Aktyvuoti skelbimą" = GET /listings/<id>/activate/?t=<pasirašytas
+    tokenas> (apps/listings/aktyvavimas.py) — aktyvuoja iš karto. Anksčiau
+    vesdavo į /<id>/activation-plans/, o iš ten į redagavimo formą.
+    „Redaguoti skelbimą" — /<id>/edit/ (anksčiau /create/ — naujas skelbimas!).
+    """
+    from apps.listings.aktyvavimas import aktyvavimo_nuoroda
+    site_url = site_url if site_url is not None else getattr(
+        settings, 'SITE_URL', 'http://127.0.0.1:8000')
+    seller = draft.seller
+    kalba = gavejo_kalba(seller)
+    with translation.override(kalba):
+        aktyvavimas = aktyvavimo_nuoroda(draft, site_url)
+        context = {
+            'kalba': kalba,
+            'seller_name': seller.first_name or seller.username,
+            'listing': draft,
+            'display_title': rodomas_pavadinimas(draft),
+            'activation_url': aktyvavimas,
+            'edit_url': f'{site_url}{draft.get_edit_url()}',
+            'listings_url': f'{site_url}/dashboard/announcements/?status=inactive',
+            'site_url': site_url,
+        }
+        html = render_to_string(SABLONAI[scenarijus], context)
+        tema = _(TEMOS[scenarijus])
+        tekstas = _('Activate your listing: %(url)s') % {'url': aktyvavimas}
+    return tema, tekstas, html
 
 
 class Command(BaseCommand):
@@ -70,15 +148,11 @@ class Command(BaseCommand):
 
         # Determine which reminder to send
         scenario_code = None
-        email_subject = None
-        template_name = None
 
         if draft.draft_reminder_count == 0:
             # First email — 1h after creation
             if age_hours >= 1:
                 scenario_code = 'draft_reminder_first'
-                email_subject = 'Complete your listing — just a few minutes left!'
-                template_name = 'emails/draft_reminder_first.html'
             else:
                 return 'skipped'
 
@@ -86,8 +160,6 @@ class Command(BaseCommand):
             # Second email — 24h after creation
             if age_hours >= 24:
                 scenario_code = 'draft_reminder_24h'
-                email_subject = "Don't let your listing go to waste"
-                template_name = 'emails/draft_reminder_daily.html'
             else:
                 return 'skipped'
 
@@ -100,8 +172,6 @@ class Command(BaseCommand):
                 return 'skipped'
 
             scenario_code = 'draft_reminder_daily'
-            email_subject = 'Your listing is still waiting for activation'
-            template_name = 'emails/draft_reminder_daily.html'
 
         # Check scenario enabled in DB
         try:
@@ -113,21 +183,6 @@ class Command(BaseCommand):
             self.stdout.write(f'  · Skip #{draft.pk}: scenario {scenario_code} not in DB')
             return 'skipped'
 
-        # Build email context
-        display_title = self._build_display_title(draft)
-        site_url = getattr(settings, 'SITE_URL', 'http://127.0.0.1:8000')
-
-        context = {
-            'seller_name': seller.first_name or seller.username,
-            'listing': draft,
-            'display_title': display_title,
-            'activation_url': f'{site_url}/{draft.pk}/activation-plans/',
-            'listings_url': f'{site_url}/dashboard/announcements/?status=inactive',
-            'age_hours': int(age_hours),
-            'age_days': int(age.days),
-            'site_url': site_url,
-        }
-
         if dry_run:
             self.stdout.write(
                 f'  [DRY RUN] Would send "{scenario_code}" to {seller.email} '
@@ -137,10 +192,10 @@ class Command(BaseCommand):
 
         # Send email
         try:
-            html_body = render_to_string(template_name, context)
+            email_subject, tekstas, html_body = priminimo_laiskas(draft, scenario_code)
             msg = EmailMultiAlternatives(
                 subject=email_subject,
-                body=f'Complete your listing: {context["activation_url"]}',
+                body=tekstas,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 to=[seller.email],
             )
@@ -175,24 +230,3 @@ class Command(BaseCommand):
                 f'  ✗ Failed #{draft.pk}: {e}'
             ))
             return 'skipped'
-
-    def _build_display_title(self, draft):
-        """Build display title for email (handles cars + motorcycles)."""
-        if draft.is_motorcycle:
-            if draft.motorcycle_brand:
-                parts = [draft.motorcycle_brand.name]
-                if draft.motorcycle_model:
-                    parts.append(draft.motorcycle_model.name)
-                if draft.year:
-                    parts.append(str(draft.year))
-                return ' '.join(parts)
-            return 'Your motorcycle listing'
-        else:
-            if draft.brand:
-                parts = [draft.brand.name]
-                if draft.model:
-                    parts.append(draft.model.name)
-                if draft.year:
-                    parts.append(str(draft.year))
-                return ' '.join(parts)
-            return 'Your vehicle listing'

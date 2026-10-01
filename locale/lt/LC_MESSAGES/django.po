@@ -17948,7 +17948,7 @@ msgstr "Grįžti į skelbimo redagavimą"
 #: templates/listings/truck_for_parts_create.html:16
 #: templates/listings/wheels_detail.html:220
 msgid "Edit listing"
-msgstr "Redaguoti įrašą"
+msgstr "Redaguoti skelbimą"
 
 #: templates/listings/boats_listing_create.html:24
 msgid "New listing"
@@ -26651,3 +26651,91 @@ msgstr "Stogo bagažinė"
 msgctxt "dalių kategorija"
 msgid "Floor Mats"
 msgstr "Kilimėliai"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Complete your listing"
+msgstr "Užbaikite skelbimą"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Your listing is still waiting"
+msgstr "Jūsų skelbimas vis dar laukia"
+
+#: templates/emails/draft_reminder_first.html
+#, python-format
+msgid "Hi %(name)s,"
+msgstr "Sveiki, %(name)s,"
+
+#: templates/emails/draft_reminder_first.html
+#, python-format
+msgid ""
+"You started creating a listing but haven't activated it yet. One click and "
+"your <strong>%(title)s</strong> will be visible to thousands of buyers."
+msgstr ""
+"Pradėjote kurti skelbimą, bet jo dar neaktyvavote. Vienas paspaudimas – ir "
+"jūsų <strong>%(title)s</strong> pamatys tūkstančiai pirkėjų."
+
+#: templates/emails/draft_reminder_first.html
+#, python-format
+msgid ""
+"Your listing <strong>%(title)s</strong> has been waiting since %(date)s, but"
+" it's still not activated."
+msgstr ""
+"Jūsų skelbimas <strong>%(title)s</strong> laukia nuo %(date)s, bet dar "
+"neaktyvuotas."
+
+#: templates/emails/draft_reminder_first.html
+msgid ""
+"Every day without activation means missed opportunities to reach buyers. "
+"Activate now with one click and start getting responses."
+msgstr ""
+"Kiekviena diena be aktyvavimo – praleisti pirkėjai. Aktyvuokite vienu "
+"paspaudimu ir sulaukite užklausų."
+
+#: templates/emails/draft_reminder_first.html
+msgid "Your draft"
+msgstr "Jūsų juodraštis"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Waiting for activation"
+msgstr "Laukia aktyvavimo"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Activate my listing"
+msgstr "Aktyvuoti skelbimą"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Why activate now?"
+msgstr "Kodėl verta aktyvuoti dabar?"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Reach thousands of active buyers"
+msgstr "Jūsų skelbimą pamatys tūkstančiai aktyvių pirkėjų"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Start receiving inquiries within hours"
+msgstr "Pirmųjų užklausų sulauksite per kelias valandas"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Activation is free"
+msgstr "Aktyvavimas nemokamas"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Thank you for choosing AutoLeft!"
+msgstr "Ačiū, kad renkatės AutoLeft!"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Complete your listing — just a few minutes left!"
+msgstr "Užbaikite skelbimą – liko vienas paspaudimas!"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Don't let your listing go to waste"
+msgstr "Neleiskite skelbimui nueiti veltui"
+
+#: templates/emails/draft_reminder_first.html
+msgid "Your listing is still waiting for activation"
+msgstr "Jūsų skelbimas vis dar laukia aktyvavimo"
+
+#: templates/emails/draft_reminder_first.html
+#, python-format
+msgid "Activate your listing: %(url)s"
+msgstr "Aktyvuokite skelbimą: %(url)s"

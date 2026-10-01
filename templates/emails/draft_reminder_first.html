@@ -1,9 +1,9 @@
 
-{% load listing_filters %}<!DOCTYPE html>
-<html>
+{% load i18n listing_filters %}{% comment %}Laiškas verčiamas gavėjo kalba (send_draft_reminders: translation.override). Mygtukas — vieno paspaudimo aktyvavimas su pasirašytu tokenu.{% endcomment %}<!DOCTYPE html>
+<html lang="{{ kalba|default:'lt' }}">
 <head>
 <meta charset="UTF-8">
-<title>Complete your listing</title>
+<title>{% trans "Complete your listing" %}</title>
 </head>
 <body style="margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color:#f3f4f6;">
 
@@ -15,18 +15,16 @@
 
     <div style="padding:30px 0;">
         <h2 style="color:#111827; font-size:20px; margin:0 0 16px 0;">
-            Hi {{ seller_name }},
+            {% blocktrans with name=seller_name %}Hi {{ name }},{% endblocktrans %}
         </h2>
 
         <p style="color:var(--accent); font-size:15px; line-height:1.6; margin:0 0 16px 0;">
-            You started creating a listing but haven't activated it yet.
-            Just a few more clicks and your <strong>{{ display_title }}</strong>
-            will be visible to thousands of buyers.
+            {% blocktrans with title=display_title %}You started creating a listing but haven't activated it yet. One click and your <strong>{{ title }}</strong> will be visible to thousands of buyers.{% endblocktrans %}
         </p>
 
         <div style="background-color:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:20px; margin:24px 0;">
             <div style="color:#6b7280; font-size:11px; text-transform:uppercase; font-weight:600; margin-bottom:8px;">
-                Your draft
+                {% trans "Your draft" %}
             </div>
             <div style="color:#111827; font-size:18px; font-weight:bold; margin-bottom:4px;">
                 {{ display_title }}
@@ -43,28 +41,28 @@
                style="display:inline-block; background-color:#2563eb; color:#ffffff;
                       padding:14px 32px; text-decoration:none; border-radius:8px;
                       font-weight:600; font-size:16px;">
-                Activate my listing
+                {% trans "Activate my listing" %}
             </a>
             <div style="margin-top:12px;">
-                <a href="{{ site_url }}/create/"
+                <a href="{{ edit_url }}"
                    style="color:#6b7280; font-size:14px; text-decoration:underline;">
-                    Edit listing
+                    {% trans "Edit listing" %}
                 </a>
             </div>
         </div>
 
         <p style="color:#6b7280; font-size:13px; line-height:1.6; margin:0 0 8px 0;">
-            <strong>Why activate now?</strong>
+            <strong>{% trans "Why activate now?" %}</strong>
         </p>
         <ul style="color:var(--accent); font-size:14px; line-height:1.8; margin:0 0 16px 20px; padding:0;">
-            <li>Reach thousands of active buyers</li>
-            <li>Start receiving inquiries within hours</li>
-            <li>Thank you</li>
+            <li>{% trans "Reach thousands of active buyers" %}</li>
+            <li>{% trans "Start receiving inquiries within hours" %}</li>
+            <li>{% trans "Activation is free" %}</li>
         </ul>
     </div>
 
     <div style="border-top:1px solid #e5e7eb; padding-top:20px; text-align:center; color:#9ca3af; font-size:12px;">
-        <p style="margin:0 0 8px 0;">Thank you for choosing AutoLeft!</p>
+        <p style="margin:0 0 8px 0;">{% trans "Thank you for choosing AutoLeft!" %}</p>
         <p style="margin:0;">
             <a href="{{ site_url }}" style="color:#9ca3af;">{{ site_url }}</a>
         </p>
