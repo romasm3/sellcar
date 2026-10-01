@@ -1,6 +1,5 @@
 
 """
-from .aktyvavimas import aktyvuok
 
 Single part / parts kit srautas.
 
@@ -51,6 +50,7 @@ from apps.listings.models import (
     FuelType, Transmission,
 
 )
+from .aktyvavimas import aktyvuok
 
 
 
