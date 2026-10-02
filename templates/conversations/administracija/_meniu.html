@@ -1,0 +1,5 @@
+{% load i18n %}{# Administracijos pokalbių peržiūros skirtukai #}
+<nav class="flex gap-2 mb-5 text-sm" aria-label="{% trans 'Pokalbių peržiūra' %}">
+  <a href="{% url 'pokalbiu_perziura:sarasas' %}" class="px-3 py-2 rounded-lg border {% if aktyvus == 'sarasas' %}bg-gray-900 text-white border-gray-900{% else %}border-gray-300 text-gray-700 hover:bg-gray-50{% endif %}">{% trans "Pokalbiai" %}</a>
+  <a href="{% url 'pokalbiu_perziura:zurnalas' %}" class="px-3 py-2 rounded-lg border {% if aktyvus == 'zurnalas' %}bg-gray-900 text-white border-gray-900{% else %}border-gray-300 text-gray-700 hover:bg-gray-50{% endif %}">{% trans "Peržiūrų žurnalas" %}</a>
+</nav>

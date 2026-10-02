@@ -92,6 +92,7 @@ conversation_detail.html (partials/), kopijų nėra.
         </div>
 
         {% include 'conversations/partials/_juostele.html' with conversation=selected_conv %}
+        {% include 'conversations/partials/_saugumo_juosta.html' %}
         {% include 'conversations/partials/_srautas.html' with conversation=selected_conv zinutes=selected_messages %}
         {% include 'conversations/partials/_apacia.html' with conversation=selected_conv zinutes=selected_messages %}
 

@@ -165,4 +165,24 @@ def duomenu_eksportas(user):
         'pokalbiai': pokalbiai,
         'issaugotos_paieskos': [_eilute(s, praleisti=('user',))
                                 for s in SavedSearch.objects.filter(user=user).order_by('pk')],
+        'pokalbiu_perziuros': _pokalbiu_perziuros(user),
+    }
+
+
+def _pokalbiu_perziuros(user):
+    """Kada ir dėl kokios priežasties administracija peržiūrėjo jo pokalbius.
+
+    Rodoma priežasties kategorija ir laikas; peržiūrėjusio darbuotojo
+    tapatybė ir vidinis paaiškinimas — ne (jie lieka žurnale).
+    """
+    from apps.conversations.models import PokalbioPerziura
+    irasai = list(PokalbioPerziura.objects.filter(dalyviai=user).order_by('kada'))
+    return {
+        'kiek_kartu': len(irasai),
+        'perziuros': [{
+            'kada': _reiksme(p.kada),
+            'pokalbis': p.pokalbio_nr,
+            'priezastis': p.priezastis,
+            'priezastis_tekstu': str(p.get_priezastis_display()),
+        } for p in irasai],
     }

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% comment %}/administracija/pokalbiai/<id>/ — antraštė ir priežasties forma.
+Žinutės (ORIGINALAS) rodomos TIK kai `zinutes` perduotos — t. y. po POST su
+priežastimi, kai jau sukurtas žurnalo įrašas. Jokios formos rašyti, keisti
+ar trinti čia nėra — tik skaitymas.{% endcomment %}
+{% block title %}{% blocktrans with nr=pokalbis.pk %}Pokalbis #{{ nr }}{% endblocktrans %} - AutoLeft{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <a href="{% url 'pokalbiu_perziura:sarasas' %}" class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 mb-3"><i class="fas fa-arrow-left"></i> {% trans "Visi pokalbiai" %}</a>
+  <h1 class="text-2xl font-bold text-gray-900 mb-3">{% blocktrans with nr=pokalbis.pk %}Pokalbis #{{ nr }}{% endblocktrans %}</h1>
+
+  <dl class="bg-white border border-gray-200 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-5" data-gijos-antraste>
+    <div><dt class="text-gray-500">{% trans "Dalyviai" %}</dt>
+      <dd>{% for d in pokalbis.participants.all %}<div>{{ d.email|default:d.username }} <span class="text-gray-400">(ID {{ d.pk }})</span></div>{% endfor %}</dd></div>
+    <div><dt class="text-gray-500">{% trans "Skelbimas" %}</dt>
+      <dd>{% if pokalbis.listing %}<a href="{% url 'listing_detail' pokalbis.listing.pk %}" class="text-primary hover:underline">#{{ pokalbis.listing.pk }} {{ pokalbis.listing.title }}</a>{% else %}{% trans "Pagalba" %}{% endif %}</dd></div>
+    <div><dt class="text-gray-500">{% trans "Pradėta" %}</dt><dd>{{ pokalbis.created_at|date:"Y-m-d H:i" }}</dd></div>
+    <div><dt class="text-gray-500">{% trans "Žinučių" %}</dt><dd>{{ zinuciu }}</dd></div>
+  </dl>
+
+{% if zinutes is None %}
+  {# ── Priežasties forma: turinys neatidaromas be priežasties ── #}
+  <form method="post" class="bg-amber-50 border border-amber-200 rounded-xl p-5" data-priezasties-forma>
+    {% csrf_token %}
+    <h2 class="font-semibold text-amber-900 mb-1">{% trans "Kodėl atidarote šį pokalbį?" %}</h2>
+    <p class="text-sm text-amber-800 mb-3">{% trans "Peržiūra bus įrašyta į žurnalą: kas, kada ir dėl kokios priežasties. Dalyviai tai matys savo duomenų eksporte." %}</p>
+    {% if klaida %}<p class="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2 mb-3" role="alert" data-klaida>{{ klaida }}</p>{% endif %}
+    <fieldset class="space-y-2 mb-3">
+      <legend class="sr-only">{% trans "Priežastis" %}</legend>
+      {% for kodas, pavadinimas in priezastys %}
+      <label class="flex items-center gap-3 min-h-[44px] bg-white border border-amber-200 rounded-lg px-3 cursor-pointer">
+        <input type="radio" name="priezastis" value="{{ kodas }}" required {% if post.priezastis == kodas %}checked{% endif %} class="w-5 h-5">
+        <span>{{ pavadinimas }}</span>
+      </label>
+      {% endfor %}
+    </fieldset>
+    <label for="prPaaiskinimas" class="block text-sm text-amber-900 mb-1">{% trans "Paaiškinimas (būtinas pasirinkus „Kita“)" %}</label>
+    <textarea id="prPaaiskinimas" name="paaiskinimas" rows="2" maxlength="2000" class="w-full border border-amber-300 rounded-lg px-3 py-2 mb-3 text-base">{{ post.paaiskinimas }}</textarea>
+    <button class="min-h-[44px] bg-gray-900 text-white rounded-lg px-5 font-medium">{% trans "Atidaryti pokalbį" %}</button>
+  </form>
+{% else %}
+  <div class="bg-gray-100 border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-700 mb-4" data-perziura-irasyta>
+    <i class="fas fa-lock mr-1"></i>
+    {% blocktrans with kada=perziura.kada|date:"Y-m-d H:i" priezastis=perziura.get_priezastis_display %}Peržiūra įrašyta į žurnalą ({{ kada }}, {{ priezastis }}). Tik skaitymas — rodomas originalus tekstas.{% endblocktrans %}
+  </div>
+  <ol class="space-y-3" data-gijos-turinys>
+    {% for z in zinutes %}
+    <li class="bg-white border border-gray-200 rounded-xl p-4">
+      <div class="flex justify-between gap-3 text-xs text-gray-500 mb-2">
+        <span class="font-semibold text-gray-800">{{ z.sender.email|default:z.sender.username }} <span class="font-normal text-gray-400">(ID {{ z.sender_id }})</span></span>
+        <span class="whitespace-nowrap">{{ z.created_at|date:"Y-m-d H:i:s" }}</span>
+      </div>
+      {% if z.tekstas_originalus %}<div class="text-gray-900 whitespace-pre-wrap break-words" data-originalas>{{ z.tekstas_originalus }}</div>{% endif %}
+      {% if z.image %}<a href="{{ z.image.url }}" class="inline-block mt-2"><img src="{{ z.image.url }}" alt="" class="max-h-48 rounded-lg border"></a>{% endif %}
+      {% for v in z.translations.all %}
+      <div class="mt-2 text-sm text-gray-500 border-l-2 border-gray-200 pl-3" data-vertimas>
+        <span class="text-xs uppercase tracking-wide">{% trans "Vertimas (tik pagalba, galioja originalas)" %} · {{ v.target_lang }}</span>
+        <div class="whitespace-pre-wrap break-words">{{ v.translated_text }}</div>
+      </div>
+      {% endfor %}
+    </li>
+    {% empty %}
+    <li class="text-gray-500 text-sm">{% trans "Žinučių nėra." %}</li>
+    {% endfor %}
+  </ol>
+{% endif %}
+
+  {% if ankstesnes %}
+  <section class="mt-8">
+    <h2 class="text-sm font-semibold text-gray-700 mb-2">{% trans "Šio pokalbio peržiūros" %}</h2>
+    <ul class="text-sm text-gray-600 space-y-1">
+      {% for p in ankstesnes %}<li>{{ p.kada|date:"Y-m-d H:i" }} · {{ p.perziurejo_el_pastas }} · {{ p.get_priezastis_display }}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

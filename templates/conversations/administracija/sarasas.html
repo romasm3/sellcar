@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% comment %}/administracija/pokalbiai/ — TIK gijų antraštės. Žinučių turinio
+čia nėra ir būti neturi (žr. apps/conversations/perziura.py).{% endcomment %}
+{% block title %}{% trans "Pokalbių peržiūra" %} - AutoLeft{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8" data-pokalbiu-sarasas>
+  <h1 class="text-2xl font-bold text-gray-900 mb-1">{% trans "Pokalbių peržiūra" %}</h1>
+  <p class="text-sm text-gray-500 mb-4">{% trans "Rodomos tik gijų antraštės. Turinys atidaromas tik nurodžius priežastį, ir kiekviena peržiūra įrašoma į žurnalą." %}</p>
+  {% include 'conversations/administracija/_meniu.html' with aktyvus='sarasas' %}
+
+  <form method="get" class="grid grid-cols-1 sm:grid-cols-5 gap-2 mb-5 text-sm">
+    <input name="vartotojas" value="{{ q.vartotojas }}" placeholder="{% trans 'Vartotojas (el. paštas, vardas, ID)' %}" class="border border-gray-300 rounded-lg px-3 py-2">
+    <input name="skelbimas" value="{{ q.skelbimas }}" placeholder="{% trans 'Skelbimas (ID arba pavadinimas)' %}" class="border border-gray-300 rounded-lg px-3 py-2">
+    <input name="nr" value="{{ q.nr }}" inputmode="numeric" placeholder="{% trans 'Pokalbio Nr.' %}" class="border border-gray-300 rounded-lg px-3 py-2">
+    <div class="flex gap-2">
+      <input type="date" name="nuo" value="{{ q.nuo }}" aria-label="{% trans 'Nuo' %}" class="border border-gray-300 rounded-lg px-2 py-2 w-full">
+      <input type="date" name="iki" value="{{ q.iki }}" aria-label="{% trans 'Iki' %}" class="border border-gray-300 rounded-lg px-2 py-2 w-full">
+    </div>
+    <button class="bg-gray-900 text-white rounded-lg px-4 py-2 font-medium">{% trans "Ieškoti" %}</button>
+  </form>
+
+  <div class="bg-white border border-gray-200 rounded-xl overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="bg-gray-50 text-gray-600 text-left">
+        <tr>
+          <th class="px-3 py-2">{% trans "Nr." %}</th>
+          <th class="px-3 py-2">{% trans "Dalyviai" %}</th>
+          <th class="px-3 py-2">{% trans "Skelbimas" %}</th>
+          <th class="px-3 py-2">{% trans "Pradėta" %}</th>
+          <th class="px-3 py-2">{% trans "Paskutinė žinutė" %}</th>
+          <th class="px-3 py-2 text-right">{% trans "Žinučių" %}</th>
+          <th class="px-3 py-2 text-right">{% trans "Peržiūrų" %}</th>
+          <th class="px-3 py-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in puslapis %}
+        <tr class="border-t border-gray-100" data-gija="{{ c.pk }}">
+          <td class="px-3 py-2 text-gray-500">#{{ c.pk }}</td>
+          <td class="px-3 py-2">{% for d in c.participants.all %}<div>{{ d.email|default:d.username }} <span class="text-gray-400">(ID {{ d.pk }})</span></div>{% endfor %}</td>
+          <td class="px-3 py-2">{% if c.listing %}#{{ c.listing.pk }} {{ c.listing.title|truncatechars:50 }}{% else %}<span class="text-gray-400">{% trans "Pagalba" %}</span>{% endif %}</td>
+          <td class="px-3 py-2 whitespace-nowrap">{{ c.created_at|date:"Y-m-d" }}</td>
+          <td class="px-3 py-2 whitespace-nowrap">{{ c.paskutine|date:"Y-m-d H:i"|default:"—" }}</td>
+          <td class="px-3 py-2 text-right">{{ c.zinuciu }}</td>
+          <td class="px-3 py-2 text-right">{{ c.perziuru }}</td>
+          <td class="px-3 py-2 text-right"><a href="{% url 'pokalbiu_perziura:gija' c.pk %}" class="text-primary hover:underline whitespace-nowrap">{% trans "Atidaryti" %}</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="px-3 py-6 text-center text-gray-500">{% trans "Pokalbių nerasta." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if puslapis.has_other_pages %}
+  <div class="flex justify-between items-center mt-4 text-sm">
+    {% if puslapis.has_previous %}<a href="?{{ filtrai }}{% if filtrai %}&{% endif %}p={{ puslapis.previous_page_number }}" class="text-primary">← {% trans "Ankstesni" %}</a>{% else %}<span></span>{% endif %}
+    <span class="text-gray-500">{{ puslapis.number }} / {{ puslapis.paginator.num_pages }}</span>
+    {% if puslapis.has_next %}<a href="?{{ filtrai }}{% if filtrai %}&{% endif %}p={{ puslapis.next_page_number }}" class="text-primary">{% trans "Kiti" %} →</a>{% else %}<span></span>{% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

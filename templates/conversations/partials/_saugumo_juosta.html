@@ -1,0 +1,13 @@
+{% load i18n %}{% comment %}
+Nuolatinė juosta pokalbio lange ABIEM dalyviams (po skelbimo juostele).
+Nenuimama ir neuždaroma: ji — sąlyga, kuria remiasi administracijos
+peržiūra ginčams (apps/conversations/perziura.py).
+{% endcomment %}<div class="pk-saugumas" role="note" data-pokalbio-juosta>
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg>
+  <span>{% trans "Pokalbiai saugomi ir ginčo atveju gali būti peržiūrėti AutoLeft administracijos. Niekada nemokėkite iš anksto ir nesitarkite už AutoLeft ribų." %}</span>
+</div>
+<style>
+  .pk-saugumas{display:flex;gap:8px;align-items:flex-start;padding:8px 12px;background:#FFFBEB;
+    border-bottom:1px solid #FDE68A;color:#78350F;font-size:12.5px;line-height:1.4;flex-shrink:0}
+  .pk-saugumas svg{flex-shrink:0;margin-top:1px}
+</style>

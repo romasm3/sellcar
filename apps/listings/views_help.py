@@ -134,6 +134,7 @@ def terms(request):
     return render(request, 'pages/page_simple.html', {
         'page_title': 'Terms of Use',
         'page_subtitle': 'Terms and conditions for using AutoLeft',
+        'teisinis_skyrius': True,      # susirašinėjimo peržiūra (pages/_susirasinejimo_perziura.html)
         'page_icon': 'fa-file-contract',
         'page_color': 'gray',
         'coming_soon': True,
@@ -144,6 +145,7 @@ def privacy(request):
     return render(request, 'pages/page_simple.html', {
         'page_title': 'Privacy Policy',
         'page_subtitle': 'How we collect, use, and protect your data',
+        'teisinis_skyrius': True,      # susirašinėjimo peržiūra (pages/_susirasinejimo_perziura.html)
         'page_icon': 'fa-shield-alt',
         'page_color': 'gray',
         'coming_soon': True,

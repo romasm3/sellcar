@@ -30,6 +30,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('accounts/', include('apps.accounts.urls')),
     path('conversations/', include('apps.conversations.urls')),
+    path('administracija/', include('apps.conversations.perziura_urls')),
     path('payments/', include('apps.payments.urls')),
     path('', include('apps.imones.urls')),
     path('', include('apps.listings.urls')),

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class Conversation(models.Model):
@@ -54,9 +55,25 @@ class Message(models.Model):
     )
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    # Originalo kalba (ISO, pvz. 'lt') — ateities automatiniam vertimui.
+    # Tuščia, kol nenustatyta. ORIGINALAS yra `content`: jis niekada
+    # neredaguojamas, ir ginčui galioja būtent jis. Vertimai saugomi
+    # atskirai (MessageTranslation — po vieną kiekvienai kalbai), kad
+    # originalo nereikėtų nei dubliuoti, nei perrašyti.
+    kalba_originalo = models.CharField(max_length=10, blank=True, default='')
 
     def __str__(self):
         return f"Message from {self.sender} at {self.created_at}"
+
+    @property
+    def tekstas_originalus(self):
+        """Originalus tekstas — tas, kurį parašė siuntėjas (laukas content)."""
+        return self.content
+
+    def tekstas_vertimas(self, kalba):
+        """Vertimas į `kalba`, jei jau yra (MessageTranslation), kitaip None."""
+        v = self.translations.filter(target_lang=kalba).first()
+        return v.translated_text if v else None
 
     class Meta:
         ordering = ['created_at']
@@ -133,3 +150,68 @@ class ConversationTranslation(models.Model):
             return False
         return cls.objects.filter(
             user=user, conversation=conversation, enabled=True).exists()
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# POKALBIŲ PERŽIŪROS ŽURNALAS — tik pildomas, niekada nekeičiamas
+# ═══════════════════════════════════════════════════════════════════════════
+
+class _TikPapildomasQuerySet(models.QuerySet):
+    """Žurnalo įrašų negalima nei ištrinti, nei pakeisti per ORM."""
+
+    def delete(self):
+        raise PermissionError('Pokalbių peržiūros žurnalo įrašų trinti negalima.')
+
+    def update(self, **kwargs):
+        raise PermissionError('Pokalbių peržiūros žurnalo įrašų keisti negalima.')
+
+
+class PokalbioPerziura(models.Model):
+    """Vienas administracijos žvilgsnis į pokalbio turinį.
+
+    Įrašas sukuriamas KIEKVIENĄ kartą, kai /administracija/pokalbiai/<id>/
+    parodo žinutes — be priežasties turinys neatidaromas. Įrašai tik
+    pildomi: save() atsisako keisti esamą, delete() — trinti (taip pat ir
+    per QuerySet). Ištrynus pokalbį ar naudotoją įrašas lieka: ryšiai
+    SET_NULL, o numeris ir el. paštas nukopijuoti.
+    """
+
+    GINCAS, GRAZINIMAS, SUKCIAVIMAS, TEISINE, KITA = (
+        'gincas', 'grazinimas', 'sukciavimas', 'teisine', 'kita')
+    PRIEZASTYS = [
+        (GINCAS, _('Ginčas')),
+        (GRAZINIMAS, _('Grąžinimas')),
+        (SUKCIAVIMAS, _('Pranešimas apie sukčiavimą')),
+        (TEISINE, _('Teisinė užklausa')),
+        (KITA, _('Kita')),
+    ]
+
+    perziurejo = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name='atliktos_pokalbiu_perziuros')
+    perziurejo_el_pastas = models.CharField(max_length=254)
+    pokalbis = models.ForeignKey(
+        Conversation, on_delete=models.SET_NULL, null=True, related_name='perziuros')
+    pokalbio_nr = models.PositiveIntegerField()
+    dalyviai = models.ManyToManyField(User, related_name='pokalbiu_perziuros', blank=True)
+    priezastis = models.CharField(max_length=20, choices=PRIEZASTYS)
+    paaiskinimas = models.TextField(blank=True)
+    ip = models.GenericIPAddressField(null=True, blank=True)
+    kada = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    objects = _TikPapildomasQuerySet.as_manager()
+
+    class Meta:
+        ordering = ['-kada']
+        verbose_name = 'Pokalbio peržiūra'
+        verbose_name_plural = 'Pokalbių peržiūros (žurnalas)'
+
+    def __str__(self):
+        return f'{self.kada:%Y-%m-%d %H:%M} · {self.perziurejo_el_pastas} · pokalbis {self.pokalbio_nr}'
+
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            raise PermissionError('Pokalbių peržiūros žurnalo įrašų keisti negalima.')
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise PermissionError('Pokalbių peržiūros žurnalo įrašų trinti negalima.')

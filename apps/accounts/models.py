@@ -113,6 +113,13 @@ class Profile(models.Model):
     tapatybe_patvirtinta = models.BooleanField(
         default=False, verbose_name=_('Tapatybė patvirtinta'))
 
+    # Pokalbių peržiūra ginčams, grąžinimams, sukčiavimui
+    # (/administracija/pokalbiai/). ATSKIRA teisė, ne is_superuser — kad
+    # būtų galima duoti pagalbininkui be visos administracijos. Kiekviena
+    # peržiūra žurnalinama (conversations.PokalbioPerziura).
+    gali_matyti_pokalbius = models.BooleanField(
+        default=False, verbose_name=_('Gali peržiūrėti pokalbius (ginčams)'))
+
     # ═══════════════════════════════════════════════════════════
     # ACCOUNT TYPE & DEALER FIELDS (added 2026-05-07)
     # ═══════════════════════════════════════════════════════════

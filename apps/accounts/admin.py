@@ -46,6 +46,11 @@ class ProfileAdmin(admin.ModelAdmin):
         ("Privacy Settings", {
             "fields": ("show_email", "show_phone", "public_profile")
         }),
+        ("Teisės", {
+            "fields": ("gali_matyti_pokalbius",),
+            "description": "Pokalbių peržiūra ginčams (/administracija/pokalbiai/). "
+                           "Kiekviena peržiūra žurnalinama.",
+        }),
         ("Timestamps", {
             "fields": ("created_at", "updated_at")
         }),

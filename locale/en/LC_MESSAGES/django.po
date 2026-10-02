@@ -25147,3 +25147,231 @@ msgstr ""
 "If you did not delete your account, write to us immediately: %(pastas)s\n"
 "\n"
 "AutoLeft"
+
+#: templates/conversations/administracija/
+msgid "Gali peržiūrėti pokalbius (ginčams)"
+msgstr "Can review conversations (disputes)"
+
+#: templates/conversations/administracija/
+msgid "Ginčas"
+msgstr "Dispute"
+
+#: templates/conversations/administracija/
+msgid "Grąžinimas"
+msgstr "Refund"
+
+#: templates/conversations/administracija/
+msgid "Pranešimas apie sukčiavimą"
+msgstr "Fraud report"
+
+#: templates/conversations/administracija/
+msgid "Teisinė užklausa"
+msgstr "Legal request"
+
+#: templates/conversations/administracija/
+msgid "Neturite teisės peržiūrėti pokalbių."
+msgstr "You do not have permission to review conversations."
+
+#: templates/conversations/administracija/
+msgid "Pasirinkite peržiūros priežastį — be jos pokalbis neatidaromas."
+msgstr ""
+"Choose a reason for the review — the conversation will not open without one."
+
+#: templates/conversations/administracija/
+msgid "Pasirinkus „Kita\", būtina parašyti paaiškinimą."
+msgstr "When choosing \"Other\", an explanation is required."
+
+#: templates/conversations/administracija/
+msgid "Neturite teisės matyti žurnalo."
+msgstr "You do not have permission to view the log."
+
+#: templates/conversations/administracija/
+msgid "Pokalbių peržiūra"
+msgstr "Conversation review"
+
+#: templates/conversations/administracija/
+msgid "Pokalbiai"
+msgstr "Conversations"
+
+#: templates/conversations/administracija/
+msgid "Peržiūrų žurnalas"
+msgstr "Review log"
+
+#: templates/conversations/administracija/
+msgid ""
+"Rodomos tik gijų antraštės. Turinys atidaromas tik nurodžius priežastį, ir "
+"kiekviena peržiūra įrašoma į žurnalą."
+msgstr ""
+"Only thread headers are shown. Content opens only after choosing a reason, "
+"and every review is logged."
+
+#: templates/conversations/administracija/
+msgid "Vartotojas (el. paštas, vardas, ID)"
+msgstr "User (email, name, ID)"
+
+#: templates/conversations/administracija/
+msgid "Skelbimas (ID arba pavadinimas)"
+msgstr "Listing (ID or title)"
+
+#: templates/conversations/administracija/
+msgid "Pokalbio Nr."
+msgstr "Conversation no."
+
+#: templates/conversations/administracija/
+msgid "Dalyviai"
+msgstr "Participants"
+
+#: templates/conversations/administracija/
+msgid "Skelbimas"
+msgstr "Listing"
+
+#: templates/conversations/administracija/
+msgid "Pradėta"
+msgstr "Started"
+
+#: templates/conversations/administracija/
+msgid "Paskutinė žinutė"
+msgstr "Last message"
+
+#: templates/conversations/administracija/
+msgid "Žinučių"
+msgstr "Messages"
+
+#: templates/conversations/administracija/
+msgid "Peržiūrų"
+msgstr "Reviews"
+
+#: templates/conversations/administracija/
+msgid "Pokalbių nerasta."
+msgstr "No conversations found."
+
+#: templates/conversations/administracija/
+msgid "Ankstesni"
+msgstr "Previous"
+
+#: templates/conversations/administracija/
+msgid "Kiti"
+msgstr "Next"
+
+#: templates/conversations/administracija/
+#, python-format
+msgid "Pokalbis #%(nr)s"
+msgstr "Conversation #%(nr)s"
+
+#: templates/conversations/administracija/
+msgid "Visi pokalbiai"
+msgstr "All conversations"
+
+#: templates/conversations/administracija/
+msgid "Kodėl atidarote šį pokalbį?"
+msgstr "Why are you opening this conversation?"
+
+#: templates/conversations/administracija/
+msgid ""
+"Peržiūra bus įrašyta į žurnalą: kas, kada ir dėl kokios priežasties. "
+"Dalyviai tai matys savo duomenų eksporte."
+msgstr ""
+"The review will be logged: who, when and why. Participants will see it in "
+"their data export."
+
+#: templates/conversations/administracija/
+msgid "Priežastis"
+msgstr "Reason"
+
+#: templates/conversations/administracija/
+msgid "Paaiškinimas (būtinas pasirinkus „Kita“)"
+msgstr "Explanation (required for \"Other\")"
+
+#: templates/conversations/administracija/
+msgid "Atidaryti pokalbį"
+msgstr "Open conversation"
+
+#: templates/conversations/administracija/
+#, python-format
+msgid ""
+"Peržiūra įrašyta į žurnalą (%(kada)s, %(priezastis)s). Tik skaitymas — "
+"rodomas originalus tekstas."
+msgstr ""
+"Review logged (%(kada)s, %(priezastis)s). Read-only — the original text is "
+"shown."
+
+#: templates/conversations/administracija/
+msgid "Vertimas (tik pagalba, galioja originalas)"
+msgstr "Translation (for reference only, the original prevails)"
+
+#: templates/conversations/administracija/
+msgid "Žinučių nėra."
+msgstr "No messages."
+
+#: templates/conversations/administracija/
+msgid "Šio pokalbio peržiūros"
+msgstr "Reviews of this conversation"
+
+#: templates/conversations/administracija/
+msgid ""
+"Kiekvienas pokalbio atidarymas administracijoje. Įrašų ištrinti ar pakeisti "
+"negalima."
+msgstr ""
+"Every time a conversation was opened by staff. Entries cannot be deleted or "
+"changed."
+
+#: templates/conversations/administracija/
+msgid "Kas peržiūrėjo (el. paštas)"
+msgstr "Reviewed by (email)"
+
+#: templates/conversations/administracija/
+msgid "Kada"
+msgstr "When"
+
+#: templates/conversations/administracija/
+msgid "Kas"
+msgstr "Who"
+
+#: templates/conversations/administracija/
+msgid "Paaiškinimas"
+msgstr "Explanation"
+
+#: templates/conversations/administracija/
+msgid "Peržiūrų dar nebuvo."
+msgstr "No reviews yet."
+
+#: templates/conversations/administracija/
+msgid ""
+"Pokalbiai saugomi ir ginčo atveju gali būti peržiūrėti AutoLeft "
+"administracijos. Niekada nemokėkite iš anksto ir nesitarkite už AutoLeft "
+"ribų."
+msgstr ""
+"Conversations are stored and may be reviewed by AutoLeft staff in case of a "
+"dispute. Never pay in advance and do not make arrangements outside AutoLeft."
+
+#: templates/conversations/administracija/
+msgid "Susirašinėjimo peržiūra"
+msgstr "Review of correspondence"
+
+#: templates/conversations/administracija/
+msgid ""
+"AutoLeft (platformos operatorius) gali susipažinti su naudotojų "
+"susirašinėjimu platformoje, kai to reikia ginčams spręsti, grąžinimams "
+"nagrinėti, sukčiavimui atpažinti ir užkirsti kelią bei teisinėms pareigoms "
+"vykdyti (pvz., teisėsaugos ar teismo užklausoms)."
+msgstr ""
+"AutoLeft (the platform operator) may access users' correspondence on the "
+"platform where necessary to resolve disputes, handle refunds, detect and "
+"prevent fraud, and comply with legal obligations (e.g. requests from law "
+"enforcement or courts)."
+
+#: templates/conversations/administracija/
+msgid ""
+"Susirašinėjimą gali atidaryti tik tam įgalioti darbuotojai, kiekvieną kartą "
+"nurodydami priežastį. Kiekviena peržiūra įrašoma į žurnalą (kas, kada ir "
+"kodėl), o naudotojas savo duomenų eksporte mato, kada ir dėl kokios "
+"priežasties jo pokalbiai buvo peržiūrėti."
+msgstr ""
+"Correspondence can only be opened by authorised staff, who must state a "
+"reason each time. Every review is logged (who, when and why), and users can "
+"see in their data export when and why their conversations were reviewed."
+
+#: templates/conversations/administracija/
+msgid "Susirašinėjimas saugomas 24 mėnesius po sandorio pabaigos."
+msgstr ""
+"Correspondence is retained for 24 months after the end of the transaction."
