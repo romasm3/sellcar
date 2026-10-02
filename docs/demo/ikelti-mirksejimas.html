@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Įkelti mygtuko animacijos</title>
+<style>
+  :root{
+    --bg:#f3f4f6; --card:#fff; --ink:#111827; --muted:#6b7280;
+    --line:#e5e7eb; --btn:#1f2937; --btn-ink:#fff; --accent:#ff4d2d;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       background:var(--bg);color:var(--ink);padding:24px 16px 60px}
+  .wrap{max-width:860px;margin:0 auto}
+  h1{font-size:20px;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 24px;font-size:14px}
+
+  .bar{display:flex;align-items:center;gap:14px;background:var(--card);
+       border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+  .logo{font-weight:800;letter-spacing:-.5px}
+  .logo span{color:var(--accent)}
+  .spacer{flex:1}
+
+  .btn{position:relative;display:inline-flex;align-items:center;gap:7px;
+       background:var(--btn);color:var(--btn-ink);border:0;border-radius:10px;
+       padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer;
+       font-family:inherit;white-space:nowrap}
+  .btn .plus{font-size:17px;line-height:1}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .case{background:var(--card);border:1px solid var(--line);border-radius:12px;
+        padding:16px;margin-bottom:12px}
+  .case h2{font-size:14px;margin:0 0 2px}
+  .case p{margin:0 0 14px;color:var(--muted);font-size:13px}
+  .row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .pick{margin-left:auto;font-size:12px;color:var(--muted)}
+
+  /* 1 — švelnus švytėjimas, 2 pulsai kas 8 s */
+  .a1{animation:a1 8s ease-in-out infinite}
+  @keyframes a1{
+    0%,100%{box-shadow:0 0 0 0 rgba(255,77,45,0)}
+    3%{box-shadow:0 0 0 6px rgba(255,77,45,.22)}
+    7%{box-shadow:0 0 0 0 rgba(255,77,45,0)}
+    11%{box-shadow:0 0 0 6px rgba(255,77,45,.22)}
+    16%{box-shadow:0 0 0 0 rgba(255,77,45,0)}
+  }
+
+  /* 2 — žiedo banga */
+  .a2::after{content:"";position:absolute;inset:0;border-radius:10px;
+    border:2px solid var(--accent);opacity:0;animation:a2 5s ease-out infinite}
+  @keyframes a2{
+    0%{transform:scale(1);opacity:.55}
+    35%{transform:scale(1.22);opacity:0}
+    100%{transform:scale(1.22);opacity:0}
+  }
+
+  /* 3 — kvėpavimas */
+  .a3{animation:a3 4.5s ease-in-out infinite}
+  @keyframes a3{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+
+  /* 4 — šviesos perbėgimas */
+  .a4{overflow:hidden}
+  .a4::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);
+    animation:a4 6s ease-in-out infinite}
+  @keyframes a4{0%{left:-60%}22%{left:120%}100%{left:120%}}
+
+  /* 5 — spalvos persiliejimas */
+  .a5{animation:a5 7s ease-in-out infinite}
+  @keyframes a5{
+    0%,100%{background:var(--btn)}
+    45%{background:#2d3a4d}
+    55%{background:#2d3a4d}
+  }
+
+  /* 6 — taškelis kampe */
+  .a6::before{content:"";position:absolute;top:-3px;right:-3px;width:9px;height:9px;
+    border-radius:50%;background:var(--accent);animation:a6 2.6s ease-in-out infinite}
+  @keyframes a6{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+
+  .stop{color:var(--muted);font-size:12px;margin-top:6px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;
+        padding:12px 14px;font-size:13px;margin-top:20px;color:#7c2d12}
+  @media (prefers-reduced-motion: reduce){
+    .a1,.a2::after,.a3,.a4::after,.a5,.a6::before{animation:none!important}
+  }
+  @media (max-width:520px){.pick{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>„Įkelti" mygtuko animacijos</h1>
+  <p class="sub">Šeši variantai. Pažiūrėk minutę — kuris po minutės dar neerzina, tas ir tinka.</p>
+
+  <div class="case">
+    <div class="bar">
+      <div class="logo">Auto<span>Left</span></div>
+      <div class="spacer"></div>
+      <button class="btn a1"><span class="plus">+</span> Įkelti</button>
+    </div>
+    <h2>1. Švelnus švytėjimas</h2>
+    <p>Du pulsai, tada 7 sekundės tylos. Ramiausias iš visų, bet akis pagauna.</p>
+  </div>
+
+  <div class="case">
+    <div class="bar">
+      <div class="logo">Auto<span>Left</span></div>
+      <div class="spacer"></div>
+      <button class="btn a2"><span class="plus">+</span> Įkelti</button>
+    </div>
+    <h2>2. Žiedo banga</h2>
+    <p>Iš mygtuko išsiplečia žiedas ir išnyksta. Matomas net periferiniu matymu.</p>
+  </div>
+
+  <div class="case">
+    <div class="bar">
+      <div class="logo">Auto<span>Left</span></div>
+      <div class="spacer"></div>
+      <button class="btn a3"><span class="plus">+</span> Įkelti</button>
+    </div>
+    <h2>3. Kvėpavimas</h2>
+    <p>Mygtukas lėtai didėja ir mažėja. Jei nori kuo subtiliau — šitas.</p>
+  </div>
+
+  <div class="case">
+    <div class="bar">
+      <div class="logo">Auto<span>Left</span></div>
+      <div class="spacer"></div>
+      <button class="btn a4"><span class="plus">+</span> Įkelti</button>
+    </div>
+    <h2>4. Šviesos perbėgimas</h2>
+    <p>Per mygtuką perbėga šviesa. Atrodo brangiai, nes nejuda pats mygtukas.</p>
+  </div>
+
+  <div class="case">
+    <div class="bar">
+      <div class="logo">Auto<span>Left</span></div>
+      <div class="spacer"></div>
+      <button class="btn a5"><span class="plus">+</span> Įkelti</button>
+    </div>
+    <h2>5. Spalvos persiliejimas</h2>
+    <p>Fonas lėtai pašviesėja ir grįžta. Ramiausias, bet silpniausiai pastebimas.</p>
+  </div>
+
+  <div class="case">
+    <div class="bar">
+      <div class="logo">Auto<span>Left</span></div>
+      <div class="spacer"></div>
+      <button class="btn a6"><span class="plus">+</span> Įkelti</button>
+    </div>
+    <h2>6. Taškelis kampe</h2>
+    <p>Mygtukas nejuda, mirksi tik taškelis — kaip pranešimo ženklas.</p>
+  </div>
+
+  <div class="note">
+    <strong>Trys taisyklės, be kurių bet kuris iš jų ims knisti:</strong><br>
+    1. Animacija sustoja visam laikui, kai žmogus bent kartą įkelia skelbimą.<br>
+    2. Sustoja ir tada, kai jis mygtuką paspaudžia arba užveda pelę.<br>
+    3. Rodoma ne ilgiau kaip 30 sekundžių po puslapio atidarymo, tada nutyla savaime.<br>
+    Visi variantai jau išjungiami, jei naršyklėje įjungtas „reduced motion".
+  </div>
+</div>
+
+<script>
+  // Demonstracija: paspaudus arba užvedus pelę animacija dingsta visam laikui
+  document.querySelectorAll('.btn').forEach(function(b){
+    function stop(){ b.className = 'btn'; }
+    b.addEventListener('click', stop);
+    b.addEventListener('mouseenter', stop);
+  });
+</script>
+</body>
+</html>
