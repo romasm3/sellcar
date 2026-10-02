@@ -2,6 +2,7 @@ import logging
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.views import redirect_to_login
 from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -659,96 +660,174 @@ def stripe_webhook(request):
         return HttpResponse(f'Error: {str(e)[:200]}', status=500)
 
 
-@login_required
-def become_dealer(request):
-    """Become Dealer puslapis — $100/mėn, iki 30 skelbimų.
+def _prekiautojo_planas(profile):
+    """Prekiautojo plano būsena puslapiui /accounts/become-dealer/.
 
-    GET: rodo pricing kortelę su Subscribe mygtuku.
-    POST: nuskaito $100 nuo wallet, aktyvuoja subscription 30 dienų,
-          redirect'ina į /dealer/setup/ (jei pirmas kartas) arba /dealer/dashboard/.
+    None — ne prekiautojas ir užklausos nesiuntė (rodomas pardavimo tekstas).
     """
+    from django.utils import timezone
+    from apps.listings.constants import (
+        ACCOUNT_TYPE_DEALER, DEALER_STATUS_APPROVED, DEALER_STATUS_PENDING, DEALER_LIMIT)
+    if profile is None:
+        return None
+    prekiautojas = (profile.account_type == ACCOUNT_TYPE_DEALER
+                    or profile.dealer_status == DEALER_STATUS_APPROVED
+                    or profile.dealer_subscription_active)
+    if prekiautojas:
+        from apps.listings.models import Listing
+        galioja = profile.dealer_subscription_expires
+        aktyvus = bool(profile.dealer_subscription_active
+                       and (galioja is None or galioja > timezone.now()))
+        return {
+            'busena': 'aktyvus' if aktyvus else 'baigesi',
+            'galioja_iki': galioja,
+            'aktyviu_skelbimu': Listing.objects.filter(seller=profile.user, status='active').count(),
+            'riba': DEALER_LIMIT,
+            'imone': profile.dealer_company_name,
+        }
+    if profile.dealer_status == DEALER_STATUS_PENDING:
+        return {'busena': 'laukia', 'pateikta': profile.dealer_applied_at}
+    return None
+
+
+def become_dealer(request):
+    """„Tapkite prekiautoju" — /accounts/become-dealer/.
+
+    Anksčiau, kai mokėjimai išjungti, adresas tyliai permesdavo į
+    /accounts/settings/ — reklamuojamas mygtukas „Sužinoti daugiau" neveikė.
+
+    GET (visiems, ir neprisijungusiems): ką gauna prekiautojas, kaina ir
+        ką ji apima. Prekiautojui — jo plano būsena, ne pardavimo tekstas;
+        jau pateikusiam užklausą — „Susisieksime per 1 d. d.".
+    POST (prisijungus):
+        • mokėjimai išjungti — užklausa administratoriui (laiškas į
+          ADMIN_EMAIL), profilyje dealer_status='pending' ir
+          dealer_applied_at; pakartotinai laiškas nesiunčiamas;
+        • mokėjimai įjungti — kaip iki šiol: prenumerata iš piniginės.
+    """
+    from apps.listings.constants import (
+        DEALER_SUB_PRICE_EUR, DEALER_SUBSCRIPTION_DAYS, DEALER_LIMIT,
+    )
+    from apps.listings.constants import mokejimai_ijungti
+
+    profile = getattr(request.user, 'profile', None) if request.user.is_authenticated else None
+
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect_to_login(request.get_full_path())
+        if mokejimai_ijungti():
+            return _prekiautojo_prenumerata(request, profile)
+        return _prekiautojo_uzklausa(request, profile)
+
+    context = {
+        'planas': _prekiautojo_planas(profile),
+        'kaina': DEALER_SUB_PRICE_EUR,
+        'dienu': DEALER_SUBSCRIPTION_DAYS,
+        'riba': DEALER_LIMIT,
+        'mokejimai': mokejimai_ijungti(),
+        'wallet_balance': (profile.wallet_balance if profile else None),
+    }
+    return render(request, "accounts/become_dealer.html", context)
+
+
+def _prekiautojo_uzklausa(request, profile):
+    """Kol apmokėjimo nėra — užklausa administratoriui."""
+    from django.conf import settings as dj_settings
+    from django.utils import timezone
+    from apps.listings.constants import DEALER_STATUS_PENDING, DEALER_STATUS_APPROVED
+    from apps.listings.email_settings import ADMIN_EMAIL
+    from apps.listings.emails.fone import send_mail_fone
+
+    if profile.dealer_status in (DEALER_STATUS_PENDING, DEALER_STATUS_APPROVED):
+        return redirect('accounts:become_dealer')      # jau pateikta / jau prekiautojas
+
+    imone = (request.POST.get('imone') or '').strip()[:200]
+    telefonas = (request.POST.get('telefonas') or '').strip()[:30]
+    komentaras = (request.POST.get('komentaras') or '').strip()[:2000]
+
+    profile.dealer_status = DEALER_STATUS_PENDING
+    profile.dealer_applied_at = timezone.now()
+    laukai = ['dealer_status', 'dealer_applied_at']
+    if imone and not profile.dealer_company_name:
+        profile.dealer_company_name = imone
+        laukai.append('dealer_company_name')
+    if telefonas and not profile.dealer_phone:
+        profile.dealer_phone = telefonas
+        laukai.append('dealer_phone')
+    profile.save(update_fields=laukai)
+
+    u = request.user
+    site = getattr(dj_settings, 'SITE_URL', 'https://autoleft.com')
+    tekstas = (
+        f'Nauja užklausa tapti prekiautoju.\n\n'
+        f'Naudotojas: {u.get_full_name() or u.username} <{u.email}> (id {u.pk})\n'
+        f'Įmonė: {imone or "—"}\n'
+        f'Telefonas: {telefonas or "—"}\n'
+        f'Komentaras: {komentaras or "—"}\n'
+        f'Pateikta: {profile.dealer_applied_at:%Y-%m-%d %H:%M}\n\n'
+        f'Prekiautojai: {site}/accounts/admin/dealers/\n'
+        f'Naudotojas admin\'e: {site}/admin/auth/user/{u.pk}/change/\n'
+    )
+    send_mail_fone(f'[AutoLeft] Užklausa tapti prekiautoju — {imone or u.email}',
+                   tekstas, dj_settings.DEFAULT_FROM_EMAIL, [ADMIN_EMAIL])
+    messages.success(request, _('Užklausa gauta. Susisieksime per 1 d. d.'))
+    return redirect('accounts:become_dealer')
+
+
+def _prekiautojo_prenumerata(request, profile):
+    """Mokėjimai įjungti — prenumerata iš piniginės (ankstesnė eiga)."""
     from decimal import Decimal
     from django.utils import timezone
     from datetime import timedelta
     from apps.listings.constants import (
-        DEALER_SUB_PRICE_USD, DEALER_SUBSCRIPTION_DAYS, DEALER_LIMIT,
+        DEALER_SUB_PRICE_EUR, DEALER_SUBSCRIPTION_DAYS,
         ACCOUNT_TYPE_DEALER, DEALER_STATUS_APPROVED,
     )
-    from apps.listings.constants import mokejimai_ijungti
     from .models import WalletTransaction
-
-    # Mokėjimai išjungti — prenumeratos parduoti nėra iš ko.
-    if not mokejimai_ijungti():
-        return redirect('accounts:settings')
-
-    profile = request.user.profile
 
     is_dealer_active = profile.dealer_subscription_active
     expires_at = profile.dealer_subscription_expires
+    price = Decimal(str(DEALER_SUB_PRICE_EUR))
+    wallet_balance = profile.wallet_balance or Decimal('0')
 
-    if request.method == 'POST':
-        price = Decimal(str(DEALER_SUB_PRICE_USD))
-        wallet_balance = profile.wallet_balance or Decimal('0')
+    if wallet_balance < price:
+        messages.error(
+            request,
+            _('Nepakanka lėšų piniginėje: reikia %(reikia)s €, yra %(yra)s €.')
+            % {'reikia': f'{price:.0f}', 'yra': f'{wallet_balance:.2f}'})
+        return redirect('accounts:wallet')
 
-        if wallet_balance < price:
-            messages.error(
-                request,
-                f'Insufficient wallet balance. Need ${price}, have ${wallet_balance:.2f}. '
-                f'Top up your wallet first.'
-            )
-            return redirect('accounts:wallet')
+    profile.wallet_balance = wallet_balance - price
+    now = timezone.now()
+    if is_dealer_active and expires_at and expires_at > now:
+        new_expires = expires_at + timedelta(days=DEALER_SUBSCRIPTION_DAYS)
+    else:
+        new_expires = now + timedelta(days=DEALER_SUBSCRIPTION_DAYS)
 
-        profile.wallet_balance = wallet_balance - price
+    profile.dealer_subscription_active = True
+    profile.dealer_subscription_expires = new_expires
+    profile.account_type = ACCOUNT_TYPE_DEALER
+    profile.dealer_status = DEALER_STATUS_APPROVED
+    if not profile.dealer_applied_at:
+        profile.dealer_applied_at = now
+    if not profile.dealer_approved_at:
+        profile.dealer_approved_at = now
+    profile.save()
 
-        now = timezone.now()
-        if is_dealer_active and expires_at and expires_at > now:
-            new_expires = expires_at + timedelta(days=DEALER_SUBSCRIPTION_DAYS)
-        else:
-            new_expires = now + timedelta(days=DEALER_SUBSCRIPTION_DAYS)
+    try:
+        WalletTransaction.objects.create(
+            user=request.user, amount=-price, transaction_type='spend', status='completed',
+            description=f'Dealer subscription ({DEALER_SUBSCRIPTION_DAYS} days)', completed_at=now,
+        )
+    except Exception as e:
+        print(f"[become_dealer] wallet tx log failed: {e}")
 
-        profile.dealer_subscription_active = True
-        profile.dealer_subscription_expires = new_expires
-        profile.account_type = ACCOUNT_TYPE_DEALER
-        profile.dealer_status = DEALER_STATUS_APPROVED
-
-        if not profile.dealer_applied_at:
-            profile.dealer_applied_at = now
-        if not profile.dealer_approved_at:
-            profile.dealer_approved_at = now
-
-        profile.save()
-
-        try:
-            WalletTransaction.objects.create(
-                user=request.user,
-                amount=-price,
-                transaction_type='spend',
-                status='completed',
-                description=f'Dealer subscription ({DEALER_SUBSCRIPTION_DAYS} days)',
-                completed_at=now,
-            )
-        except Exception as e:
-            print(f"[become_dealer] wallet tx log failed: {e}")
-
-        if not profile.dealer_company_name:
-            messages.success(request, 'Dealer subscription activated! Fill in your profile info.')
-            return redirect('accounts:dealer_setup')
-        else:
-            messages.success(
-                request,
-                f'Dealer subscription extended until {new_expires.strftime("%Y-%m-%d")}.'
-            )
-            return redirect('accounts:dealer_dashboard')
-
-    context = {
-        "is_dealer_active": is_dealer_active,
-        "expires_at": expires_at,
-        "wallet_balance": profile.wallet_balance or Decimal('0'),
-        "price": DEALER_SUB_PRICE_USD,
-        "duration_days": DEALER_SUBSCRIPTION_DAYS,
-        "listings_limit": DEALER_LIMIT,
-    }
-    return render(request, "accounts/become_dealer.html", context)
+    if not profile.dealer_company_name:
+        messages.success(request, _('Prekiautojo planas aktyvuotas. Užpildykite įmonės informaciją.'))
+        return redirect('accounts:dealer_setup')
+    messages.success(request, _('Prekiautojo planas pratęstas iki %(data)s.')
+                     % {'data': new_expires.strftime('%Y-%m-%d')})
+    return redirect('accounts:dealer_dashboard')
 
 
 @login_required
@@ -1283,7 +1362,8 @@ def admin_dealers_list(request):
 
     dealers_qs = Profile.objects.filter(
         Q(dealer_subscription_active=True) |
-        Q(dealer_company_name__isnull=False, dealer_company_name__gt='')
+        Q(dealer_company_name__isnull=False, dealer_company_name__gt='') |
+        Q(dealer_status='pending')        # užklausos iš /accounts/become-dealer/
     ).select_related('user').order_by('-dealer_subscription_expires', '-id')
 
     if filter_status == 'active':

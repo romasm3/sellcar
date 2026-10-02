@@ -141,7 +141,11 @@
 
                     <!-- Status -->
                     <td class="px-4 py-3">
-                        {% if d.profile.dealer_subscription_active %}
+                        {% if d.profile.dealer_status == 'pending' %}
+                            <span class="inline-flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-800 text-xs font-semibold rounded-full" title="{{ d.profile.dealer_applied_at|date:'Y-m-d H:i' }}">
+                                <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span> Užklausa
+                            </span>
+                        {% elif d.profile.dealer_subscription_active %}
                             <span class="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
                                 <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Active
                             </span>

@@ -24880,3 +24880,193 @@ msgstr "Receive emails about my listings"
 #: templates/accounts/settings.html
 msgid "Uždėta varnelė — laiškus gausite."
 msgstr "Checked — you will receive the emails."
+
+#: templates/accounts/become_dealer.html
+msgid "Tapkite prekiautoju"
+msgstr "Become a dealer"
+
+#: templates/accounts/become_dealer.html
+msgid "Prekiautojo planas"
+msgstr "Dealer plan"
+
+#: templates/accounts/become_dealer.html
+msgid "Užklausa gauta"
+msgstr "Request received"
+
+#: templates/accounts/become_dealer.html
+msgid "Susisieksime per 1 d. d."
+msgstr "We will contact you within 1 business day."
+
+#: templates/accounts/become_dealer.html
+msgid "pateikta"
+msgstr "submitted"
+
+#: templates/accounts/become_dealer.html
+msgid "Nebegalioja"
+msgstr "Expired"
+
+#: templates/accounts/become_dealer.html
+msgid "Prekiautojo skydelis"
+msgstr "Dealer dashboard"
+
+#: templates/accounts/become_dealer.html
+msgid "Galioja iki"
+msgstr "Valid until"
+
+#: templates/accounts/become_dealer.html
+msgid "Aktyvūs skelbimai"
+msgstr "Active listings"
+
+#: templates/accounts/become_dealer.html
+msgid "Įmonės informacija"
+msgstr "Company information"
+
+#: templates/accounts/become_dealer.html
+msgid "Firminis puslapis"
+msgstr "Branded page"
+
+#: templates/accounts/become_dealer.html
+#, python-format
+msgid "Pratęsti (%(kaina)s €)"
+msgstr "Renew (%(kaina)s €)"
+
+#: templates/accounts/become_dealer.html
+msgid "Norėdami pratęsti planą, susisiekite su mumis."
+msgstr "To renew your plan, contact us."
+
+#: templates/accounts/become_dealer.html
+msgid "Susisiekti"
+msgstr "Contact us"
+
+#: templates/accounts/become_dealer.html
+msgid "Prekiautojams"
+msgstr "For dealers"
+
+#: templates/accounts/become_dealer.html
+msgid ""
+"Firminis puslapis ir daugiau skelbimų autosalonams, dalių pardavėjams ir "
+"kitoms įmonėms."
+msgstr ""
+"A branded page and more listings for car dealers, parts sellers and other "
+"businesses."
+
+#: templates/accounts/become_dealer.html
+msgid "Ką gauna prekiautojas"
+msgstr "What a dealer gets"
+
+#: templates/accounts/become_dealer.html
+msgid ""
+"logotipas, aprašymas, adresas, telefonas ir darbo laikas, visi jūsų "
+"skelbimai vienoje vietoje."
+msgstr ""
+"logo, description, address, phone and opening hours, all your listings in "
+"one place."
+
+#: templates/accounts/become_dealer.html
+#, python-format
+msgid "Iki %(riba)s aktyvių skelbimų"
+msgstr "Up to %(riba)s active listings"
+
+#: templates/accounts/become_dealer.html
+msgid "visose kategorijose: automobiliai, dalys, motociklai ir kt."
+msgstr "in all categories: cars, parts, motorcycles and more."
+
+#: templates/accounts/become_dealer.html
+msgid "Įmonės pavadinimas prie skelbimų"
+msgstr "Company name on listings"
+
+#: templates/accounts/become_dealer.html
+msgid "pirkėjas mato įmonę, ne asmenį."
+msgstr "buyers see your company, not a person."
+
+#: templates/accounts/become_dealer.html
+msgid "Patvirtinto pardavėjo žyma"
+msgstr "Verified seller badge"
+
+#: templates/accounts/become_dealer.html
+msgid "rodoma pardavėjo bloke skelbime."
+msgstr "shown in the seller block on each listing."
+
+#: templates/accounts/become_dealer.html
+msgid "skelbimų peržiūros ir įsiminimai."
+msgstr "listing views and saves."
+
+#: templates/accounts/become_dealer.html
+msgid "/ mėn."
+msgstr "/ month"
+
+#: templates/accounts/become_dealer.html
+msgid "Kaina apima"
+msgstr "The price includes"
+
+#: templates/accounts/become_dealer.html
+#, python-format
+msgid "%(dienu)s dienų planą"
+msgstr "a %(dienu)s-day plan"
+
+#: templates/accounts/become_dealer.html
+#, python-format
+msgid "iki %(riba)s aktyvių skelbimų tuo pačiu metu"
+msgstr "up to %(riba)s active listings at a time"
+
+#: templates/accounts/become_dealer.html
+msgid "firminį puslapį, žymą ir skydelį"
+msgstr "branded page, badge and dashboard"
+
+#: templates/accounts/become_dealer.html
+msgid "jokio automatinio pratęsimo"
+msgstr "no automatic renewal"
+
+#: templates/accounts/become_dealer.html
+msgid "Telefonas"
+msgstr "Phone"
+
+#: templates/accounts/become_dealer.html
+msgid "Komentaras (nebūtina)"
+msgstr "Comment (optional)"
+
+#: templates/accounts/become_dealer.html
+msgid "Noriu tapti prekiautoju"
+msgstr "I want to become a dealer"
+
+#: templates/accounts/become_dealer.html
+msgid "Bus nuskaičiuota iš piniginės."
+msgstr "It will be charged to your wallet."
+
+#: templates/accounts/become_dealer.html
+msgid "Mokėti dabar nereikia — susisieksime per 1 d. d."
+msgstr "No payment now — we will contact you within 1 business day."
+
+#: templates/accounts/become_dealer.html
+msgid "Pirmiausia prisijunkite."
+msgstr "Please log in first."
+
+#: templates/accounts/become_dealer.html
+msgid "Reikia daugiau skelbimų?"
+msgstr "Need more listings?"
+
+#: templates/accounts/become_dealer.html
+msgid "Parašykite — aptarsime didesnės apimties sąlygas."
+msgstr "Write to us — we will discuss volume terms."
+
+#: templates/accounts/become_dealer.html
+msgid "Užklausa gauta. Susisieksime per 1 d. d."
+msgstr "Request received. We will contact you within 1 business day."
+
+#: templates/accounts/become_dealer.html
+#, python-format
+msgid "Nepakanka lėšų piniginėje: reikia %(reikia)s €, yra %(yra)s €."
+msgstr "Insufficient wallet balance: need %(reikia)s €, have %(yra)s €."
+
+#: templates/accounts/become_dealer.html
+msgid "Prekiautojo planas aktyvuotas. Užpildykite įmonės informaciją."
+msgstr "Dealer plan activated. Fill in your company information."
+
+#: templates/accounts/become_dealer.html
+#, python-format
+msgid "Prekiautojo planas pratęstas iki %(data)s."
+msgstr "Dealer plan extended until %(data)s."
+
+#: templates/accounts/become_dealer.html
+msgid "Paskyros nustatymai"
+msgstr "Account settings"
