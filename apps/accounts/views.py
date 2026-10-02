@@ -17,7 +17,7 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetCompleteView,
 )
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from .forms import (
@@ -947,17 +947,82 @@ def update_privacy(request):
 
 @login_required
 def delete_account(request):
-    if request.method == "POST":
-        password = request.POST.get("password")
-        user = request.user
-        if user.check_password(password):
-            logout(request)
-            user.delete()
-            return redirect("accounts:home")
-        else:
-            messages.error(request, "Incorrect password. Account was not deleted.")
-            return redirect("accounts:delete_account")
-    return render(request, "accounts/delete_account.html")
+    """„Ištrinti paskyrą" (nustatymų modalas).
+
+    Anksčiau niekada neveikė: patvirtinimo laukas neturėjo name, o
+    slaptažodis buvo paslėptas tuščias laukas — check_password('') visada
+    False, ir naudotojas būdavo permetamas į neegzistuojantį šabloną.
+
+    Trinama TIK prisijungusio naudotojo paskyra (jokio id iš POST).
+    Kiekviena nesėkmė — matomas tekstas nustatymuose, paskyra nepaliesta.
+    Ką reiškia „ištrinti" — apps/accounts/paskyros_trynimas.py.
+    """
+    from django.utils import translation
+    from .paskyros_trynimas import anonimizuok
+    from .notifications import gavejo_kalba
+
+    if request.method != "POST":
+        return redirect("accounts:settings")
+
+    user = request.user
+    atgal = reverse("accounts:settings")          # klaida rodoma puslapio viršuje
+    if not user.check_password(request.POST.get("password") or ""):
+        messages.error(request, _("Neteisingas slaptažodis. Paskyra neištrinta."))
+        return redirect(atgal)
+    if (request.POST.get("patvirtinimas") or "").strip() != "DELETE":
+        messages.error(request, _("Įrašykite DELETE, kad patvirtintumėte. Paskyra neištrinta."))
+        return redirect(atgal)
+    if user.is_superuser:
+        messages.error(request, _("Administratoriaus paskyros čia ištrinti negalima."))
+        return redirect(atgal)
+
+    el_pastas, kalba = user.email, gavejo_kalba(user)
+    vardas = user.get_full_name() or user.username
+    anonimizuok(user)
+    logout(request)
+    _laiskas_paskyra_istrinta(el_pastas, vardas, kalba)
+    with translation.override(kalba):
+        messages.success(request, _("Paskyra ištrinta."))
+    return redirect("/")
+
+
+def _laiskas_paskyra_istrinta(el_pastas, vardas, kalba):
+    """Sisteminis laiškas — siunčiamas nepriklausomai nuo pranešimų
+    nustatymų (jų po trynimo nebėra), todėl tiesiai, ne per galima_siusti."""
+    from django.conf import settings as dj_settings
+    from django.utils import translation
+    from apps.listings.emails.fone import send_mail_fone
+
+    if not el_pastas:
+        return
+    with translation.override(kalba):
+        tema = _("Jūsų paskyra ištrinta")
+        tekstas = _(
+            "Sveiki, %(vardas)s,\n\n"
+            "Jūsų AutoLeft paskyra ištrinta. Jūsų skelbimai nebėra matomi, o asmens "
+            "duomenys (vardas, telefonai, adresas, el. paštas, nuotraukos) pašalinti. "
+            "Prisijungti prie šios paskyros nebegalima.\n\n"
+            "Jei paskyros netrynėte, nedelsdami parašykite mums: %(pastas)s\n\n"
+            "AutoLeft"
+        ) % {"vardas": vardas, "pastas": dj_settings.DEFAULT_FROM_EMAIL}
+    send_mail_fone(f"AutoLeft — {tema}", tekstas, dj_settings.DEFAULT_FROM_EMAIL, [el_pastas])
+
+
+@login_required
+def mano_duomenys(request):
+    """„Atsisiųsti mano duomenis" — JSON (GDPR): profilis, skelbimai,
+    žinutės, išsaugotos paieškos. Tik prisijungusio naudotojo."""
+    import json
+    from django.utils import timezone
+    from .paskyros_trynimas import duomenu_eksportas
+
+    turinys = json.dumps(duomenu_eksportas(request.user), ensure_ascii=False, indent=2)
+    atsakymas = HttpResponse(turinys, content_type="application/json; charset=utf-8")
+    atsakymas["Content-Disposition"] = (
+        f'attachment; filename="autoleft-duomenys-{request.user.pk}-'
+        f'{timezone.now():%Y-%m-%d}.json"')
+    atsakymas["Cache-Control"] = "no-store"
+    return atsakymas
 
 
 @login_required
@@ -998,7 +1063,8 @@ def seller_profile(request, pk):
     from apps.accounts.models import SellerReview
     from django.db.models import Count
 
-    seller = get_object_or_404(User, pk=pk)
+    # Ištrintos (anonimizuotos) paskyros puslapio nebėra
+    seller = get_object_or_404(User, pk=pk, is_active=True)
     base_qs = Listing.objects.filter(seller=seller, status='active')
 
     listings = base_qs.select_related(

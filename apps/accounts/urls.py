@@ -20,6 +20,7 @@ urlpatterns = [
     path('atsisakyti/', views.atsisakyti_pranesimu, name='atsisakyti'),
     path('settings/privacy/', views.update_privacy, name='update_privacy'),
     path('settings/delete-account/', views.delete_account, name='delete_account'),
+    path('settings/mano-duomenys/', views.mano_duomenys, name='mano_duomenys'),
     # Password reset
     path('password-reset/', views.CustomPasswordResetView.as_view(), name='password_reset'),
     path('password-reset/done/', views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),

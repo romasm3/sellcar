@@ -25070,3 +25070,80 @@ msgstr "Dealer plan extended until %(data)s."
 #: templates/accounts/become_dealer.html
 msgid "Paskyros nustatymai"
 msgstr "Account settings"
+
+#: apps/accounts/views.py
+msgid "Paskyros trynimas"
+msgstr "Account deletion"
+
+#: apps/accounts/views.py
+msgid "Atsisiųsti mano duomenis"
+msgstr "Download my data"
+
+#: apps/accounts/views.py
+msgid "Profilis, skelbimai ir žinutės vienu JSON failu."
+msgstr "Profile, listings and messages in one JSON file."
+
+#: apps/accounts/views.py
+msgid "Ištrinti paskyrą"
+msgstr "Delete account"
+
+#: apps/accounts/views.py
+msgid "Atkurti nebus galima. Prieš trindami atsisiųskite savo duomenis."
+msgstr "This cannot be undone. Download your data before deleting."
+
+#: apps/accounts/views.py
+msgid ""
+"Jūsų skelbimai nebebus matomi, asmens duomenys (vardas, telefonai, adresas, "
+"el. paštas, nuotraukos) bus pašalinti, o prisijungti nebegalėsite. Atkurti "
+"nebus galima."
+msgstr ""
+"Your listings will no longer be visible, your personal data (name, phone "
+"numbers, address, email, photos) will be removed, and you will not be able "
+"to log in. This cannot be undone."
+
+#: apps/accounts/views.py
+msgid "Dabartinis slaptažodis"
+msgstr "Current password"
+
+#: apps/accounts/views.py
+msgid "Įrašykite DELETE"
+msgstr "Type DELETE"
+
+#: apps/accounts/views.py
+msgid "Neteisingas slaptažodis. Paskyra neištrinta."
+msgstr "Incorrect password. The account was not deleted."
+
+#: apps/accounts/views.py
+msgid "Įrašykite DELETE, kad patvirtintumėte. Paskyra neištrinta."
+msgstr "Type DELETE to confirm. The account was not deleted."
+
+#: apps/accounts/views.py
+msgid "Administratoriaus paskyros čia ištrinti negalima."
+msgstr "An administrator account cannot be deleted here."
+
+#: apps/accounts/views.py
+msgid "Paskyra ištrinta."
+msgstr "Account deleted."
+
+#: apps/accounts/views.py
+msgid "Jūsų paskyra ištrinta"
+msgstr "Your account has been deleted"
+
+#: apps/accounts/views.py
+#, python-format
+msgid ""
+"Sveiki, %(vardas)s,\n"
+"\n"
+"Jūsų AutoLeft paskyra ištrinta. Jūsų skelbimai nebėra matomi, o asmens duomenys (vardas, telefonai, adresas, el. paštas, nuotraukos) pašalinti. Prisijungti prie šios paskyros nebegalima.\n"
+"\n"
+"Jei paskyros netrynėte, nedelsdami parašykite mums: %(pastas)s\n"
+"\n"
+"AutoLeft"
+msgstr ""
+"Hello %(vardas)s,\n"
+"\n"
+"Your AutoLeft account has been deleted. Your listings are no longer visible, and your personal data (name, phone numbers, address, email, photos) has been removed. You can no longer log in to this account.\n"
+"\n"
+"If you did not delete your account, write to us immediately: %(pastas)s\n"
+"\n"
+"AutoLeft"
