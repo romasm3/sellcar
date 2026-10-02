@@ -805,10 +805,11 @@ def delete_profile_picture(request):
 def update_notifications(request):
     """„Laiškai" nustatymai.
 
-    Pagrindinė „Nesiųsti jokių laiškų apie mano skelbimus" atskirų
-    varnelių NEPERRAŠO: kol ji uždėta, jos išjungtos (disabled, į POST
-    nepatenka), todėl išsaugom tik tai, kas atėjo — nuėmus pagrindinę
-    grįžta ankstesnės reikšmės. SMS varnelės nebėra (funkcijos nėra).
+    Kol pagrindinė „Nesiųsti jokių laiškų apie mano skelbimus" uždėta,
+    trijų atskirų laukų NELIEČIAM visai — net jei POST'e jų nėra ar jie
+    tušti (blogas POST nieko nesugadina). Keičiami tik nuėmus pagrindinę.
+    Šablone jos ne disabled (tokių naršyklė nesiunčia), o pilkos ir
+    nespaudžiamos. SMS varnelės nebėra (funkcijos nėra).
     """
     if request.method == "POST":
         profile = request.user.profile

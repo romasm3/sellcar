@@ -192,8 +192,8 @@
         {# Email Notifications #}
         {% comment %}LAIŠKAI. Pagrindinė varnelė viršuje: uždėjus — nesiunčiamas nė
         vienas automatinis laiškas apie MANO skelbimus, o trys atskiros žemiau
-        nusiima ir tampa neaktyvios; nuėmus — grįžta ankstesnės reikšmės
-        (laikomos DB, žr. accounts.views.update_notifications). Sisteminiai
+        pilkos ir nespaudžiamos (NE disabled — jų reikšmės lieka ir
+        siunčiamos); nuėmus — vėl veikia su tomis pačiomis reikšmėmis. Sisteminiai
         laiškai (slaptažodis, patvirtinimas) siunčiami visada.
         Logika — apps/accounts/notifications.py (galima_siusti).{% endcomment %}
         <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
@@ -210,15 +210,15 @@
                     <div class="nst-grupe{% if user.profile.email_apie_skelbimus_isjungta %} is-off{% endif %}" data-skelbimu-laiskai>
                         <label class="nst-varnele">
                             <span class="text-gray-700">{% trans "Priminimai aktyvuoti neaktyvuotą skelbimą" %}</span>
-                            <input type="checkbox" name="email_aktyvavimo_priminimai" class="nst-box nst-skelbimu" data-buvo="{{ user.profile.email_aktyvavimo_priminimai|yesno:'1,0' }}" {% if user.profile.email_apie_skelbimus_isjungta %}disabled{% elif user.profile.email_aktyvavimo_priminimai %}checked{% endif %}>
+                            <input type="checkbox" name="email_aktyvavimo_priminimai" class="nst-box nst-skelbimu" {% if user.profile.email_aktyvavimo_priminimai %}checked{% endif %}>
                         </label>
                         <label class="nst-varnele">
                             <span class="text-gray-700">{% trans "Pranešimai apie skelbimo galiojimo pabaigą" %}</span>
-                            <input type="checkbox" name="email_galiojimas" class="nst-box nst-skelbimu" data-buvo="{{ user.profile.email_galiojimas|yesno:'1,0' }}" {% if user.profile.email_apie_skelbimus_isjungta %}disabled{% elif user.profile.email_galiojimas %}checked{% endif %}>
+                            <input type="checkbox" name="email_galiojimas" class="nst-box nst-skelbimu" {% if user.profile.email_galiojimas %}checked{% endif %}>
                         </label>
                         <label class="nst-varnele">
                             <span class="text-gray-700">{% trans "Pranešimai apie skelbimo peržiūras ir susidomėjimą" %}</span>
-                            <input type="checkbox" name="email_susidomejimas" class="nst-box nst-skelbimu" data-buvo="{{ user.profile.email_susidomejimas|yesno:'1,0' }}" {% if user.profile.email_apie_skelbimus_isjungta %}disabled{% elif user.profile.email_susidomejimas %}checked{% endif %}>
+                            <input type="checkbox" name="email_susidomejimas" class="nst-box nst-skelbimu" {% if user.profile.email_susidomejimas %}checked{% endif %}>
                         </label>
                     </div>
                     <label class="nst-varnele">
@@ -402,29 +402,30 @@
   .nst-box { width:22px; height:22px; flex:none; accent-color: rgb(var(--accent-rgb)); cursor:pointer; }
   .nst-pagrindine { border-bottom:1px solid #e5e7eb; }
   .nst-grupe { padding-left:12px; border-left:2px solid #e5e7eb; margin:4px 0; }
-  .nst-grupe.is-off .nst-varnele { opacity:.5; cursor:not-allowed; }
-  .nst-grupe.is-off .nst-box { cursor:not-allowed; }
+  .nst-grupe.is-off .nst-varnele { opacity:.5; cursor:not-allowed; pointer-events:none; }
+  .nst-grupe.is-off { filter:grayscale(1); }
 </style>
 <script>
-/* Pagrindinė varnelė: uždėjus — trys „apie mano skelbimus" nusiima ir
-   tampa neaktyvios (disabled → į POST nepatenka, DB reikšmės lieka);
-   nuėmus — grįžta tos, kurios buvo (data-buvo). */
+/* Pagrindinė varnelė: uždėjus — trys „apie mano skelbimus" tampa pilkos ir
+   nespaudžiamos, bet NE disabled: disabled laukų naršyklė nesiunčia, ir jų
+   reikšmės būtų dingusios. Reikšmės lieka tokios, kokios buvo, ir
+   siunčiamos su forma; serveris jų vis tiek neliečia, kol pagrindinė
+   uždėta (accounts.views.update_notifications). */
 (function () {
   var pagr = document.getElementById('laiskaiIsjungti');
-  if (!pagr) return;
   var grupe = document.querySelector('[data-skelbimu-laiskai]');
-  var dezutes = grupe ? grupe.querySelectorAll('.nst-skelbimu') : [];
+  if (!pagr || !grupe) return;
   function taikyk() {
     var off = pagr.checked;
-    if (grupe) grupe.classList.toggle('is-off', off);
-    dezutes.forEach(function (d) {
-      if (off) { d.dataset.buvo = d.checked ? '1' : '0'; d.checked = false; }
-      else { d.checked = d.dataset.buvo === '1'; }
-      d.disabled = off;
-    });
+    grupe.classList.toggle('is-off', off);
+    grupe.setAttribute('aria-disabled', off ? 'true' : 'false');
   }
-  // Serveris jau nupiešė teisingą būseną (disabled, data-buvo = DB reikšmė)
+  // Ir pele, ir klaviatūra (tarpas) — kol grupė išjungta, nekeičiam
+  grupe.addEventListener('click', function (e) {
+    if (pagr.checked) { e.preventDefault(); }
+  }, true);
   pagr.addEventListener('change', taikyk);
+  taikyk();
 })();
 
 function toggleEdit(btn) {

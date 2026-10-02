@@ -130,8 +130,26 @@ def main():
             'atskirų varnelių DB reikšmės išliko (nuėmus pagrindinę — grįš)')
     h = puslapis(c)
     for v in ('email_aktyvavimo_priminimai', 'email_galiojimas', 'email_susidomejimas'):
-        tikrink(not pazymeta(h, v) and re.search(rf'name="{v}"[^>]*data-buvo="1"', h),
-                f'   {v}: puslapyje nepažymėta, data-buvo="1" (JS disabled)')
+        zyma = re.search(rf'<input[^>]*name="{v}"[^>]*>', h).group(0)
+        tikrink(' disabled' not in zyma and pazymeta(h, v),
+                f'   {v}: NE disabled ir pažymėta (reikšmė siunčiama su forma)')
+    tikrink('nst-grupe is-off' in h, '   grupė pilka (is-off), kol pagrindinė uždėta')
+
+    print('\n— Naršyklės POST: TIK pagrindinė (be trijų atskirų)')
+    issaugok(c, email_aktyvavimo_priminimai=True, email_galiojimas=True, email_susidomejimas=True,
+             email_notifications=True, email_messages=True, marketing_emails=True)
+    c.post('/accounts/settings/notifications/', {'email_apie_skelbimus_isjungta': 'on'})
+    pr = profilis(u)
+    tikrink(pr.email_apie_skelbimus_isjungta and pr.email_aktyvavimo_priminimai
+            and pr.email_galiojimas and pr.email_susidomejimas,
+            'POST tik {pagrindinė: on} → trys atskiros DB lieka True')
+    c.post('/accounts/settings/notifications/', {'email_aktyvavimo_priminimai': 'on',
+                                                 'email_galiojimas': 'on',
+                                                 'email_susidomejimas': 'on'})
+    pr = profilis(u)
+    tikrink(not pr.email_apie_skelbimus_isjungta and pr.email_aktyvavimo_priminimai
+            and pr.email_galiojimas and pr.email_susidomejimas,
+            'POST be pagrindinės, su trimis „on" → visos trys True')
     issaugok(c, email_aktyvavimo_priminimai=True, email_galiojimas=True, email_susidomejimas=True,
              email_notifications=True, email_messages=True, marketing_emails=True)
     u.refresh_from_db()
