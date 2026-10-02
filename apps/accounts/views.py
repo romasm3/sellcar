@@ -808,19 +808,20 @@ def delete_profile_picture(request):
 def update_notifications(request):
     """„Laiškai" nustatymai.
 
-    Kol pagrindinė „Nesiųsti jokių laiškų apie mano skelbimus" uždėta,
-    trijų atskirų laukų NELIEČIAM visai — net jei POST'e jų nėra ar jie
-    tušti (blogas POST nieko nesugadina). Keičiami tik nuėmus pagrindinę.
+    Visos varnelės: uždėta = gaunu. Kol pagrindinė „Gauti laiškus apie
+    mano skelbimus" NUIMTA, trijų atskirų laukų NELIEČIAM visai — net jei POST'e jų nėra ar jie
+    tušti (blogas POST nieko nesugadina). Keičiami tik kai pagrindinė uždėta.
     Šablone jos ne disabled (tokių naršyklė nesiunčia), o pilkos ir
     nespaudžiamos. SMS varnelės nebėra (funkcijos nėra).
     """
     if request.method == "POST":
         profile = request.user.profile
-        isjungta = request.POST.get("email_apie_skelbimus_isjungta") == "on"
-        profile.email_apie_skelbimus_isjungta = isjungta
+        # „Gauti laiškus apie mano skelbimus": uždėta = gaunu (kaip visos kitos)
+        gauna = request.POST.get("gauti_laiskus_apie_skelbimus") == "on"
+        profile.gauna_laiskus_apie_skelbimus = gauna
         laukai = ["email_apie_skelbimus_isjungta", "email_notifications",
                   "email_messages", "marketing_emails"]
-        if not isjungta:
+        if gauna:
             laukai += ["email_aktyvavimo_priminimai", "email_galiojimas", "email_susidomejimas"]
         for laukas in laukai[1:]:
             setattr(profile, laukas, request.POST.get(laukas) == "on")

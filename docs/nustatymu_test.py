@@ -4,9 +4,9 @@ NUSTATYMAI /accounts/settings/ — LAIŠKŲ APIE SKELBIMUS VALDYMAS.
 
 Tikrinam (tikras HTML, tikri laiškai locmem dėžutėje):
   • kiekviena varnelė išsisaugo ir matosi perkrovus
-  • uždėjus pagrindinę „Nesiųsti man jokių laiškų apie mano skelbimus" —
-    galima_siusti() = False kiekvienam skelbimų tipui; atskiros varnelės
-    disabled; nuėmus — grįžta ankstesnės reikšmės (DB nepakeistos)
+  • VISOS varnelės: uždėta = gaunu. Nuėmus pagrindinę „Gauti laiškus apie
+    mano skelbimus" — galima_siusti() = False kiekvienam skelbimų tipui;
+    atskiros pilkos (ne disabled); uždėjus — grįžta ankstesnės reikšmės
   • nuėmus atskirą varnelę — tas tipas nesiunčiamas, kiti siunčiami
     (ir per send_scenario — tikras laiškas)
   • slaptažodžio atkūrimo laiškas siunčiamas net viską išjungus
@@ -69,8 +69,13 @@ def pazymeta(h, vardas):
 
 
 def issaugok(c, **reiksmes):
-    return c.post('/accounts/settings/notifications/',
-                  {k: 'on' for k, v in reiksmes.items() if v})
+    """Formos POST. email_apie_skelbimus_isjungta=True — pagrindinė
+    „Gauti laiškus…" NUIMTA (jos lauko POST'e nėra), kitaip — uždėta."""
+    isjungta = reiksmes.pop('email_apie_skelbimus_isjungta', False)
+    duom = {k: 'on' for k, v in reiksmes.items() if v}
+    if not isjungta:
+        duom['gauti_laiskus_apie_skelbimus'] = 'on'
+    return c.post('/accounts/settings/notifications/', duom)
 
 
 def profilis(u):
@@ -92,8 +97,9 @@ def main():
     print('\n— Puslapis LT')
     h = puslapis(c)
     tikrink('Account Settings' not in h, 'nėra „Account Settings"')
-    tikrink('Paskyros nustatymai' in h and 'Nesiųsti man jokių laiškų apie mano skelbimus' in h,
-            'yra „Paskyros nustatymai" ir pagrindinė varnelė')
+    tikrink('Paskyros nustatymai' in h and 'Gauti laiškus apie mano skelbimus' in h
+            and 'Nesiųsti man' not in h,
+            'yra „Paskyros nustatymai" ir teigiama pagrindinė „Gauti laiškus apie mano skelbimus"')
     tikrink('sms_notifications' not in h and 'SMS' not in h, 'SMS varnelės nėra')
     for zodis in ('Profile Picture', 'Login Settings', 'User Data', 'Email Notifications',
                   'Privacy Settings', 'Dealer Account', 'Danger Zone', 'Save Preferences',
@@ -110,11 +116,14 @@ def main():
             issaugok(c, **visos)
             h = puslapis(c)
             db = getattr(profilis(u), vardas)
-            ok = db == reiksme and (vardas == 'email_apie_skelbimus_isjungta' and not reiksme
-                                    or pazymeta(h, vardas) == reiksme)
-            if vardas == 'email_apie_skelbimus_isjungta' and reiksme:
-                ok = db and pazymeta(h, vardas)
-            tikrink(ok, f'{vardas} = {reiksme}: DB {db}, puslapyje {pazymeta(h, vardas)}')
+            if vardas == 'email_apie_skelbimus_isjungta':
+                # pagrindinė rodoma apversta: „Gauti…" uždėta, kai NEišjungta
+                ok = db == reiksme and pazymeta(h, 'gauti_laiskus_apie_skelbimus') == (not reiksme)
+                pz = pazymeta(h, 'gauti_laiskus_apie_skelbimus')
+            else:
+                ok = db == reiksme and pazymeta(h, vardas) == reiksme
+                pz = pazymeta(h, vardas)
+            tikrink(ok, f'{vardas} = {reiksme}: DB {db}, puslapyje {pz}')
 
     print('\n— Pagrindinė varnelė')
     issaugok(c, **{v: True for v in VARNELES if v != 'email_apie_skelbimus_isjungta'})
@@ -135,21 +144,26 @@ def main():
                 f'   {v}: NE disabled ir pažymėta (reikšmė siunčiama su forma)')
     tikrink('nst-grupe is-off' in h, '   grupė pilka (is-off), kol pagrindinė uždėta')
 
-    print('\n— Naršyklės POST: TIK pagrindinė (be trijų atskirų)')
+    print('\n— Naršyklės POST: pagrindinė „Gauti…" nuimta, be trijų atskirų')
     issaugok(c, email_aktyvavimo_priminimai=True, email_galiojimas=True, email_susidomejimas=True,
              email_notifications=True, email_messages=True, marketing_emails=True)
-    c.post('/accounts/settings/notifications/', {'email_apie_skelbimus_isjungta': 'on'})
+    c.post('/accounts/settings/notifications/', {'email_notifications': 'on'})
     pr = profilis(u)
     tikrink(pr.email_apie_skelbimus_isjungta and pr.email_aktyvavimo_priminimai
             and pr.email_galiojimas and pr.email_susidomejimas,
-            'POST tik {pagrindinė: on} → trys atskiros DB lieka True')
-    c.post('/accounts/settings/notifications/', {'email_aktyvavimo_priminimai': 'on',
+            'POST be „Gauti…" ir be trijų → išjungta, trys atskiros DB lieka True')
+    c.post('/accounts/settings/notifications/', {'gauti_laiskus_apie_skelbimus': 'on',
+                                                 'email_aktyvavimo_priminimai': 'on',
                                                  'email_galiojimas': 'on',
                                                  'email_susidomejimas': 'on'})
     pr = profilis(u)
     tikrink(not pr.email_apie_skelbimus_isjungta and pr.email_aktyvavimo_priminimai
             and pr.email_galiojimas and pr.email_susidomejimas,
-            'POST be pagrindinės, su trimis „on" → visos trys True')
+            'POST su „Gauti…" ir trimis „on" → gaunama, visos trys True')
+    h = puslapis(c)
+    tikrink(pazymeta(h, 'gauti_laiskus_apie_skelbimus') and pazymeta(h, 'email_galiojimas')
+            and 'nst-grupe is-off' not in h,
+            'gaunant: „Gauti…" pažymėta, grupė aktyvi (uždėta = gaunu visur)')
     issaugok(c, email_aktyvavimo_priminimai=True, email_galiojimas=True, email_susidomejimas=True,
              email_notifications=True, email_messages=True, marketing_emails=True)
     u.refresh_from_db()

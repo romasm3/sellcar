@@ -74,6 +74,21 @@ class Profile(models.Model):
     # savo skelbimus; sisteminių (slaptažodis, patvirtinimas) neliečia.
     email_apie_skelbimus_isjungta = models.BooleanField(
         default=False, verbose_name=_("Nesiųsti jokių laiškų apie mano skelbimus"))
+    @property
+    def gauna_laiskus_apie_skelbimus(self):
+        """Teigiama pagrindinio jungiklio forma — šablonui ir vaizdui.
+
+        Puslapyje VISOS varnelės reiškia „uždėta = gaunu"; DB lauke liko
+        neigiama forma (email_apie_skelbimus_isjungta), kad nereikėtų
+        duomenis apverčiančios migracijos. Neigiama logika — tik čia ir
+        notifications.galima_siusti().
+        """
+        return not self.email_apie_skelbimus_isjungta
+
+    @gauna_laiskus_apie_skelbimus.setter
+    def gauna_laiskus_apie_skelbimus(self, gauna):
+        self.email_apie_skelbimus_isjungta = not gauna
+
     email_aktyvavimo_priminimai = models.BooleanField(
         default=True, verbose_name=_("Priminimai aktyvuoti neaktyvuotą skelbimą"))
     email_galiojimas = models.BooleanField(

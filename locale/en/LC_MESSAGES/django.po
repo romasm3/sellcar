@@ -24872,3 +24872,7 @@ msgstr "New listings matching your saved searches"
 #: templates/accounts/settings.html
 msgid "Akcijos ir naujienos"
 msgstr "Promotions and news"
+
+#: templates/accounts/settings.html
+msgid "Gauti laiškus apie mano skelbimus"
+msgstr "Receive emails about my listings"

@@ -201,10 +201,13 @@
         </div>
 
         {# Email Notifications #}
-        {% comment %}LAIŠKAI. Pagrindinė varnelė viršuje: uždėjus — nesiunčiamas nė
-        vienas automatinis laiškas apie MANO skelbimus, o trys atskiros žemiau
-        pilkos ir nespaudžiamos (NE disabled — jų reikšmės lieka ir
-        siunčiamos); nuėmus — vėl veikia su tomis pačiomis reikšmėmis. Sisteminiai
+        {% comment %}LAIŠKAI. VISOS varnelės reiškia tą patį: uždėta = GAUNU.
+        Pagrindinė „Gauti laiškus apie mano skelbimus": nuimta — nesiunčiamas
+        nė vienas automatinis laiškas apie MANO skelbimus, o trys atskiros
+        žemiau pilkos ir nespaudžiamos (NE disabled — jų reikšmės lieka ir
+        siunčiamos); uždėta — vėl veikia su tomis pačiomis reikšmėmis.
+        DB lauke neigiama forma (email_apie_skelbimus_isjungta) — šablonas
+        naudoja teigiamą Profile.gauna_laiskus_apie_skelbimus. Sisteminiai
         laiškai (slaptažodis, patvirtinimas) siunčiami visada.
         Logika — apps/accounts/notifications.py (galima_siusti).{% endcomment %}
         <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
@@ -215,10 +218,10 @@
                 {% csrf_token %}
                 <div class="px-4 py-2 text-sm">
                     <label class="nst-varnele nst-pagrindine">
-                        <span class="font-medium text-gray-900">{% trans "Nesiųsti man jokių laiškų apie mano skelbimus" %}</span>
-                        <input type="checkbox" name="email_apie_skelbimus_isjungta" id="laiskaiIsjungti" class="nst-box" {% if user.profile.email_apie_skelbimus_isjungta %}checked{% endif %}>
+                        <span class="font-medium text-gray-900">{% trans "Gauti laiškus apie mano skelbimus" %}</span>
+                        <input type="checkbox" name="gauti_laiskus_apie_skelbimus" id="laiskaiApieSkelbimus" class="nst-box" {% if user.profile.gauna_laiskus_apie_skelbimus %}checked{% endif %}>
                     </label>
-                    <div class="nst-grupe{% if user.profile.email_apie_skelbimus_isjungta %} is-off{% endif %}" data-skelbimu-laiskai>
+                    <div class="nst-grupe{% if not user.profile.gauna_laiskus_apie_skelbimus %} is-off{% endif %}" data-skelbimu-laiskai>
                         <label class="nst-varnele">
                             <span class="text-gray-700">{% trans "Priminimai aktyvuoti neaktyvuotą skelbimą" %}</span>
                             <input type="checkbox" name="email_aktyvavimo_priminimai" class="nst-box nst-skelbimu" {% if user.profile.email_aktyvavimo_priminimai %}checked{% endif %}>
@@ -417,23 +420,23 @@
   .nst-grupe.is-off { filter:grayscale(1); }
 </style>
 <script>
-/* Pagrindinė varnelė: uždėjus — trys „apie mano skelbimus" tampa pilkos ir
+/* Pagrindinė varnelė („Gauti…"): NUĖMUS — trys „apie mano skelbimus" tampa pilkos ir
    nespaudžiamos, bet NE disabled: disabled laukų naršyklė nesiunčia, ir jų
    reikšmės būtų dingusios. Reikšmės lieka tokios, kokios buvo, ir
    siunčiamos su forma; serveris jų vis tiek neliečia, kol pagrindinė
    uždėta (accounts.views.update_notifications). */
 (function () {
-  var pagr = document.getElementById('laiskaiIsjungti');
+  var pagr = document.getElementById('laiskaiApieSkelbimus');
   var grupe = document.querySelector('[data-skelbimu-laiskai]');
   if (!pagr || !grupe) return;
   function taikyk() {
-    var off = pagr.checked;
+    var off = !pagr.checked;
     grupe.classList.toggle('is-off', off);
     grupe.setAttribute('aria-disabled', off ? 'true' : 'false');
   }
   // Ir pele, ir klaviatūra (tarpas) — kol grupė išjungta, nekeičiam
   grupe.addEventListener('click', function (e) {
-    if (pagr.checked) { e.preventDefault(); }
+    if (!pagr.checked) { e.preventDefault(); }
   }, true);
   pagr.addEventListener('change', taikyk);
   taikyk();
