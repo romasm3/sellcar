@@ -24876,3 +24876,7 @@ msgstr "Promotions and news"
 #: templates/accounts/settings.html
 msgid "Gauti laiškus apie mano skelbimus"
 msgstr "Receive emails about my listings"
+
+#: templates/accounts/settings.html
+msgid "Uždėta varnelė — laiškus gausite."
+msgstr "Checked — you will receive the emails."

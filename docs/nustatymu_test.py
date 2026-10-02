@@ -101,6 +101,11 @@ def main():
             and 'Nesiųsti man' not in h,
             'yra „Paskyros nustatymai" ir teigiama pagrindinė „Gauti laiškus apie mano skelbimus"')
     tikrink('sms_notifications' not in h and 'SMS' not in h, 'SMS varnelės nėra')
+    tikrink('Uždėta varnelė — laiškus gausite.' in h, 'po antrašte: „Uždėta varnelė — laiškus gausite."')
+    varneliu_tekstai = re.findall(r'<label class="nst-varnele[^"]*">\s*<span[^>]*>([^<]+)</span>', h)
+    tikrink(varneliu_tekstai and not [t for t in varneliu_tekstai if t.strip().startswith('Nesiųsti')],
+            f'nėra varnelės, prasidedančios „Nesiųsti" ({len(varneliu_tekstai)} varnelių)',
+            f'{varneliu_tekstai}')
     for zodis in ('Profile Picture', 'Login Settings', 'User Data', 'Email Notifications',
                   'Privacy Settings', 'Dealer Account', 'Danger Zone', 'Save Preferences',
                   'Save Privacy Settings', 'Delete Account'):
