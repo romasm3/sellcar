@@ -17,6 +17,7 @@ Tikrinam (tik testiniai naudotojai, laikina sqlite bazė):
   • žurnalo įrašo ištrinti negalima: žurnale nėra trynimo, POST/DELETE
     → 405, Django admin trynimas → 403, ORM delete()/update() atsisako
   • Django admin nerodo žinučių turinio ir neleidžia jo keisti
+  • meniu po avataru — „Pokalbių peržiūra" tik su gali_matyti_pokalbius
   • abiem dalyviams pokalbio lange — nuolatinė juosta
   • privatumo politikoje ir taisyklėse — skyrius apie peržiūrą, 24 mėn.
   • vartotojo eksporte — jo gijų peržiūros (kiek, kada, priežastis)
@@ -108,6 +109,18 @@ def main():
         tikrink(klientas(u).get(f'{SARASAS}{conv.pk}/').status_code == 403, f'{kas} gija → 403')
     a = klientas().get(SARASAS)
     tikrink(a.status_code == 302 and '/login' in a['Location'], 'neprisijungęs → prisijungimas')
+
+    print('\n— Meniu po avataru')
+    t = h(klientas(darbuotojas).get('/', follow=True))
+    tikrink(t.count('data-meniu-pokalbiu-perziura') == 2 and 'Pokalbių peržiūra' in t
+            and '/administracija/pokalbiai/' in t,
+            'su teise (ne superadministratoriui) — nuoroda abiejuose meniu (kompiuterio ir telefono)')
+    tikrink('href="/admin/"' not in t, 'pagalbininkas nemato „Django admin"')
+    t = h(klientas(superas).get('/', follow=True))
+    tikrink('data-meniu-pokalbiu-perziura' not in t and 'href="/admin/"' in t,
+            'superadministratorius be teisės — nuorodos nėra, „Django admin" lieka')
+    t = h(klientas(pirkejas).get('/', follow=True))
+    tikrink('data-meniu-pokalbiu-perziura' not in t, 'paprastas naudotojas — nuorodos nėra')
 
     print('\n— Sąrašas: antraštės, ne turinys')
     c = klientas(darbuotojas)
