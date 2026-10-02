@@ -69,6 +69,17 @@ class Profile(models.Model):
     email_messages = models.BooleanField(default=True, verbose_name=_("Email Messages Notifications"))
     marketing_emails = models.BooleanField(default=False, verbose_name=_("Marketing Emails"))
     sms_notifications = models.BooleanField(default=False, verbose_name=_("SMS Notifications"))
+    # Laiškai apie MANO skelbimus (apps/accounts/notifications.py).
+    # Pagrindinis jungiklis blokuoja visus tris žemiau ir kitus laiškus apie
+    # savo skelbimus; sisteminių (slaptažodis, patvirtinimas) neliečia.
+    email_apie_skelbimus_isjungta = models.BooleanField(
+        default=False, verbose_name=_("Nesiųsti jokių laiškų apie mano skelbimus"))
+    email_aktyvavimo_priminimai = models.BooleanField(
+        default=True, verbose_name=_("Priminimai aktyvuoti neaktyvuotą skelbimą"))
+    email_galiojimas = models.BooleanField(
+        default=True, verbose_name=_("Pranešimai apie skelbimo galiojimo pabaigą"))
+    email_susidomejimas = models.BooleanField(
+        default=True, verbose_name=_("Pranešimai apie skelbimo peržiūras ir susidomėjimą"))
 
     # Privacy Settings
     show_email = models.BooleanField(default=False, verbose_name=_("Show Email on Profile"))
@@ -298,7 +309,15 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    """Save profile when user is saved"""
+def save_user_profile(sender, instance, update_fields=None, **kwargs):
+    """Save profile when user is saved.
+
+    NE prisijungiant: login išsaugo tik `last_login`, o pilnas
+    profile.save() su atmintyje laikomu (galbūt pasenusiu) profiliu
+    perrašydavo naujesnes DB reikšmes — pvz. laiško „Atsisakyti" nuoroda
+    išjungtas pranešimas vėl įsijungdavo prisijungus.
+    """
+    if update_fields is not None and set(update_fields) <= {'last_login'}:
+        return
     if hasattr(instance, 'profile'):
         instance.profile.save()

@@ -12731,7 +12731,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1967
 msgid "Dashboard"
-msgstr ""
+msgstr "Skydelis"
 
 #: apps/listings/translatable_db.py:1969
 msgid "Dažymo paslaugos"
@@ -26739,3 +26739,139 @@ msgstr "Jūsų skelbimas vis dar laukia aktyvavimo"
 #, python-format
 msgid "Activate your listing: %(url)s"
 msgstr "Aktyvuokite skelbimą: %(url)s"
+
+#: templates/accounts/settings.html
+msgid "Account Settings"
+msgstr "Paskyros nustatymai"
+
+#: templates/accounts/settings.html
+msgid "Upload Photo"
+msgstr "Įkelti nuotrauką"
+
+#: templates/accounts/settings.html
+msgid "Login Settings"
+msgstr "Prisijungimo duomenys"
+
+#: templates/accounts/settings.html
+msgid "Member since"
+msgstr "Narys nuo"
+
+#: templates/accounts/settings.html
+msgid "User Data"
+msgstr "Naudotojo duomenys"
+
+#: templates/accounts/settings.html
+msgid "Account status"
+msgstr "Paskyros būsena"
+
+#: templates/accounts/settings.html
+msgid "First name"
+msgstr "Vardas"
+
+#: templates/accounts/settings.html
+msgid "Last name"
+msgstr "Pavardė"
+
+#: templates/accounts/settings.html
+msgid "Phone number"
+msgstr "Telefono numeris"
+
+#: templates/accounts/settings.html
+msgid "Secondary phone"
+msgstr "Papildomas telefonas"
+
+#: templates/accounts/settings.html
+msgid "House number"
+msgstr "Namo numeris"
+
+#: templates/accounts/settings.html
+msgid "New listings matching your saved searches"
+msgstr "Nauji skelbimai pagal išsaugotas paieškas"
+
+#: templates/accounts/settings.html
+msgid "Messages from other users"
+msgstr "Žinutės iš kitų naudotojų"
+
+#: templates/accounts/settings.html
+msgid "Promotional emails and updates"
+msgstr "Akcijos ir naujienos"
+
+#: templates/accounts/settings.html
+msgid "Save Preferences"
+msgstr "Išsaugoti nustatymus"
+
+#: templates/accounts/settings.html
+msgid "Privacy Settings"
+msgstr "Privatumo nustatymai"
+
+#: templates/accounts/settings.html
+msgid "Show email on profile"
+msgstr "Rodyti el. paštą profilyje"
+
+#: templates/accounts/settings.html
+msgid "Show phone number on listings"
+msgstr "Rodyti telefono numerį skelbimuose"
+
+#: templates/accounts/settings.html
+msgid "Public profile"
+msgstr "Viešas profilis"
+
+#: templates/accounts/settings.html
+msgid "Show location on map"
+msgstr "Rodyti vietą žemėlapyje"
+
+#: templates/accounts/settings.html
+msgid "Save Privacy Settings"
+msgstr "Išsaugoti privatumo nustatymus"
+
+#: templates/accounts/settings.html
+msgid "Dealer Account"
+msgstr "Prekiautojo paskyra"
+
+#: templates/accounts/settings.html
+msgid "Expires:"
+msgstr "Galioja iki:"
+
+#: templates/accounts/settings.html
+msgid "View Page"
+msgstr "Peržiūrėti puslapį"
+
+#: templates/accounts/settings.html
+msgid ""
+"Get a branded dealer page, up to 30 active listings, and more for "
+"€100/month."
+msgstr ""
+"Savas prekiautojo puslapis, iki 30 aktyvių skelbimų ir daugiau — už 100 "
+"€/mėn."
+
+#: templates/accounts/settings.html
+msgid "Learn more"
+msgstr "Sužinoti daugiau"
+
+#: templates/accounts/settings.html
+msgid "Danger Zone"
+msgstr "Pavojinga zona"
+
+#: templates/accounts/settings.html
+msgid "Delete Account"
+msgstr "Ištrinti paskyrą"
+
+#: templates/accounts/settings.html
+msgid "Once deleted, there is no going back."
+msgstr "Ištrintos paskyros atkurti nebus galima."
+
+#: templates/accounts/settings.html
+msgid "Type DELETE"
+msgstr "Įrašykite DELETE"
+
+#: templates/accounts/settings.html
+msgid ""
+"This action <strong>cannot be undone</strong>. All your listings and data "
+"will be permanently deleted."
+msgstr ""
+"Šio veiksmo <strong>atšaukti negalima</strong>. Visi jūsų skelbimai ir "
+"duomenys bus ištrinti visam laikui."
+
+#: templates/accounts/settings.html
+msgid "Type <strong>DELETE</strong> to confirm:"
+msgstr "Įrašykite <strong>DELETE</strong>, kad patvirtintumėte:"

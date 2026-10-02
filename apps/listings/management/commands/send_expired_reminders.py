@@ -16,7 +16,6 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.core.mail import send_mail
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -154,13 +153,12 @@ class Command(BaseCommand):
                 continue
 
             try:
-                send_mail(
-                    subject=subject,
-                    message=body,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[seller.email],
-                    fail_silently=False,
-                )
+                # Nustatymų patikra + „Atsisakyti" — apps/accounts/notifications.py
+                from apps.accounts.notifications import siusk
+                if not siusk(seller, 'galiojimas', subject, body,
+                             from_email=settings.DEFAULT_FROM_EMAIL):
+                    self.stdout.write(f"  · {seller.email}: išjungta nustatymuose")
+                    continue
 
                 # Atnaujink timestamp ant listing'o
                 listing.last_expired_reminder_at = now

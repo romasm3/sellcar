@@ -37,17 +37,9 @@ SABLONAI = {
 }
 
 
-def gavejo_kalba(user):
-    """Laiško kalba — iš vartotojo profilio, ne visada EN.
-
-    Profilio laukas pildomas, kai žmogus perjungia kalbą svetainėje
-    (accounts.middleware.UserLanguageMiddleware); tuščias → svetainės
-    numatytoji (settings.LANGUAGE_CODE, LT).
-    """
-    profilis = getattr(user, 'profile', None)
-    kalba = (getattr(profilis, 'language', '') or '').strip()
-    galimos = {k for k, _v in settings.LANGUAGES}
-    return kalba if kalba in galimos else settings.LANGUAGE_CODE
+# Laiško kalba — viena funkcija visiems laiškams (profilis → LANGUAGE_CODE)
+from apps.accounts.notifications import (  # noqa: E402
+    galima_siusti, gavejo_kalba, prijunk_atsisakyma)
 
 
 def rodomas_pavadinimas(draft):
@@ -97,6 +89,8 @@ def priminimo_laiskas(draft, scenarijus, site_url=None):
         html = render_to_string(SABLONAI[scenarijus], context)
         tema = _(TEMOS[scenarijus])
         tekstas = _('Activate your listing: %(url)s') % {'url': aktyvavimas}
+    # „Atsisakyti šių pranešimų" — išjungia tik aktyvavimo priminimus
+    tekstas, html = prijunk_atsisakyma(seller, 'aktyvavimas', tekstas, html)
     return tema, tekstas, html
 
 
@@ -172,6 +166,12 @@ class Command(BaseCommand):
                 return 'skipped'
 
             scenario_code = 'draft_reminder_daily'
+
+        # Naudotojo nustatymai: „Priminimai aktyvuoti neaktyvuotą skelbimą"
+        # ir pagrindinis „Nesiųsti jokių laiškų apie mano skelbimus"
+        if not galima_siusti(seller, 'aktyvavimas'):
+            self.stdout.write(f'  · Skip #{draft.pk}: išjungta nustatymuose')
+            return 'skipped'
 
         # Check scenario enabled in DB
         try:

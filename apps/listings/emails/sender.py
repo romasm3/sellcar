@@ -35,10 +35,14 @@ def should_send(code: str, to_user=None) -> tuple[bool, str]:
     except EmailScenario.DoesNotExist:
         pass
 
-    if to_user is not None and hasattr(to_user, 'profile'):
-        profile = to_user.profile
-        if not getattr(profile, 'email_notifications', True):
-            return False, f"User {to_user.email} disabled email_notifications"
+    # Naudotojo nustatymai — VIENA patikra visiems laiškams
+    # (apps/accounts/notifications.py). Anksčiau čia buvo tikrinamas tik
+    # email_notifications, kurį puslapyje žmogus mato kaip „Nauji skelbimai
+    # pagal išsaugotas paieškas", o jis blokuodavo VISUS laiškus.
+    from apps.accounts.notifications import galima_siusti, tipas_pagal_scenariju
+    tipas = tipas_pagal_scenariju(code)
+    if to_user is not None and not galima_siusti(to_user, tipas):
+        return False, f"User {getattr(to_user, 'email', '')} išjungė „{tipas}\""
 
     return True, ''
 
@@ -83,6 +87,12 @@ def send_scenario(
         logger.warning(f"[email] praleista {code}: negyvas domenas ({to_email})")
         return False
 
+    # Gavėjas nenurodytas — randam pagal el. paštą, kad nustatymai būtų
+    # patikrinti VISADA (dalis kvietėjų to_user neperduoda).
+    if to_user is None:
+        from apps.accounts.notifications import gavejas_pagal_pasta
+        to_user = gavejas_pagal_pasta(to_email)
+
     can_send, reason = should_send(code, to_user)
     if not can_send:
         logger.info(f"[email] skipping {code} to {to_email}: {reason}")
@@ -124,6 +134,11 @@ def send_scenario(
             subject = scenario.name
         else:
             subject = code
+
+    # „Atsisakyti šių pranešimų" — kiekvieno ne sisteminio laiško apačioje
+    from apps.accounts.notifications import prijunk_atsisakyma, tipas_pagal_scenariju
+    text_body, html_body = prijunk_atsisakyma(
+        to_user, tipas_pagal_scenariju(code), text_body, html_body)
 
     msg = EmailMultiAlternatives(
         subject=subject,

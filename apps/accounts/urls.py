@@ -16,6 +16,8 @@ urlpatterns = [
     path('settings/update-picture/', views.update_profile_picture, name='update_profile_picture'),
     path('settings/delete-picture/', views.delete_profile_picture, name='delete_profile_picture'),
     path('settings/notifications/', views.update_notifications, name='update_notifications'),
+    # Atsisakymo nuoroda laiškuose — be prisijungimo (pasirašytas tokenas)
+    path('atsisakyti/', views.atsisakyti_pranesimu, name='atsisakyti'),
     path('settings/privacy/', views.update_privacy, name='update_privacy'),
     path('settings/delete-account/', views.delete_account, name='delete_account'),
     # Password reset

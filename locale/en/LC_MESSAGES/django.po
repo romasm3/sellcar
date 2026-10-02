@@ -24810,3 +24810,65 @@ msgstr "Listing deactivated — it is no longer public."
 #: apps/listings/aktyvavimas.py
 msgid "Įkelkite bent vieną nuotrauką ir išsaugokite – skelbimas aktyvuosis"
 msgstr "Upload at least one photo and save – the listing will be activated"
+
+#: templates/accounts/settings.html
+msgid "Nesiųsti man jokių laiškų apie mano skelbimus"
+msgstr "Do not send me any emails about my listings"
+
+#: templates/accounts/settings.html
+msgid "Priminimai aktyvuoti neaktyvuotą skelbimą"
+msgstr "Reminders to activate an inactive listing"
+
+#: templates/accounts/settings.html
+msgid "Pranešimai apie skelbimo galiojimo pabaigą"
+msgstr "Notices about listing expiry"
+
+#: templates/accounts/settings.html
+msgid "Pranešimai apie skelbimo peržiūras ir susidomėjimą"
+msgstr "Notices about listing views and interest"
+
+#: templates/accounts/settings.html
+msgid ""
+"Slaptažodžio atkūrimo ir el. pašto patvirtinimo laiškai siunčiami visada."
+msgstr "Password reset and email confirmation emails are always sent."
+
+#: templates/accounts/settings.html
+msgid "Pranešimų atsisakyta"
+msgstr "Unsubscribed"
+
+#: templates/accounts/settings.html
+msgid "Kitus laiškų nustatymus galite pakeisti paskyros nustatymuose."
+msgstr "You can change other email settings in your account settings."
+
+#: templates/accounts/settings.html
+msgid "Laiškų nustatymai"
+msgstr "Email settings"
+
+#: templates/accounts/settings.html
+#, python-format
+msgid "Daugiau negausite šių laiškų: „%(tipas)s\"."
+msgstr "You will no longer receive these emails: “%(tipas)s”."
+
+#: templates/accounts/settings.html
+msgid "Atsisakyti šių pranešimų"
+msgstr "Unsubscribe from these notifications"
+
+#: templates/accounts/settings.html
+msgid "Laiškų nustatymai išsaugoti."
+msgstr "Email settings saved."
+
+#: templates/accounts/settings.html
+msgid "Laiškai apie mano skelbimus"
+msgstr "Emails about my listings"
+
+#: templates/accounts/settings.html
+msgid "Žinutės iš kitų naudotojų"
+msgstr "Messages from other users"
+
+#: templates/accounts/settings.html
+msgid "Nauji skelbimai pagal išsaugotas paieškas"
+msgstr "New listings matching your saved searches"
+
+#: templates/accounts/settings.html
+msgid "Akcijos ir naujienos"
+msgstr "Promotions and news"

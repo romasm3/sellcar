@@ -1,3 +1,4 @@
+from django.views.generic import RedirectView
 from django.urls import path
 from . import views
 from apps.listings import brand_api
@@ -216,6 +217,8 @@ urlpatterns = [
     path("image/<int:pk>/set-main/", views.image_set_main, name="image_set_main"),
 
     # ─── Dashboard ───
+    # /dashboard/ — nebuvo puslapio (404); skydelis yra skelbimų sąrašas
+    path('dashboard/', RedirectView.as_view(pattern_name='my_listings', permanent=False)),
     path('dashboard/announcements/', views.my_listings, name='my_listings'),
     path('dashboard/announcements/boost-all/', views.listing_boost_all, name='listing_boost_all'),
 

@@ -10,7 +10,6 @@ Usage:
     python manage.py send_expiry_reminders --dry-run
 """
 from django.core.management.base import BaseCommand
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.utils import timezone
@@ -109,15 +108,11 @@ class Command(BaseCommand):
         if dry_run:
             return subject, True
 
-        send_mail(
-            subject=subject,
-            message=text_body,
-            from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@autoleft.com'),
-            recipient_list=[listing.seller.email],
-            html_message=html_body,
-            fail_silently=False,
-        )
-        return subject, True
+        # Nustatymų patikra + „Atsisakyti" — apps/accounts/notifications.py
+        from apps.accounts.notifications import siusk
+        issiusta = siusk(listing.seller, 'galiojimas', subject, text_body, html_body,
+                         from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@autoleft.com'))
+        return subject, issiusta
 
     def _send_expired(self, listing, dry_run):
         days_since = listing.days_since_expired or 0
@@ -142,12 +137,8 @@ class Command(BaseCommand):
         if dry_run:
             return subject, True
 
-        send_mail(
-            subject=subject,
-            message=text_body,
-            from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@autoleft.com'),
-            recipient_list=[listing.seller.email],
-            html_message=html_body,
-            fail_silently=False,
-        )
-        return subject, True
+        # Nustatymų patikra + „Atsisakyti" — apps/accounts/notifications.py
+        from apps.accounts.notifications import siusk
+        issiusta = siusk(listing.seller, 'galiojimas', subject, text_body, html_body,
+                         from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@autoleft.com'))
+        return subject, issiusta

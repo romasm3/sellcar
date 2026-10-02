@@ -803,15 +803,49 @@ def delete_profile_picture(request):
 
 @login_required
 def update_notifications(request):
+    """„Laiškai" nustatymai.
+
+    Pagrindinė „Nesiųsti jokių laiškų apie mano skelbimus" atskirų
+    varnelių NEPERRAŠO: kol ji uždėta, jos išjungtos (disabled, į POST
+    nepatenka), todėl išsaugom tik tai, kas atėjo — nuėmus pagrindinę
+    grįžta ankstesnės reikšmės. SMS varnelės nebėra (funkcijos nėra).
+    """
     if request.method == "POST":
         profile = request.user.profile
-        profile.email_notifications = request.POST.get("email_notifications") == "on"
-        profile.email_messages = request.POST.get("email_messages") == "on"
-        profile.marketing_emails = request.POST.get("marketing_emails") == "on"
-        profile.sms_notifications = request.POST.get("sms_notifications") == "on"
-        profile.save()
+        isjungta = request.POST.get("email_apie_skelbimus_isjungta") == "on"
+        profile.email_apie_skelbimus_isjungta = isjungta
+        laukai = ["email_apie_skelbimus_isjungta", "email_notifications",
+                  "email_messages", "marketing_emails"]
+        if not isjungta:
+            laukai += ["email_aktyvavimo_priminimai", "email_galiojimas", "email_susidomejimas"]
+        for laukas in laukai[1:]:
+            setattr(profile, laukas, request.POST.get(laukas) == "on")
+        profile.save(update_fields=laukai)
+        messages.success(request, _("Laiškų nustatymai išsaugoti."))
         return redirect("accounts:settings")
     return render(request, "accounts/settings_notifications.html")
+
+
+def atsisakyti_pranesimu(request):
+    """„Atsisakyti šių pranešimų" iš laiško — be prisijungimo.
+
+    Tokenas pasirašytas (apps/accounts/notifications.py) ir išjungia TIK
+    tą vieną tipą. Blogas ar pasenęs → 403, niekas nekeičiama.
+    """
+    from django.contrib.auth import get_user_model
+    from django.core.exceptions import PermissionDenied
+    from . import notifications
+    turinys = notifications.tokeno_turinys(request.GET.get("t"))
+    if turinys is None:
+        raise PermissionDenied("Netinkama arba pasenusi atsisakymo nuoroda.")
+    uid, tipas = turinys
+    user = get_user_model().objects.filter(pk=uid).select_related("profile").first()
+    if user is None or tipas not in notifications.TIPO_LAUKAS:
+        raise PermissionDenied("Netinkama atsisakymo nuoroda.")
+    notifications.isjunk(user, tipas)
+    return render(request, "accounts/atsisakyta.html", {
+        "tipo_pavadinimas": notifications.TIPO_PAVADINIMAS.get(tipas, tipas),
+    })
 
 
 @login_required

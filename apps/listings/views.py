@@ -4190,10 +4190,13 @@ Message:
 {message}
 
 View listing: http://127.0.0.1:8000{listing.get_absolute_url()}"""
-        send_mail(
-            subject, body, sender_email, [listing.kontaktinis_pastas],
-            fail_silently=True,
-        )
+        # Pirkėjo užklausa — „Žinutės iš kitų naudotojų" nustatymas
+        from apps.accounts.notifications import siusk
+        try:
+            siusk(listing.seller, 'zinutes', subject, body,
+                  to_email=listing.kontaktinis_pastas, from_email=sender_email)
+        except Exception:                            # kaip buvo: fail_silently
+            logger.exception('contact_seller laiškas neišsiųstas')
     return redirect('listing_detail', pk=listing.pk)
 
 
