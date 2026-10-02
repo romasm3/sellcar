@@ -19,7 +19,14 @@ ImageField ir upload_to, ListingImage.save() pagamina miniatiūras
     kita raiška ar suspaudimu turi kitą SHA-256 ir dublikatu nelaikomas;
   • tvarka — kaip --url eilė, po esamų; pirma nauja tampa pagrindine,
     jei skelbimas pagrindinės dar neturi (arba su --pagrindine);
-  • --dry-run — parsisiunčia ir patikrina, bet į DB ir diską nerašo.
+  • --dry-run — parsisiunčia ir patikrina, bet į DB ir diską nerašo;
+  • --pakeisti — prieš kabinant ištrina ESAMAS skelbimo nuotraukas (DB
+    eilutes; failai diske lieka, kaip ir trinant per formą). Saugiklis:
+    esamos trinamos TIK jei bent viena nauja parsisiuntė ir tinka —
+    kitaip niekas neliečiama (skelbimas neliks be nuotraukų).
+
+Du etapai: pirma visi URL parsisiunčiami ir patikrinami, tik tada
+rašoma — klaidingas URL niekada nepalieka pusiau pakeisto skelbimo.
 """
 import hashlib
 import os
@@ -76,27 +83,32 @@ class Command(BaseCommand):
                             help='Parsisiųsti ir patikrinti, bet nieko nerašyti')
         parser.add_argument('--pagrindine', action='store_true',
                             help='Pirma nauja nuotrauka tampa pagrindine net jei pagrindinė jau yra')
+        parser.add_argument('--pakeisti', action='store_true',
+                            help='Prieš kabinant ištrinti esamas skelbimo nuotraukas '
+                                 '(tik jei bent viena nauja tinka)')
 
-    def handle(self, *args, listing_id, url, dry_run, pagrindine, **kwargs):
+    def handle(self, *args, listing_id, url, dry_run, pagrindine, pakeisti=False, **kwargs):
         listing = Listing.objects.filter(pk=listing_id).first()
         if listing is None:
             raise CommandError(f'Skelbimo #{listing_id} nėra')
 
         esamos = list(listing.images.all())
+        # Su --pakeisti esamos bus ištrintos — jos dublikatų nestabdo
         maisos = set()
-        for img in esamos:
-            try:
-                with img.image.open('rb') as f:
-                    maisos.add(sha256(f.read()))
-            except Exception:                          # failo nėra diske — tęsiam
-                pass
-        eile = (listing.images.aggregate(m=Max('order'))['m'] or -1) + 1
-        reikia_pagrindines = pagrindine or not any(i.is_main for i in esamos)
+        if not pakeisti:
+            for img in esamos:
+                try:
+                    with img.image.open('rb') as f:
+                        maisos.add(sha256(f.read()))
+                except Exception:                      # failo nėra diske — tęsiam
+                    pass
 
         prefiksas = '[DRY RUN] ' if dry_run else ''
         self.stdout.write(f'{prefiksas}#{listing.pk} „{listing.title}": esamų {len(esamos)}, '
-                          f'URL {len(url)}')
-        prideta = dublikatu = praleista = 0
+                          f'URL {len(url)}' + (' (--pakeisti)' if pakeisti else ''))
+
+        # ── 1 etapas: parsisiųsti ir patikrinti (nieko nerašant) ──
+        naujos, dublikatu, praleista = [], 0, 0
         for nr, adresas in enumerate(url, 1):
             try:
                 duomenys, tipas = parsisiusk(adresas)
@@ -106,14 +118,33 @@ class Command(BaseCommand):
                 praleista += 1
                 self.stdout.write(self.style.WARNING(f'  ✗ {nr}. praleista: {klaida} — {adresas}'))
                 continue
-
             maisa = sha256(duomenys)
             if maisa in maisos:
                 dublikatu += 1
                 self.stdout.write(f'  = {nr}. dublikatas (SHA-256 {maisa[:12]}) — {adresas}')
                 continue
             maisos.add(maisa)
+            naujos.append((nr, vardas, duomenys))
 
+        # ── 2 etapas: rašyti ──
+        istrinta = 0
+        if pakeisti:
+            if not naujos:
+                self.stdout.write(self.style.WARNING(
+                    '  ! --pakeisti: nė viena nauja netinka — esamos NELIEČIAMOS'))
+            else:
+                istrinta = len(esamos)
+                self.stdout.write(f'  − {"bus ištrinta" if dry_run else "ištrinta"} '
+                                  f'esamų: {istrinta}')
+                if not dry_run:
+                    listing.images.all().delete()
+                esamos = []
+        eile = 0 if (pakeisti and naujos) else \
+            (listing.images.aggregate(m=Max('order'))['m'] or -1) + 1
+        reikia_pagrindines = pagrindine or not any(i.is_main for i in esamos)
+
+        prideta = 0
+        for nr, vardas, duomenys in naujos:
             pagr = reikia_pagrindines
             if not dry_run:
                 if pagr:
@@ -128,7 +159,10 @@ class Command(BaseCommand):
                 f'  ✓ {nr}. {"(pagrindinė) " if pagr else ""}{vardas} '
                 f'{len(duomenys) / 1024:.0f} KB'))
 
+        liks = len(esamos) + prideta
         self.stdout.write(f'{prefiksas}Pridėta: {prideta}, dublikatų: {dublikatu}, '
-                          f'praleista: {praleista}. Iš viso nuotraukų: '
-                          f'{len(esamos) + (0 if dry_run else prideta)}'
-                          + (f' (+{prideta} po tikro paleidimo)' if dry_run else ''))
+                          f'praleista: {praleista}'
+                          + (f', ištrinta esamų: {istrinta}' if pakeisti else '')
+                          + f'. Iš viso nuotraukų: '
+                          + (f'{listing.images.count()} (po tikro paleidimo būtų {liks})'
+                             if dry_run else f'{liks}'))

@@ -13,6 +13,8 @@ Tikrinam:
   • ne paveikslėlio URL (text/html) → praleista, komanda nekrenta
   • per didelis (≥ 20 MB) → praleista
   • --dry-run → DB nepakitusi
+  • --pakeisti → esamos ištrinamos, lieka tik naujos (pirma — pagrindinė);
+    visi URL blogi → esamos NELIEČIAMOS; su --dry-run → DB nepakitusi
 
 Paleidimas (TIK su laikina sqlite baze, NE prieš produkcijos DB):
     PATIKRA_DB=<laikinas failas> python docs/nuotrauku_prikabinimo_test.py
@@ -86,13 +88,15 @@ class Tvarkykle(BaseHTTPRequestHandler):
         pass
 
 
-def paleisk(listing, *keliai, dry=False):
+def paleisk(listing, *keliai, dry=False, pakeisti=False):
     out = io.StringIO()
     argumentai = [str(listing.pk)]
     for k in keliai:
         argumentai += ['--url', f'{BAZE}{k}']
     if dry:
         argumentai.append('--dry-run')
+    if pakeisti:
+        argumentai.append('--pakeisti')
     call_command('prikabink_nuotraukas', *argumentai, stdout=out)
     return out.getvalue()
 
@@ -148,9 +152,28 @@ def main():
     print('\n— Tas pats URL du kartus viename paleidime')
     l2 = Listing.objects.create(seller=u, vehicle_type=vt, title='Patikra prikabinimas 2',
                                 status='draft', price=Decimal('100'), city='Kaunas', country='LT',
-                               year=2020, mileage=0)
+                                year=2020, mileage=0)
     isvestis = paleisk(l2, '/a.jpg', '/a.jpg')
     tikrink(l2.images.count() == 1, f'1 nuotrauka (yra {l2.images.count()})', isvestis)
+
+    print('\n— --pakeisti')
+    ATSAKYMAI['/c.jpg'] = ('image/jpeg', jpeg('green'))
+    pries = sorted(l.images.values_list('pk', flat=True))
+    isvestis = paleisk(l, '/c.jpg', dry=True, pakeisti=True)
+    tikrink(sorted(l.images.values_list('pk', flat=True)) == pries,
+            '--pakeisti --dry-run → DB nepakitusi', isvestis)
+    isvestis = paleisk(l, '/puslapis', '/nera.jpg', pakeisti=True)
+    tikrink(sorted(l.images.values_list('pk', flat=True)) == pries and 'NELIEČIAMOS' in isvestis,
+            'visi URL blogi → esamos neliečiamos', isvestis)
+    isvestis = paleisk(l, '/c.jpg', '/a.jpg', pakeisti=True)
+    nuotr = list(l.images.order_by('order'))
+    tikrink(len(nuotr) == 2 and not set(n.pk for n in nuotr) & set(pries),
+            f'esamos 2 ištrintos, liko 2 naujos (yra {len(nuotr)})', isvestis)
+    tikrink(len(nuotr) == 2 and 'c' in nuotr[0].image.name and nuotr[0].is_main
+            and not nuotr[1].is_main and [n.order for n in nuotr] == [0, 1],
+            'tvarka c, a; pirma — pagrindinė; order 0, 1', str([(n.image.name, n.is_main, n.order) for n in nuotr]))
+    isvestis = paleisk(l, '/b.jpg')
+    tikrink(l.images.count() == 3, f'be --pakeisti — prideda prie esamų (yra {l.images.count()})', isvestis)
 
     serveris.shutdown()
     print(f'\n════ {gerai} gerai / {blogai} blogai ════')
