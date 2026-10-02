@@ -169,6 +169,7 @@
    (aukštis 34, apvalinimas 8, 16/600, paraštės 0 12, tarpas 8),
    reikšmės — iš dizaino sistemos kintamųjų. */
 .btn-sell {
+    position: relative;               /* dėmesio taškeliui (::before) */
     display: inline-flex; align-items: center; gap: var(--btn-gap);
     height: var(--btn-h-sm); padding: 0 var(--sp-3);
     border-radius: var(--r-md);
@@ -179,6 +180,30 @@
     transition: background-color var(--dur), border-color var(--dur);
 }
 .btn-sell:hover { background: var(--accent-soft); border-color: var(--accent-hover); }
+
+/* „+ Įkelti" dėmesio taškelis — tik neprisijungusiam ir dar nieko
+   neįkėlusiam (context_processors.ikelti_demesio). ::before su
+   position:absolute — mygtuko dydis, vieta ir tekstas nesikeičia, gretimi
+   elementai nepasislenka. Spalva — ryškus akcentas, ne --accent (pilkas). */
+.ikelti-demesio::before {
+    content: "";
+    position: absolute;
+    top: -3px; right: -3px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: #ff4d2d;
+    animation: ikelti-tasko-pulsas 2.6s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes ikelti-tasko-pulsas {
+    0%, 100% { opacity: 1;   transform: scale(1); }
+    50%      { opacity: .35; transform: scale(.8); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ikelti-demesio::before { animation: none; }
+}
+/* Jau matė (localStorage) — nerodom net iki JS, kad nesumirksėtų. */
+html.ikelti-matyta .ikelti-demesio::before { display: none; }
 /* Logotipas nėra veiksmas — jis nedalyvauja akcento
 hierarchijoje, todėl turi savo tamsų toną. */
 
