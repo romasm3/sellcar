@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n i18n_db %}
 {% load dict_extras %}
-{% load listing_filters %}
+{% load listing_filters salies_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -372,7 +372,7 @@
                             {% if seller.profile.contact_person %}<div class="flex gap-3"><i class="fas fa-user text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Contact person" %}</p><p class="font-medium">{{ seller.profile.contact_person }}</p></div></div>{% endif %}
                             {% if seller.profile.phone_number %}<div class="flex gap-3"><i class="fas fa-phone text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Phone" %}</p><a href="tel:{{ seller.profile.phone_number }}" class="font-medium text-primary">{{ seller.profile.phone_number }}</a></div></div>{% endif %}
                             {% if seller.profile.phone_number_secondary %}<div class="flex gap-3"><i class="fas fa-phone text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Phone 2" %}</p><a href="tel:{{ seller.profile.phone_number_secondary }}" class="font-medium text-primary">{{ seller.profile.phone_number_secondary }}</a></div></div>{% endif %}
-                            {% if seller.profile.street or seller.profile.city %}<div class="flex gap-3"><i class="fas fa-map-marker-alt text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Address" %}</p><p class="font-medium">{% if seller.profile.street %}{{ seller.profile.street }} {{ seller.profile.house_number }}, {% endif %}{{ seller.profile.city|vietovardis }}{% if seller.profile.country %}, {{ seller.profile.country }}{% endif %}</p></div></div>{% endif %}
+                            {% if seller.profile.street or seller.profile.city %}<div class="flex gap-3"><i class="fas fa-map-marker-alt text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Address" %}</p><p class="font-medium">{% if seller.profile.street %}{{ seller.profile.street }} {{ seller.profile.house_number }}, {% endif %}{{ seller.profile.city|vietovardis }}{% if seller.profile.country %}, {{ seller.profile.country|salies_vardas }}{% endif %}</p></div></div>{% endif %}
                             {% if seller.profile.working_hours %}<div class="flex gap-3"><i class="fas fa-clock text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Working hours" %}</p><p class="font-medium">{{ seller.profile.working_hours }}</p></div></div>{% endif %}
                             {% if seller.profile.website %}<div class="flex gap-3"><i class="fas fa-globe text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Website" %}</p><a href="{{ seller.profile.website }}" target="_blank" class="font-medium text-primary">{{ seller.profile.website }}</a></div></div>{% endif %}
                         </div>

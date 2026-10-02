@@ -126,6 +126,36 @@ VARDAI_EN = {
 }
 
 
+def kodas_is(reiksme):
+    """Šalies kodas iš kodo ARBA pavadinimo (angliško ar lietuviško).
+
+    Profile.country istoriškai laisvas tekstas („Lithuania" — numatytoji),
+    o skelbimai saugo kodus („LT"). Kad rodant abu būtų išversti, pirma
+    atpažįstam kodą. Neatpažinus — '' (rodoma kaip įvesta).
+    """
+    tekstas = str(reiksme or '').strip()
+    if not tekstas:
+        return ''
+    if tekstas.upper() in VARDAI:
+        return tekstas.upper()
+    zemas = tekstas.casefold()
+    for kodas, en in VARDAI_EN.items():
+        if en.casefold() == zemas:
+            return kodas
+    from django.utils.translation import override
+    with override('lt'):
+        for kodas, lt in VARDAI.items():
+            if str(lt).casefold() == zemas:
+                return kodas
+    return ''
+
+
+def vardas_is(reiksme):
+    """Išverstas šalies vardas iš kodo ar pavadinimo; nežinomas — kaip įvestas."""
+    kodas = kodas_is(reiksme)
+    return vardas(kodas) if kodas else str(reiksme or '')
+
+
 def vardas_en(kodas):
     """Angliškas pavadinimas šalies juostai. Nežinomam kodui — pats kodas."""
     return VARDAI_EN.get(str(kodas or '').upper(), str(kodas or '').upper())

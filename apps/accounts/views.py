@@ -300,8 +300,11 @@ def profile_edit(request):
 
 @login_required
 def settings(request):
+    from apps.listings import salys
     context = {
         "user": request.user,
+        # Šalies laukas — tas pats sąrašas kaip skelbimuose (išverstas)
+        "saliu_grupes": salys.GRUPES,
     }
     return render(request, "accounts/settings.html", context)
 

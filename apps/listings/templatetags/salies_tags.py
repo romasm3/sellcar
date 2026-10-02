@@ -26,8 +26,18 @@ _TURIMOS = None
 
 @register.filter
 def salies_vardas(kodas):
-    """'LT' → „Lietuva" (išversta). Nežinomam kodui — pats kodas."""
-    return salys.vardas(str(kodas or '').upper())
+    """'LT' arba „Lithuania" → „Lietuva" (išversta sąsajos kalba).
+
+    Priima ir pavadinimą: Profile.country saugo tekstą („Lithuania"),
+    skelbimai — kodą. Nežinomas — rodomas kaip įvestas.
+    """
+    return salys.vardas_is(kodas)
+
+
+@register.filter
+def salies_kodas(reiksme):
+    """„Lithuania" / „Lietuva" / „lt" → 'LT' (neatpažinus — '')."""
+    return salys.kodas_is(reiksme)
 
 
 @register.filter

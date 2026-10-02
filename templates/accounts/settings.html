@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n listing_filters %}
+{% load i18n listing_filters salies_tags %}
 
 
 {% block title %}{% trans "Account Settings" %} - AutoLeft{% endblock %}
@@ -144,8 +144,19 @@
                     <tr class="border-b border-gray-100">
                         <td class="px-4 py-3 text-gray-500">{% trans "Country" %}</td>
                         <td class="px-4 py-3">
-                            <span class="inline-value">{{ user.profile.country|default:"-" }}</span>
-                            <input type="text" name="country" value="{{ user.profile.country }}" class="inline-input hidden border border-gray-300 rounded px-2 py-1 text-sm w-full focus:outline-none focus:border-primary">
+                            {# Šalis — išversta (Profile.country gali būti „Lithuania" ar „LT") #}
+                            <span class="inline-value">{% if user.profile.country %}{{ user.profile.country|salies_vardas }}{% else %}-{% endif %}</span>
+                            {% with esama=user.profile.country|salies_kodas %}
+                            <select name="country" class="inline-input hidden border border-gray-300 rounded px-2 py-1 text-sm w-full focus:outline-none focus:border-primary">
+                                {% for grupe, salys_grupeje in saliu_grupes %}
+                                {% if grupe %}<optgroup label="{{ grupe }}">{% endif %}
+                                    {% for kodas, vardas in salys_grupeje %}
+                                    <option value="{{ kodas }}" {% if kodas == esama %}selected{% endif %}>{{ vardas }}</option>
+                                    {% endfor %}
+                                {% if grupe %}</optgroup>{% endif %}
+                                {% endfor %}
+                            </select>
+                            {% endwith %}
                         </td>
                         <td class="px-4 py-3 text-right">
                             <button type="button" onclick="toggleEdit(this)" class="text-primary hover:underline text-xs edit-btn">{% trans "Edit" %}</button>
