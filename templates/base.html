@@ -7,8 +7,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {# „+ Įkelti" taškelis jau matytas — klasė <html>, kol dar nenupieštas puslapis #}
-    <script>try{if(localStorage.getItem('ikelti_demesio_matyta')){document.documentElement.classList.add('ikelti-matyta')}}catch(e){}</script>
     <title>{% block title %}{% trans "AutoLeft - Buy & Sell Cars Online" %}{% endblock %}</title>
 
     {% block meta %}
@@ -147,7 +145,7 @@
                     ne iš etalono CSS.
                     {% endcomment %}
                     <a href="{% if user.is_authenticated %}{{ create_url }}{% else %}{{ login_url }}?next={{ create_target|urlencode }}{% endif %}"
-                       class="btn-sell shrink-0{% if ikelti_demesio %} ikelti-demesio{% endif %}" data-ikelti-mygtukas>
+                       class="btn-sell shrink-0" data-ikelti-mygtukas>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                         </svg>
@@ -668,7 +666,6 @@
     </footer>
 
     {# Matavimo vienetų perjungikliai — no-op puslapiuose be data-unit-field/-show #}
-    {% if ikelti_demesio %}{% include 'partials/_ikelti_demesio_js.html' %}{% endif %}
     <script>window.UNIT_TOGGLE_TITLE = '{% trans "Spausk, kad pakeistum matavimo vienetus" %}';
     {% comment %}Perspėjimas, kai reikšmė akivaizdžiai ne tų vienetų (12 vs 10837
     variklio tūrio lauke) — logika unit_toggle.js, tekstas čia, kad būtų verčiamas.{% endcomment %}

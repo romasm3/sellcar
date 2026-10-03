@@ -181,11 +181,14 @@
 }
 .btn-sell:hover { background: var(--accent-soft); border-color: var(--accent-hover); }
 
-/* „+ Įkelti" dėmesio taškelis — tik neprisijungusiam ir dar nieko
-   neįkėlusiam (context_processors.ikelti_demesio). ::before su
-   position:absolute — mygtuko dydis, vieta ir tekstas nesikeičia, gretimi
-   elementai nepasislenka. Spalva — ryškus akcentas, ne --accent (pilkas). */
-.ikelti-demesio::before {
+/* „+ Įkelti" taškelis — mirksi VISIEMS ir VISADA (be JS, be sąlygų;
+   žmogaus sprendimas 2026-10-03). ::before su position:absolute —
+   mygtuko dydis, vieta ir tekstas nesikeičia, gretimi elementai
+   nepasislenka. Spalva — ryškus akcentas, ne --accent (pilkas).
+   Vienintelė išimtis — prefers-reduced-motion (prieinamumas).
+   Tik „+ Įkelti" ([data-ikelti-mygtukas]): .btn-sell klasę turi ir
+   „Registruotis", jam taškelio nereikia. */
+.btn-sell[data-ikelti-mygtukas]::before {
     content: "";
     position: absolute;
     top: -3px; right: -3px;
@@ -200,10 +203,8 @@
     50%      { opacity: .35; transform: scale(.8); }
 }
 @media (prefers-reduced-motion: reduce) {
-    .ikelti-demesio::before { animation: none; }
+    .btn-sell[data-ikelti-mygtukas]::before { animation: none; }
 }
-/* Jau matė (localStorage) — nerodom net iki JS, kad nesumirksėtų. */
-html.ikelti-matyta .ikelti-demesio::before { display: none; }
 /* Logotipas nėra veiksmas — jis nedalyvauja akcento
 hierarchijoje, todėl turi savo tamsų toną. */
 

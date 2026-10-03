@@ -375,32 +375,3 @@ def versija(request):
 def mokejimai(request):
     from django.conf import settings
     return {'MOKEJIMAI_IJUNGTI': bool(getattr(settings, 'MOKEJIMAI_IJUNGTI', False))}
-
-
-# ═══════════════════════════════════════════════════════════════════
-# „+ ĮKELTI" DĖMESIO TAŠKELIS
-#
-# Mirksintis taškelis ant antraštės mygtuko — TIK neprisijungusiam arba
-# tam, kas dar nėra įkėlęs nė vieno skelbimo (bet kokios būsenos,
-# įskaitant juodraštį; ir ratlankių/padangų). Įkėlus pirmą — niekada
-# nebe: sesijoje įsimenama „turi skelbimų", kad kiekviename puslapyje
-# nebūtų užklausų. Paspaudus / užvedus pelę / po 30 s jį nuima JS
-# (templates/partials/_ikelti_demesio_js.html), o localStorage neleidžia
-# grįžti perkrovus.
-# ═══════════════════════════════════════════════════════════════════
-IKELTI_SESIJOS_RAKTAS = 'turi_skelbimu'
-
-
-def ikelti_demesio(request):
-    user = getattr(request, 'user', None)
-    if user is None or not user.is_authenticated:
-        return {'ikelti_demesio': True}
-    sesija = getattr(request, 'session', None)
-    if sesija is not None and sesija.get(IKELTI_SESIJOS_RAKTAS):
-        return {'ikelti_demesio': False}
-    from .models import Listing, WheelListing
-    turi = (Listing.objects.filter(seller=user).exists()
-            or WheelListing.objects.filter(seller=user).exists())
-    if turi and sesija is not None:
-        sesija[IKELTI_SESIJOS_RAKTAS] = True
-    return {'ikelti_demesio': not turi}

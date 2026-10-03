@@ -139,7 +139,6 @@ TEMPLATES = [
                 # Šalis — viena reikšmė visai svetainei (partials/_salis.html)
                 "apps.listings.context_processors.salis",
                 "apps.listings.context_processors.versija",
-                "apps.listings.context_processors.ikelti_demesio",
                 "apps.listings.context_processors.rodymo_jungikliai",
                 "apps.listings.context_processors.antrine_navigacija",
                 "apps.listings.context_processors.antrastes_paieska",
